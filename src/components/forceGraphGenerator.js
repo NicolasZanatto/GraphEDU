@@ -1,19 +1,13 @@
 import * as d3 from "d3";
+import data from "../data/data.json";
+
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./forceGraph.module.css";
 
 export function runForceGraph(
-  container,
-  linksData,
-  nodes,
-  handleSetNodes,
-  nodeHoverTooltip
-) {
-  const links = linksData.map((d) => Object.assign({}, d));
-  // var nodes = nodesData.map((d) => Object.assign({}, d));
-
-  console.log(links, links);
-  console.log(nodes, nodes);
+  container) {
+  var links = data.links.map((d) => Object.assign({}, d));
+  var nodes = data.nodes.map((d) => Object.assign({}, d));
 
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
@@ -95,8 +89,8 @@ export function runForceGraph(
                               name: "Andy",
                               x: x,
                               y: y };
-        handleSetNodes({Node: newVertice});
-        nodes.concat(newVertice);
+        nodes = nodes.concat(newVertice);
+        console.log(nodes,nodes);
         restart();
         id++;
       }
@@ -150,16 +144,8 @@ export function runForceGraph(
     .attr('text-anchor', 'middle')
     .attr('fill', '#fff')
     .attr('dominant-baseline', 'central')
-    // .attr("class", d => `fa ${getClass(d)}`)
     .text(d => {return d.id})
     .call(drag(simulation));
-
-  // label.on("mouseover", (d) => {
-  //   addTooltip(nodeHoverTooltip, d, d3.event.pageX, d3.event.pageY);
-  // })
-  //   .on("mouseout", () => {
-  //     removeTooltip();
-  //   });
 
   simulation.on("tick", () => {
     //update link positions
@@ -182,45 +168,36 @@ export function runForceGraph(
 
 
   function restart() {
-    link.exit().remove();
-  
-    var ed = link
-      .enter()
-      .append("line")
-      .attr("class", "edge")
-      .on("mousedown", function() {
-        d3.event.stopPropagation();
-      });
-  
-    ed.append("title").text(function(d) {
-      return "v" + d.source.id + "-v" + d.target.id;
-    });
-  
-    link = ed.merge(link);
-  
+    console.log("restart");
     //vertices are known by id
     node = node.data(nodes, function(d) {
       return d.id;
     });
     node.exit().remove();
   
-    console.log(nodes,nodes);
-
     var ve = node
       .enter()
       .append("circle")
-      .attr("r", 15)
-      .attr("class", "vertex")
-
+      .attr("r", 12)
+      .attr("fill", color)
+      .text(d => {return d.id})
+      .call(drag(simulation));
   
-    ve.append("title").text(function(d) {
-      return "v" + d.id;
-    });
+      ve
+      .enter()
+      .append("text")
+      .attr('text-anchor', 'middle')
+      .attr('fill', '#fff')
+      .attr('dominant-baseline', 'central')
+      .text(d => {return d.id})
+      .call(drag(simulation));
   
     node = ve.merge(node);
   
+    
+
+
     simulation.nodes(nodes);
-    simulation.force("link").links(links);
     simulation.alpha(0.8).restart();
   }
 
