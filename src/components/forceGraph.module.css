@@ -12,16 +12,9 @@
   height: 100%;
 }
 
-.male {
-  fill: rgb(22, 130, 218);
-}
-
-.female {
-  fill: rgb(246, 0, 0);
-}
-
-.node text {
-  font: 12px sans-serif;
+text {
+  font-size: 12px;
+  font-weight: lighter;
 }
 
 div.tooltip {

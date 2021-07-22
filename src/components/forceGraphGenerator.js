@@ -2,27 +2,18 @@ import * as d3 from "d3";
 import data from "../data/data.json";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import styles from "./forceGraph.module.css";
 
 export function runForceGraph(
   container) {
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
+  var id = 25;
 
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
 
   const color = () => { return "#000"; };
-
-  // const icon = (d) => {
-  //   return d.Id === "male" ? "\uf222" : "\uf221";
-  // }
-
-  // const getClass = (d) => {
-  //   return d.gender === "male" ? styles.male : styles.female;
-  // };
-
   const drag = (simulation) => {
     const dragstarted = (d) => {
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -48,35 +39,7 @@ export function runForceGraph(
       .on("end", dragended);
   };
 
-  // Add the tooltip element to the graph
-  const tooltip = document.querySelector("#graph-tooltip");
-  if (!tooltip) {
-    const tooltipDiv = document.createElement("div");
-    tooltipDiv.classList.add(styles.tooltip);
-    tooltipDiv.style.opacity = "0";
-    tooltipDiv.id = "graph-tooltip";
-    document.body.appendChild(tooltipDiv);
-  }
-  const div = d3.select("#graph-tooltip");
-
-  const addTooltip = (hoverTooltip, d, x, y) => {
-    div
-      .transition()
-      .duration(200)
-      .style("opacity", 0.9);
-    div
-      .html(hoverTooltip(d))
-      .style("left", `${x}px`)
-      .style("top", `${y - 28}px`);
-  };
-
-  const removeTooltip = () => {
-    div
-      .transition()
-      .duration(200)
-      .style("opacity", 0);
-  };
-  var id = 25;
+ 
   const addNode = 
     () => {
       console.log('event', d3.event);
@@ -124,28 +87,19 @@ export function runForceGraph(
     .join("line")
     .attr("stroke-width", d => Math.sqrt(d.value));
 
-  var node = svg
-    .append("g")
-    .attr("stroke", "#fff")
-    .attr("stroke-width", 2)
-    .selectAll("circle")
-    .data(nodes)
-    .join("circle")
-    .attr("r", 12)
-    .attr("fill", color)
-    .call(drag(simulation));
 
-  const label = svg.append("g")
-    .attr("class", "labels")
-    .selectAll("text")
-    .data(nodes)
-    .enter()
-    .append("text")
-    .attr('text-anchor', 'middle')
-    .attr('fill', '#fff')
-    .attr('dominant-baseline', 'central')
-    .text(d => {return d.id})
-    .call(drag(simulation));
+  var vertices =  svg.append("g").selectAll(".vertex");
+  // var vertices = svg
+  //   .append("g")
+  //   .attr("stroke", "#fff")
+  //   .attr("stroke-width", 2)
+  //   .selectAll("circle")
+  //   .data(nodes)
+  //   .join("circle")
+  //   .attr("r", 12)
+  //   .attr("fill", color)
+  //   .attr("class", "node")
+  //   .call(drag(simulation));
 
   simulation.on("tick", () => {
     //update link positions
@@ -156,50 +110,82 @@ export function runForceGraph(
       .attr("y2", d => d.target.y);
 
     // update node positions
-    node
-      .attr("cx", d => d.x)
-      .attr("cy", d => d.y);
-
-    // update label positions
-    label
-      .attr("x", d => { return d.x; })
-      .attr("y", d => { return d.y; })
+    // vertices
+    //   .attr("cx", d => d.x)
+    //   .attr("cy", d => d.y);
+    vertices.attr("transform", function(d) {
+      return "translate(" + d.x + "," + d.y + ")";
+    });
   });
 
 
   function restart() {
     console.log("restart");
     //vertices are known by id
-    node = node.data(nodes, function(d) {
+    vertices = vertices.data(nodes, function(d) {
       return d.id;
     });
-    node.exit().remove();
+
+    vertices.exit().remove();
   
-    var ve = node
-      .enter()
-      .append("circle")
-      .attr("r", 12)
-      .attr("fill", color)
-      .text(d => {return d.id})
-      .call(drag(simulation));
-  
-      ve
-      .enter()
-      .append("text")
-      .attr('text-anchor', 'middle')
-      .attr('fill', '#fff')
-      .attr('dominant-baseline', 'central')
-      .text(d => {return d.id})
-      .call(drag(simulation));
-  
-    node = ve.merge(node);
-  
+    vertices.selectAll("text").text(function(d) {
+      return d.id;
+    });
+
+
+
+  var g = vertices
+    .enter()
+    .append("g")
+    .attr("class", "vertex")
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 2)
+    .call(drag(simulation));
+
+  g.append("circle")
+    .attr("r", 12)
+    .attr("fill", color)
+    .attr("class", "node")
+    
+  g.append("text")
+    .attr("x", -3)
+    .attr("y", 3)
+    .text(function(d) {
+      return d.id;
+    });
+
+  vertices = g.merge(vertices);
+
+
+
+
+
+
     
 
+    // var ve = vertices.enter()
+    //   .append("circle")
+    //   .attr("r", 12)
+    //   .attr("fill", color)
+    //   .attr("class", "node")
+    //   .call(drag(simulation));
+
+    //   ve.append("text")
+    //   .attr("x", 0)
+    //   .attr("y", 4)
+    //   .style('fill', 'darkOrange')
+    //   .text(function(d) {
+    //     return d.id;
+    //   });
+
+    // vertices = ve.merge(vertices);
+    
 
     simulation.nodes(nodes);
     simulation.alpha(0.8).restart();
   }
+
+  restart();
 
   return {
     destroy: () => {
