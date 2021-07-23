@@ -148,7 +148,7 @@ export function runForceGraph(
     .attr("class", "node")
     
   g.append("text")
-    .attr("x", -3)
+    .attr("text-anchor", "middle")
     .attr("y", 3)
     .text(function(d) {
       return d.id;
