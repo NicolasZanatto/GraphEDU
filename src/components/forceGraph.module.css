@@ -28,3 +28,7 @@ div.tooltip {
   border-radius: 8px;
   pointer-events: none;
 }
+
+.node-dblClicked{
+  color:green;
+}

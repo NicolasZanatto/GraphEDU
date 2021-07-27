@@ -7,15 +7,18 @@ export function runForceGraph(
   container) {
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
-  var id = 25;
+  var mousedownNode = null;
+  let numClicks = 0;
+  var singleClickTimer;
 
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
-
   const color = () => { return "#000"; };
+
   const drag = (simulation) => {
     const dragstarted = (d) => {
+      console.log("dragStartedas");
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -39,25 +42,111 @@ export function runForceGraph(
       .on("end", dragended);
   };
 
- 
-  const addNode = 
+
+  const addNode =
     () => {
       console.log('event', d3.event);
       if (d3.event.button === 0) {
         var x = d3.event.pageX;
         var y = d3.event.pageY;
-        var newVertice = { gender: "male",
-                              id: id,
-                              index: 0,
-                              name: "Andy",
-                              x: x,
-                              y: y };
+        var newVertice = {
+          gender: "male",
+          id: nodes.length + 1,
+          index: 0,
+          name: "Andy",
+          x: x,
+          y: y
+        };
         nodes = nodes.concat(newVertice);
-        console.log(nodes,nodes);
+        console.log(nodes, nodes);
         restart();
-        id++;
       }
     }
+
+
+  const beginDragLine = (d) => {
+    console.log("beginDragLine");
+    //to prevent call of addNode through svg
+    d3.event.stopPropagation();
+    //to prevent dragging of svg in firefox
+    d3.event.preventDefault();
+
+    console.log(d3.event, d3.event);
+    console.log(d, d);
+    if (d3.event.ctrlKey || d3.event.button !== 0) return;
+    mousedownNode = d;
+    dragLine
+      .classed("hidden", false)
+      .attr(
+        "d",
+        "M" +
+        mousedownNode.x +
+        "," +
+        mousedownNode.y +
+        "L" +
+        mousedownNode.x +
+        "," +
+        mousedownNode.y
+      );
+  }
+
+  const updateDragLine = () => {
+    var coords = d3.mouse(d3.event.currentTarget);
+    if (!mousedownNode) return;
+    dragLine.attr(
+      "d",
+      "M" +
+      mousedownNode.x +
+      "," +
+      mousedownNode.y +
+      "L" +
+      coords[0] +
+      "," +
+      coords[1]
+    );
+  }
+
+  const hideDragLine = () => {
+    dragLine.classed("hidden", true);
+    mousedownNode = null;
+    restart();
+  }
+
+  const clickEvent = (d) => {
+    numClicks++;
+    if (numClicks === 1) {
+      singleClickTimer = setTimeout(() => {
+        numClicks = 0;
+        console.log("single click!");
+        endDragLine(d);
+      }, 400);
+    } else if (numClicks === 2) {
+      clearTimeout(singleClickTimer);
+      numClicks = 0;
+      console.log("double click!");
+      beginDragLine(d);
+    }
+  }
+  //no need to call hideDragLine() and restart() in endDragLine
+  //mouseup on vertices propagates to svg which calls hideDragLine
+  const endDragLine = (d) => {
+    if (!mousedownNode || mousedownNode === d) return;
+    //return if link already exists
+    for (let i = 0; i < links.length; i++) {
+      var l = links[i];
+      if (
+        (l.source === mousedownNode && l.target === d) ||
+        (l.source === d && l.target === mousedownNode)
+      ) {
+        return;
+      }
+    }
+
+    var newLink = { source: mousedownNode, target: d };
+    console.log("endDragLine: newLink:", newLink)
+    links.push(newLink);
+    restart();
+  }
 
   const simulation = d3
     .forceSimulation(nodes)
@@ -73,116 +162,106 @@ export function runForceGraph(
     .on("mousedown", () => {
       addNode();
     })
-    .call(d3.zoom().on("zoom", function () {
-      svg.attr("transform", d3.event.transform);
-    }))
-    
-
-  var link = svg
-    .append("g")
-    .attr("stroke", "#999")
-    .attr("stroke-opacity", 0.6)
-    .selectAll("line")
-    .data(links)
-    .join("line")
-    .attr("stroke-width", d => Math.sqrt(d.value));
+    .on("mousemove", updateDragLine)
+    .on("mouseup", hideDragLine)
+    .on("mouseleave", hideDragLine)
+  // .call(d3.zoom().on("zoom", function () {
+  //   svg.attr("transform", d3.event.transform);
+  // }))
 
 
-  var vertices =  svg.append("g").selectAll(".vertex");
-  // var vertices = svg
-  //   .append("g")
-  //   .attr("stroke", "#fff")
-  //   .attr("stroke-width", 2)
-  //   .selectAll("circle")
-  //   .data(nodes)
-  //   .join("circle")
-  //   .attr("r", 12)
-  //   .attr("fill", color)
-  //   .attr("class", "node")
-  //   .call(drag(simulation));
+  var dragLine = svg
+    .append("path")
+    .attr("class", "dragLine hidden")
+    .attr("d", "M0,0L0,0");
+
+  var edges =
+    svg.append("g")
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.6)
+      .selectAll(".edge");
+
+  var vertices = svg.append("g").selectAll(".vertex");
 
   simulation.on("tick", () => {
     //update link positions
-    link
+    edges
       .attr("x1", d => d.source.x)
       .attr("y1", d => d.source.y)
       .attr("x2", d => d.target.x)
       .attr("y2", d => d.target.y);
 
-    // update node positions
-    // vertices
-    //   .attr("cx", d => d.x)
-    //   .attr("cy", d => d.y);
-    vertices.attr("transform", function(d) {
+    vertices.attr("transform", function (d) {
       return "translate(" + d.x + "," + d.y + ")";
     });
   });
 
 
   function restart() {
-    console.log("restart");
+    //edges 
+
+    edges = edges.data(links, function (d) {
+      return "v" + d.source.id + "-v" + d.target.id;
+    });
+    edges.exit().remove();
+
+    var ed = edges
+      .enter()
+      .append("line")
+      .attr("class", "edge")
+      .attr("stroke-width", d => Math.sqrt(d.value));
+
+    ed.append("title").text(function (d) {
+      return "v" + d.source.id + "-v" + d.target.id;
+    });
+
+    edges = ed.merge(edges);
+
+
     //vertices are known by id
-    vertices = vertices.data(nodes, function(d) {
+    vertices = vertices.data(nodes, function (d) {
       return d.id;
     });
 
     vertices.exit().remove();
-  
-    vertices.selectAll("text").text(function(d) {
+
+    vertices.selectAll("text").text(function (d) {
       return d.id;
     });
 
 
 
-  var g = vertices
-    .enter()
-    .append("g")
-    .attr("class", "vertex")
-    .attr("stroke", "#fff")
-    .attr("stroke-width", 2)
-    .call(drag(simulation));
+    var g = vertices
+      .enter()
+      .append("g")
+      .attr("class", "vertex")
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 2)
+      .call(drag(simulation))
+      // .on("dblclick", dblClickEvent)
+      .on("click", clickEvent);
+    // .on("mousedown", beginDragLine)
+    // .on("mouseup", endDragLine);
 
-  g.append("circle")
-    .attr("r", 12)
-    .attr("fill", color)
-    .attr("class", "node")
-    
-  g.append("text")
-    .attr("text-anchor", "middle")
-    .attr("y", 3)
-    .text(function(d) {
-      return d.id;
-    });
+    g.append("circle")
+      .attr("r", 12)
+      .attr("fill", color)
+      .attr("class", "node")
 
-  vertices = g.merge(vertices);
+    g.append("text")
+      .attr("text-anchor", "middle")
+      .attr("y", 3)
+      .text(function (d) {
+        return d.id;
+      });
 
-
-
-
-
-
-    
-
-    // var ve = vertices.enter()
-    //   .append("circle")
-    //   .attr("r", 12)
-    //   .attr("fill", color)
-    //   .attr("class", "node")
-    //   .call(drag(simulation));
-
-    //   ve.append("text")
-    //   .attr("x", 0)
-    //   .attr("y", 4)
-    //   .style('fill', 'darkOrange')
-    //   .text(function(d) {
-    //     return d.id;
-    //   });
-
-    // vertices = ve.merge(vertices);
-    
+    vertices = g.merge(vertices);
 
     simulation.nodes(nodes);
+    simulation.force("link").links(links);
     simulation.alpha(0.8).restart();
+    console.log(nodes, nodes);
+    console.log(links, links);
   }
 
   restart();
