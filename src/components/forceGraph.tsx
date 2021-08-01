@@ -6,15 +6,18 @@ export function ForceGraph() {
   const containerRef = React.useRef(null);
 
   React.useEffect(() => {
-    let destroyFn;
+    let destroyFn: void | (() => void);
 
     if (containerRef.current) {
       const { destroy } = runForceGraph(containerRef.current);
       destroyFn = destroy;
     }
-    
+
     return destroyFn;
   });
 
-  return <div ref={containerRef} className={styles.container} />;
+  return (
+    <div ref={containerRef} className={styles.container}>
+    </div>
+  );
 }

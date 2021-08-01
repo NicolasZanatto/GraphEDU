@@ -1,16 +1,15 @@
 import * as d3 from "d3";
 import data from "../data/data.json";
+import { mostrarMenuVertices } from "../components/menus/menuVertices";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-export function runForceGraph(
-  container) {
+export function runForceGraph(container) {
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
   var mousedownNode = null;
-  let numClicks = 0;
   var singleClickTimer;
-
+  let numClicks = 0;
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
@@ -18,7 +17,6 @@ export function runForceGraph(
 
   const drag = (simulation) => {
     const dragstarted = (d) => {
-      console.log("dragStartedas");
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
@@ -45,7 +43,6 @@ export function runForceGraph(
 
   const addNode =
     () => {
-      console.log('event', d3.event);
       if (d3.event.button === 0) {
         var x = d3.event.pageX;
         var y = d3.event.pageY;
@@ -58,21 +55,17 @@ export function runForceGraph(
           y: y
         };
         nodes = nodes.concat(newVertice);
-        console.log(nodes, nodes);
         restart();
       }
     }
 
 
   const beginDragLine = (d) => {
-    console.log("beginDragLine");
     //to prevent call of addNode through svg
     d3.event.stopPropagation();
     //to prevent dragging of svg in firefox
     d3.event.preventDefault();
 
-    console.log(d3.event, d3.event);
-    console.log(d, d);
     if (d3.event.ctrlKey || d3.event.button !== 0) return;
     mousedownNode = d;
     dragLine
@@ -88,6 +81,9 @@ export function runForceGraph(
         "," +
         mousedownNode.y
       );
+
+    d3.select(this)
+      .attr("class", "node-dblClicked")
   }
 
   const updateDragLine = () => {
@@ -111,22 +107,6 @@ export function runForceGraph(
     mousedownNode = null;
     restart();
   }
-
-  const clickEvent = (d) => {
-    numClicks++;
-    if (numClicks === 1) {
-      singleClickTimer = setTimeout(() => {
-        numClicks = 0;
-        console.log("single click!");
-        endDragLine(d);
-      }, 400);
-    } else if (numClicks === 2) {
-      clearTimeout(singleClickTimer);
-      numClicks = 0;
-      console.log("double click!");
-      beginDragLine(d);
-    }
-  }
   //no need to call hideDragLine() and restart() in endDragLine
   //mouseup on vertices propagates to svg which calls hideDragLine
   const endDragLine = (d) => {
@@ -143,9 +123,22 @@ export function runForceGraph(
     }
 
     var newLink = { source: mousedownNode, target: d };
-    console.log("endDragLine: newLink:", newLink)
     links.push(newLink);
     restart();
+  }
+
+  const clickEvent = (d) => {
+    numClicks++;
+    if (numClicks === 1) {
+      singleClickTimer = setTimeout(() => {
+        numClicks = 0;
+        endDragLine(d);
+      }, 400);
+    } else if (numClicks === 2) {
+      clearTimeout(singleClickTimer);
+      numClicks = 0;
+      beginDragLine(d);
+    }
   }
 
   const simulation = d3
@@ -158,6 +151,7 @@ export function runForceGraph(
   const svg = d3
     .select(container)
     .append("svg")
+    .attr("id", "graphSvg")
     .attr("viewBox", [-width / 2, -height / 2, width, height])
     .on("mousedown", () => {
       addNode();
@@ -237,11 +231,11 @@ export function runForceGraph(
       .attr("class", "vertex")
       .attr("stroke", "#fff")
       .attr("stroke-width", 2)
-      .call(drag(simulation))
-      // .on("dblclick", dblClickEvent)
-      .on("click", clickEvent);
-    // .on("mousedown", beginDragLine)
-    // .on("mouseup", endDragLine);
+      .on("click", clickEvent)
+      .on("contextmenu", (d) => { mostrarMenuVertices(d, width, height, '#graphSvg') })
+      .call(drag(simulation));
+
+
 
     g.append("circle")
       .attr("r", 12)
@@ -260,8 +254,7 @@ export function runForceGraph(
     simulation.nodes(nodes);
     simulation.force("link").links(links);
     simulation.alpha(0.8).restart();
-    console.log(nodes, nodes);
-    console.log(links, links);
+
   }
 
   restart();

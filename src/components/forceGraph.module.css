@@ -32,3 +32,17 @@ div.tooltip {
 .node-dblClicked{
   color:green;
 }
+
+.contextMenu {
+  stroke: #00557d;
+  fill: #ffffff;
+}
+
+.menuEntry {
+  cursor: pointer;
+}
+
+.menuEntry text {
+  font-size: 12px;
+  stroke: #00557d;
+}
