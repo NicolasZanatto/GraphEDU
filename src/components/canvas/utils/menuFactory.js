@@ -1,5 +1,7 @@
 import * as d3 from "d3";
-import styles from "./../forceGraph.module.css";
+import styles from "./../canvas.module.css";
+
+
 export const menuFactory = (x, y, menuItems, data, svgId) => {
     d3.select(`.${styles.contextMenu}`).remove();
 
@@ -35,9 +37,4 @@ export const menuFactory = (x, y, menuItems, data, svgId) => {
         .on('click', () => {
             d3.select(`.${styles.contextMenu}`).remove();
         });
-}
-
-export const createContextMenu = (d, menuItems, width, height, svgId) => {
-    menuFactory(d3.event.pageX - width / 2, d3.event.pageY - height / 1.5, menuItems, d, svgId);
-    d3.event.preventDefault();
 }

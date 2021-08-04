@@ -1,10 +1,10 @@
 import * as d3 from "d3";
-import data from "../data/data.json";
-import { mostrarMenuVertices } from "../components/menus/menuVertices";
+import data from "../../data/data.json";
+import { mostrarMenuVertices } from "../canvas/menus/menuVertices";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-export function runForceGraph(container) {
+export function runGraph(container) {
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
   var mousedownNode = null;

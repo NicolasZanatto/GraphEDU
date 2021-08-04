@@ -1,15 +1,15 @@
 import React from "react";
-import { runForceGraph } from "./forceGraphGenerator";
-import styles from "./forceGraph.module.css";
+import { runGraph } from "./canvasGraph";
+import styles from "./canvas.module.css";
 
-export function ForceGraph() {
+export function Canvas() {
   const containerRef = React.useRef(null);
 
   React.useEffect(() => {
-    let destroyFn: void | (() => void);
+    let destroyFn;
 
     if (containerRef.current) {
-      const { destroy } = runForceGraph(containerRef.current);
+      const { destroy } = runGraph(containerRef.current);
       destroyFn = destroy;
     }
 

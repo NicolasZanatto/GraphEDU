@@ -1,12 +1,12 @@
 import React from 'react';
-import { ForceGraph } from "./components/forceGraph";
+import { Canvas } from "./components/canvas/canvas";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <section className="Main">
-        <ForceGraph/>
+        <Canvas />
       </section>
     </div>
   );
