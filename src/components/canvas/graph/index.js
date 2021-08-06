@@ -1,10 +1,11 @@
 import * as d3 from "d3";
-import data from "../../data/data.json";
-import { mostrarMenuVertices } from "../canvas/menus/menuVertices";
+// import data from "../../data/data.json";
+import { mostrarMenuVertices } from "../menus/menuVertices";
+import styles from "./../canvas.module.css";
+import { xAngle, isVector } from "./../utils/mathHelper";
 
-import "@fortawesome/fontawesome-free/css/all.min.css";
+export function runGraph(container, data, addNodeAction) {
 
-export function runGraph(container) {
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
   var mousedownNode = null;
@@ -13,7 +14,7 @@ export function runGraph(container) {
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
-  const color = () => { return "#000"; };
+  const color = d3.schemeCategory10;
 
   const drag = (simulation) => {
     const dragstarted = (d) => {
@@ -47,14 +48,14 @@ export function runGraph(container) {
         var x = d3.event.pageX;
         var y = d3.event.pageY;
         var newVertice = {
-          gender: "male",
+
           id: nodes.length + 1,
-          index: 0,
-          name: "Andy",
           x: x,
           y: y
         };
         nodes = nodes.concat(newVertice);
+
+        addNodeAction(newVertice);
         restart();
       }
     }
@@ -81,9 +82,6 @@ export function runGraph(container) {
         "," +
         mousedownNode.y
       );
-
-    d3.select(this)
-      .attr("class", "node-dblClicked")
   }
 
   const updateDragLine = () => {
@@ -122,7 +120,7 @@ export function runGraph(container) {
       }
     }
 
-    var newLink = { source: mousedownNode, target: d };
+    var newLink = { id: links.length + 1, source: mousedownNode, target: d, value: 0 };
     links.push(newLink);
     restart();
   }
@@ -144,7 +142,7 @@ export function runGraph(container) {
   const simulation = d3
     .forceSimulation(nodes)
     .force("link", d3.forceLink(links).id(d => d.id))
-    .force("charge", d3.forceManyBody().strength(-150))
+    .force("charge", d3.forceManyBody().strength(-1000))
     .force("x", d3.forceX())
     .force("y", d3.forceY());
 
@@ -167,31 +165,64 @@ export function runGraph(container) {
   var dragLine = svg
     .append("path")
     .attr("class", "dragLine hidden")
-    .attr("d", "M0,0L0,0");
+    .attr("d", "M0 0 0 0");
 
   var edges =
     svg.append("g")
-      .attr("stroke", "#999")
-      .attr("stroke-opacity", 0.6)
-      .selectAll(".edge");
+      .selectAll(`.${styles.edge}`);
+
+  var linkText = svg.append("g").selectAll(`.${styles.edgeText}`);
 
   var vertices = svg.append("g").selectAll(".vertex");
 
   simulation.on("tick", () => {
     //update link positions
     edges
-      .attr("x1", d => d.source.x)
-      .attr("y1", d => d.source.y)
-      .attr("x2", d => d.target.x)
-      .attr("y2", d => d.target.y);
+      .attr("d", d => `M${d.source.x} ${d.source.y} ${d.target.x} ${d.target.y}`);
+    // .attr("x1", d => d.source.x)
+    // .attr("y1", d => d.source.y)
+    // .attr("x2", d => d.target.x)
+    // .attr("y2", d => d.target.y);
 
     vertices.attr("transform", function (d) {
       return "translate(" + d.x + "," + d.y + ")";
     });
+
+
+    linkText.attr("transform", function (d) {
+      // Checks just in case, especially useful at the start of the sim
+      if (!(isVector(d.source) && isVector(d.target))) {
+        return '';
+      }
+
+      // Get the geometric center of the text element
+      var box = this.getBBox();
+      var center = {
+        x: box.x + box.width / 2,
+        y: box.y + box.height / 2
+      };
+
+      // Get the tangent vector
+      var delta = {
+        x: d.target.x - d.source.x,
+        y: d.target.y - d.source.y
+      };
+
+      // Rotate about the center
+      return 'rotate('
+        + (-180 / Math.PI * xAngle(delta))
+        + ' ' + center.x
+        + ' ' + center.y
+        + ')';
+    });
+
   });
 
 
   function restart() {
+
+
+
     //edges 
 
     edges = edges.data(links, function (d) {
@@ -201,15 +232,37 @@ export function runGraph(container) {
 
     var ed = edges
       .enter()
-      .append("line")
-      .attr("class", "edge")
-      .attr("stroke-width", d => Math.sqrt(d.value));
+      .append("path")
+      .attr("class", styles.edge)
+      .attr("id", d => "path" + d.id);
 
     ed.append("title").text(function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
     });
 
     edges = ed.merge(edges);
+
+
+    //edgeText
+    linkText = linkText.data(links);
+
+    linkText.exit().remove();
+
+    var lt = linkText.enter()
+      .append("text")
+      .attr("class", styles.edgeText)
+
+      .attr("x", "50")
+      .attr("dy", "-5")
+      .attr("text-anchor", "middle")
+
+    lt.append("textPath")
+      .attr("xlink:href", d => "#path" + d.id)
+      .text(function (d) {
+        return d.value;
+      });
+
+    linkText = lt.merge(linkText);
 
 
     //vertices are known by id
@@ -219,11 +272,9 @@ export function runGraph(container) {
 
     vertices.exit().remove();
 
-    vertices.selectAll("text").text(function (d) {
+    vertices.selectAll(`.${styles.nodeText}`).text(function (d) {
       return d.id;
     });
-
-
 
     var g = vertices
       .enter()
@@ -235,14 +286,13 @@ export function runGraph(container) {
       .on("contextmenu", (d) => { mostrarMenuVertices(d, width, height, '#graphSvg') })
       .call(drag(simulation));
 
-
-
     g.append("circle")
       .attr("r", 12)
-      .attr("fill", color)
+      .attr("fill", d => color[d.id % 10])
       .attr("class", "node")
 
     g.append("text")
+      .attr("class", `${styles.nodeText}`)
       .attr("text-anchor", "middle")
       .attr("y", 3)
       .text(function (d) {
@@ -253,7 +303,7 @@ export function runGraph(container) {
 
     simulation.nodes(nodes);
     simulation.force("link").links(links);
-    simulation.alpha(0.8).restart();
+    simulation.alpha(0.3).restart();
 
   }
 
