@@ -23,9 +23,10 @@
 
 .edge{
   stroke: #000000;
-  stroke-opacity: 0.6;
-  stroke-width: 3;
-
+  stroke-width: 3.2;
+}
+.edge:hover{
+  stroke: #f11303b6
 }
 .edgeText{
   font-size: 16px;

@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 // import data from "../../data/data.json";
 import { mostrarMenuVertices } from "../menus/menuVertices";
+import { mostrarMenuArestas } from "../menus/menuArestas";
 import styles from "./../canvas.module.css";
 import { xAngle, isVector } from "./../utils/mathHelper";
 
@@ -120,7 +121,8 @@ export function runGraph(container, data, addNodeAction) {
       }
     }
 
-    var newLink = { id: links.length + 1, source: mousedownNode, target: d, value: 0 };
+    var value = prompt("Digite um valor entre 0 a 100 para a aresta");
+    var newLink = { id: links.length + 1, source: mousedownNode, target: d, value: value };
     links.push(newLink);
     restart();
   }
@@ -142,7 +144,7 @@ export function runGraph(container, data, addNodeAction) {
   const simulation = d3
     .forceSimulation(nodes)
     .force("link", d3.forceLink(links).id(d => d.id))
-    .force("charge", d3.forceManyBody().strength(-1000))
+    .force("charge", d3.forceManyBody().strength(-500))
     .force("x", d3.forceX())
     .force("y", d3.forceY());
 
@@ -163,6 +165,14 @@ export function runGraph(container, data, addNodeAction) {
 
 
   var dragLine = svg
+    .append("defs")
+    .append("marker")
+    .attr("id", "arrowhead")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
     .append("path")
     .attr("class", "dragLine hidden")
     .attr("d", "M0 0 0 0");
@@ -179,10 +189,6 @@ export function runGraph(container, data, addNodeAction) {
     //update link positions
     edges
       .attr("d", d => `M${d.source.x} ${d.source.y} ${d.target.x} ${d.target.y}`);
-    // .attr("x1", d => d.source.x)
-    // .attr("y1", d => d.source.y)
-    // .attr("x2", d => d.target.x)
-    // .attr("y2", d => d.target.y);
 
     vertices.attr("transform", function (d) {
       return "translate(" + d.x + "," + d.y + ")";
@@ -233,8 +239,10 @@ export function runGraph(container, data, addNodeAction) {
     var ed = edges
       .enter()
       .append("path")
+      .attr("marker-end", "url(#arrowhead)")
       .attr("class", styles.edge)
-      .attr("id", d => "path" + d.id);
+      .attr("id", d => "path" + d.id)
+      .on("contextmenu", (d) => { mostrarMenuArestas(d, width, height, '#graphSvg') })
 
     ed.append("title").text(function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
@@ -252,8 +260,8 @@ export function runGraph(container, data, addNodeAction) {
       .append("text")
       .attr("class", styles.edgeText)
 
-      .attr("x", "50")
-      .attr("dy", "-5")
+      .attr("x", "30")
+      .attr("dy", "-2")
       .attr("text-anchor", "middle")
 
     lt.append("textPath")
@@ -289,6 +297,7 @@ export function runGraph(container, data, addNodeAction) {
     g.append("circle")
       .attr("r", 12)
       .attr("fill", d => color[d.id % 10])
+      .attr("stroke", "black")
       .attr("class", "node")
 
     g.append("text")
@@ -303,7 +312,7 @@ export function runGraph(container, data, addNodeAction) {
 
     simulation.nodes(nodes);
     simulation.force("link").links(links);
-    simulation.alpha(0.3).restart();
+    simulation.alpha(0.8).restart();
 
   }
 
