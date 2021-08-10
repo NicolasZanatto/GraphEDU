@@ -70,35 +70,35 @@ export function runGraph(container, data, addNodeAction) {
 
     if (d3.event.ctrlKey || d3.event.button !== 0) return;
     mousedownNode = d;
-    dragLine
-      .classed("hidden", false)
-      .attr(
-        "d",
-        "M" +
-        mousedownNode.x +
-        "," +
-        mousedownNode.y +
-        "L" +
-        mousedownNode.x +
-        "," +
-        mousedownNode.y
-      );
+    // dragLine
+    //   .classed("hidden", false)
+    //   .attr(
+    //     "d",
+    //     "M" +
+    //     mousedownNode.x +
+    //     "," +
+    //     mousedownNode.y +
+    //     "L" +
+    //     mousedownNode.x +
+    //     "," +
+    //     mousedownNode.y
+    //   );
   }
 
   const updateDragLine = () => {
     var coords = d3.mouse(d3.event.currentTarget);
     if (!mousedownNode) return;
-    dragLine.attr(
-      "d",
-      "M" +
-      mousedownNode.x +
-      "," +
-      mousedownNode.y +
-      "L" +
-      coords[0] +
-      "," +
-      coords[1]
-    );
+    // dragLine.attr(
+    //   "d",
+    //   "M" +
+    //   mousedownNode.x +
+    //   "," +
+    //   mousedownNode.y +
+    //   "L" +
+    //   coords[0] +
+    //   "," +
+    //   coords[1]
+    // );
   }
 
   const hideDragLine = () => {
@@ -168,14 +168,15 @@ export function runGraph(container, data, addNodeAction) {
     .append("defs")
     .append("marker")
     .attr("id", "arrowhead")
-    .attr("refX", 15)
-    .attr("refY", -1.5)
-    .attr("markerWidth", 6)
-    .attr("markerHeight", 6)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 18)
+    .attr("refY", 0)
+    .attr("markerWidth", 3.5)
+    .attr("markerHeight", 3.5)
     .attr("orient", "auto")
     .append("path")
     .attr("class", "dragLine hidden")
-    .attr("d", "M0 0 0 0");
+    .attr("d", "M0,-5L10,0L0,5");
 
   var edges =
     svg.append("g")
