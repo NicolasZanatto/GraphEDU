@@ -86,7 +86,7 @@ export function runGraph(container, data, addNodeAction) {
   }
 
   const updateDragLine = () => {
-    var coords = d3.mouse(d3.event.currentTarget);
+    // var coords = d3.mouse(d3.event.currentTarget);
     if (!mousedownNode) return;
     // dragLine.attr(
     //   "d",
@@ -113,9 +113,10 @@ export function runGraph(container, data, addNodeAction) {
     //return if link already exists
     for (let i = 0; i < links.length; i++) {
       var l = links[i];
+      console.log("mousedownNode", mousedownNode); // source
+      console.log("d", d); // target
       if (
-        (l.source === mousedownNode && l.target === d) ||
-        (l.source === d && l.target === mousedownNode)
+        (l.source === mousedownNode && l.target === d)
       ) {
         return;
       }
@@ -143,7 +144,7 @@ export function runGraph(container, data, addNodeAction) {
 
   const simulation = d3
     .forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(d => d.id))
+    .force("link", d3.forceLink(links).distance(d => 35).id(d => d.id))
     .force("charge", d3.forceManyBody().strength(-500))
     .force("x", d3.forceX())
     .force("y", d3.forceY());
@@ -299,7 +300,6 @@ export function runGraph(container, data, addNodeAction) {
       .attr("r", 12)
       .attr("fill", d => color[d.id % 10])
       .attr("stroke", "black")
-      .attr("class", "node")
 
     g.append("text")
       .attr("class", `${styles.nodeText}`)
