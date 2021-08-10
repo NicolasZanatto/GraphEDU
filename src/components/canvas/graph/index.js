@@ -46,13 +46,13 @@ export function runGraph(container, data, addNodeAction) {
   const addNode =
     () => {
       if (d3.event.button === 0) {
-        var x = d3.event.pageX;
-        var y = d3.event.pageY;
+        var coords = d3.mouse(d3.event.currentTarget);
+
         var newVertice = {
 
           id: nodes.length + 1,
-          x: x,
-          y: y
+          x: coords[0],
+          y: coords[1]
         };
         nodes = nodes.concat(newVertice);
 
@@ -313,7 +313,7 @@ export function runGraph(container, data, addNodeAction) {
 
     simulation.nodes(nodes);
     simulation.force("link").links(links);
-    simulation.alpha(0.8).restart();
+    simulation.alpha(0.05).restart();
 
   }
 
