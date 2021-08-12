@@ -4,43 +4,19 @@ import { mostrarMenuVertices } from "../menus/menuVertices";
 import { mostrarMenuArestas } from "../menus/menuArestas";
 import styles from "./../canvas.module.css";
 import { xAngle, isVector } from "./../utils/mathHelper";
+import { drag } from "./dragEvent";
+import {beginDragLine, updateDragLine, endDragLine, hideDragLine, initDragLine} from "./draglineEvent";
 
 export function runGraph(container, data, addNodeAction) {
-
+  var teste;
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
-  var mousedownNode = null;
   var singleClickTimer;
   let numClicks = 0;
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
   const color = d3.schemeCategory10;
-
-  const drag = (simulation) => {
-    const dragstarted = (d) => {
-      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    };
-
-    const dragged = (d) => {
-      d.fx = d3.event.x;
-      d.fy = d3.event.y;
-    };
-
-    const dragended = (d) => {
-      if (!d3.event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    };
-
-    return d3
-      .drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
-  };
 
 
   const addNode =
@@ -52,7 +28,9 @@ export function runGraph(container, data, addNodeAction) {
 
           id: nodes.length + 1,
           x: coords[0],
-          y: coords[1]
+          y: coords[1],
+          fx: coords[0],
+          fy: coords[1]
         };
         nodes = nodes.concat(newVertice);
 
@@ -60,91 +38,24 @@ export function runGraph(container, data, addNodeAction) {
         restart();
       }
     }
-
-
-  const beginDragLine = (d) => {
-    //to prevent call of addNode through svg
-    d3.event.stopPropagation();
-    //to prevent dragging of svg in firefox
-    d3.event.preventDefault();
-
-    if (d3.event.ctrlKey || d3.event.button !== 0) return;
-    mousedownNode = d;
-    // dragLine
-    //   .classed("hidden", false)
-    //   .attr(
-    //     "d",
-    //     "M" +
-    //     mousedownNode.x +
-    //     "," +
-    //     mousedownNode.y +
-    //     "L" +
-    //     mousedownNode.x +
-    //     "," +
-    //     mousedownNode.y
-    //   );
-  }
-
-  const updateDragLine = () => {
-    // var coords = d3.mouse(d3.event.currentTarget);
-    if (!mousedownNode) return;
-    // dragLine.attr(
-    //   "d",
-    //   "M" +
-    //   mousedownNode.x +
-    //   "," +
-    //   mousedownNode.y +
-    //   "L" +
-    //   coords[0] +
-    //   "," +
-    //   coords[1]
-    // );
-  }
-
-  const hideDragLine = () => {
-    dragLine.classed("hidden", true);
-    mousedownNode = null;
-    restart();
-  }
-  //no need to call hideDragLine() and restart() in endDragLine
-  //mouseup on vertices propagates to svg which calls hideDragLine
-  const endDragLine = (d) => {
-    if (!mousedownNode || mousedownNode === d) return;
-    //return if link already exists
-    for (let i = 0; i < links.length; i++) {
-      var l = links[i];
-      console.log("mousedownNode", mousedownNode); // source
-      console.log("d", d); // target
-      if (
-        (l.source === mousedownNode && l.target === d)
-      ) {
-        return;
-      }
-    }
-
-    var value = prompt("Digite um valor entre 0 a 100 para a aresta");
-    var newLink = { id: links.length + 1, source: mousedownNode, target: d, value: value };
-    links.push(newLink);
-    restart();
-  }
-
   const clickEvent = (d) => {
+    console.log("d", this); // target
     numClicks++;
     if (numClicks === 1) {
       singleClickTimer = setTimeout(() => {
         numClicks = 0;
-        endDragLine(d);
+        endDragLine(d, links, restart);
       }, 400);
     } else if (numClicks === 2) {
       clearTimeout(singleClickTimer);
       numClicks = 0;
-      beginDragLine(d);
+      beginDragLine(d, svg);
     }
   }
 
   const simulation = d3
     .forceSimulation(nodes)
-    .force("link", d3.forceLink(links).distance(d => 35).id(d => d.id))
+    .force("link", d3.forceLink(links).id(d => d.id))
     .force("charge", d3.forceManyBody().strength(-500))
     .force("x", d3.forceX())
     .force("y", d3.forceY());
@@ -154,36 +65,21 @@ export function runGraph(container, data, addNodeAction) {
     .append("svg")
     .attr("id", "graphSvg")
     .attr("viewBox", [-width / 2, -height / 2, width, height])
-    .on("mousedown", () => {
-      addNode();
-    })
-    .on("mousemove", updateDragLine)
-    .on("mouseup", hideDragLine)
-    .on("mouseleave", hideDragLine)
+    .on("mousedown", addNode)
+    .on("mousemove", d => updateDragLine())
+    .on("mouseup", d => hideDragLine(restart))
+    .on("mouseleave", d => hideDragLine(restart))
   // .call(d3.zoom().on("zoom", function () {
   //   svg.attr("transform", d3.event.transform);
   // }))
 
-
-  var dragLine = svg
-    .append("defs")
-    .append("marker")
-    .attr("id", "arrowhead")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 18)
-    .attr("refY", 0)
-    .attr("markerWidth", 3.5)
-    .attr("markerHeight", 3.5)
-    .attr("orient", "auto")
-    .append("path")
-    .attr("class", "dragLine hidden")
-    .attr("d", "M0,-5L10,0L0,5");
+  initDragLine(svg);
 
   var edges =
     svg.append("g")
       .selectAll(`.${styles.edge}`);
 
-  var linkText = svg.append("g").selectAll(`.${styles.edgeText}`);
+  var edgeText = svg.append("g").selectAll(`.${styles.edgeText}`);
 
   var vertices = svg.append("g").selectAll(".vertex");
 
@@ -197,7 +93,7 @@ export function runGraph(container, data, addNodeAction) {
     });
 
 
-    linkText.attr("transform", function (d) {
+    edgeText.attr("transform", function (d) {
       // Checks just in case, especially useful at the start of the sim
       if (!(isVector(d.source) && isVector(d.target))) {
         return '';
@@ -229,6 +125,7 @@ export function runGraph(container, data, addNodeAction) {
 
   function restart() {
 
+    console.log(teste, teste);
 
 
     //edges 
@@ -254,15 +151,15 @@ export function runGraph(container, data, addNodeAction) {
 
 
     //edgeText
-    linkText = linkText.data(links);
+    edgeText = edgeText.data(links);
 
-    linkText.exit().remove();
+    edgeText.exit().remove();
 
-    var lt = linkText.enter()
+    var lt = edgeText.enter()
       .append("text")
       .attr("class", styles.edgeText)
 
-      .attr("x", "30")
+      .attr("x", "50")
       .attr("dy", "-2")
       .attr("text-anchor", "middle")
 
@@ -272,7 +169,7 @@ export function runGraph(container, data, addNodeAction) {
         return d.value;
       });
 
-    linkText = lt.merge(linkText);
+    edgeText = lt.merge(edgeText);
 
 
     //vertices are known by id
@@ -312,7 +209,7 @@ export function runGraph(container, data, addNodeAction) {
     vertices = g.merge(vertices);
 
     simulation.nodes(nodes);
-    simulation.force("link").links(links);
+    // simulation.force("link").links(links);
     simulation.alpha(0.05).restart();
 
   }
@@ -323,8 +220,9 @@ export function runGraph(container, data, addNodeAction) {
     destroy: () => {
       simulation.stop();
     },
-    nodes: () => {
-      return svg.node();
+    restart: (t) => {
+      teste = t;
+      return restart();
     }
   };
 }
