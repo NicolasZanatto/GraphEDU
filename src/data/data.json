@@ -29,5 +29,7 @@
       "target": 3,
       "value": 3
     }
-  ]
+  ],
+  "valorado": false,
+  "dirigido": false
 }

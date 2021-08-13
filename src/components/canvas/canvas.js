@@ -4,15 +4,17 @@ import styles from "./canvas.module.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as CanvasActions from "../../store/actions/canvasAction";
+import Options from "./options";
 
 const Canvas = ({ data, addNodeAction }) => {
   const containerRef = React.useRef(null);
   const carregarD3Ref = React.useRef(true);
   const restartSVGRef = React.useRef(null);
-  var teste = 0;
-  const handleClick = () => {
-    teste = !teste;
-    restartSVGRef.current(teste);
+
+  const restartCanvas = () => {
+    if (restartSVGRef.current == null) return;
+
+    restartSVGRef.current(data);
   }
 
   React.useEffect(() => {
@@ -28,9 +30,12 @@ const Canvas = ({ data, addNodeAction }) => {
     return destroyFn;
   });
 
+  restartCanvas();
   return (
-    <div ref={containerRef} className={styles.container}>
-      <button onClick={handleClick}>Clique aqui</button>
+    <div className={styles.canvas}>
+      <Options restartCanvas={restartSVGRef.current}></Options>
+      <div ref={containerRef} className={styles.container}>
+      </div>
     </div>
   );
 }

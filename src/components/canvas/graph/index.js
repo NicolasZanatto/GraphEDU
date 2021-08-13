@@ -216,8 +216,8 @@ export function runGraph(container, data, addNodeAction) {
     destroy: () => {
       simulation.stop();
     },
-    restart: (t) => {
-      teste = t;
+    restart: (data) => {
+      console.log("Canvas Index:", data);
       return restart();
     }
   };
