@@ -7,22 +7,24 @@ import * as CanvasActions from "../../store/actions/canvasAction";
 
 const Canvas = ({ data, addNodeAction }) => {
   const containerRef = React.useRef(null);
+  const carregarD3Ref = React.useRef(true);
+  const restartSVGRef = React.useRef(null);
   var teste = 0;
-  let restartCanvas;
   const handleClick = () => {
     teste = !teste;
-    restartCanvas(teste);
+    restartSVGRef.current(teste);
   }
 
   React.useEffect(() => {
     let destroyFn;
 
-    if (containerRef.current) {
+    if (containerRef.current && carregarD3Ref.current) {
       const { destroy, restart } = runGraph(containerRef.current, data, addNodeAction);
+      carregarD3Ref.current = false;
+      restartSVGRef.current = restart;
       destroyFn = destroy;
-      restartCanvas = restart;
     }
-    
+
     return destroyFn;
   });
 
@@ -34,7 +36,7 @@ const Canvas = ({ data, addNodeAction }) => {
 }
 
 const mapStateToProps = state => ({
-  data: state.canvas.grafo
+  data: state.canvas
 });
 
 const mapDispatchToProps = dispatch =>

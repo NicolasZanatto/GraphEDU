@@ -5,7 +5,7 @@ import { mostrarMenuArestas } from "../menus/menuArestas";
 import styles from "./../canvas.module.css";
 import { xAngle, isVector } from "./../utils/mathHelper";
 import { drag } from "./dragEvent";
-import {beginDragLine, updateDragLine, endDragLine, hideDragLine, initDragLine} from "./draglineEvent";
+import { beginDragLine, updateDragLine, endDragLine, hideDragLine, initDragLine } from "./draglineEvent";
 
 export function runGraph(container, data, addNodeAction) {
   var teste;
@@ -39,7 +39,6 @@ export function runGraph(container, data, addNodeAction) {
       }
     }
   const clickEvent = (d) => {
-    console.log("d", this); // target
     numClicks++;
     if (numClicks === 1) {
       singleClickTimer = setTimeout(() => {
@@ -124,10 +123,7 @@ export function runGraph(container, data, addNodeAction) {
 
 
   function restart() {
-
-    console.log(teste, teste);
-
-
+    console.log(teste);
     //edges 
 
     edges = edges.data(links, function (d) {

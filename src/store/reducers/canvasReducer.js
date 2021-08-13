@@ -1,11 +1,13 @@
 import data from "../../data/data.json";
 
-const INICIAL_STATE = {
-    grafo: data
-};
+const INICIAL_STATE = data;
 
-export default function canvas(state = INICIAL_STATE, action) {
-    if (action === "ADD_NODE")
-        return { ...state, grafo: state.grafo.push(action.vertice) }
-    return state;
+export default function canvas(oldState = INICIAL_STATE, action) {
+    if (action.type === "ADD_NODE") {
+        console.log(oldState);
+        let nodes = [...oldState.nodes];
+        nodes.push(action.vertice)
+        return { ...oldState, nodes };;
+    }
+    return oldState;
 }
