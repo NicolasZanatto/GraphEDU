@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-// import data from "../../data/data.json";
 import { mostrarMenuVertices } from "../menus/menuVertices";
 import { mostrarMenuArestas } from "../menus/menuArestas";
 import styles from "./../canvas.module.css";
@@ -7,12 +6,13 @@ import { xAngle, isVector } from "./../utils/mathHelper";
 import { drag } from "./dragEvent";
 import { beginDragLine, updateDragLine, endDragLine, hideDragLine, initDragLine } from "./draglineEvent";
 
-export function runGraph(container, data, addNodeAction) {
-  var teste;
+export function runGraph(container, data, addNodeAction, addEdgeAction, removeNodeAction) {
+  const idSVG = "graphSvg";
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
   var singleClickTimer;
   let numClicks = 0;
+  let idNode = 1;
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
@@ -21,35 +21,35 @@ export function runGraph(container, data, addNodeAction) {
 
   const addNode =
     () => {
-      if (d3.event.button === 0) {
+      if (d3.event.button === 0 && d3.event.target.id === idSVG) {
         var coords = d3.mouse(d3.event.currentTarget);
 
         var newVertice = {
 
-          id: nodes.length + 1,
+          id: idNode,
           x: coords[0],
           y: coords[1],
           fx: coords[0],
           fy: coords[1]
         };
-        nodes = nodes.concat(newVertice);
-
+        nodes.push(newVertice);
         addNodeAction(newVertice);
-        restart();
+        idNode++;
       }
     }
-  const clickEvent = (d) => {
+  const addEdge = (d) => {
     numClicks++;
     if (numClicks === 1) {
       singleClickTimer = setTimeout(() => {
         numClicks = 0;
-        endDragLine(d, links, restart);
+        endDragLine(d, links, addEdgeAction, restart);
       }, 400);
     } else if (numClicks === 2) {
       clearTimeout(singleClickTimer);
       numClicks = 0;
       beginDragLine(d, svg);
     }
+    restart();
   }
 
   const simulation = d3
@@ -62,7 +62,7 @@ export function runGraph(container, data, addNodeAction) {
   const svg = d3
     .select(container)
     .append("svg")
-    .attr("id", "graphSvg")
+    .attr("id", idSVG)
     .attr("viewBox", [-width / 2, -height / 2, width, height])
     .on("mousedown", addNode)
     .on("mousemove", d => updateDragLine())
@@ -123,7 +123,6 @@ export function runGraph(container, data, addNodeAction) {
 
 
   function restart() {
-    console.log(teste);
     //edges 
 
     edges = edges.data(links, function (d) {
@@ -137,7 +136,7 @@ export function runGraph(container, data, addNodeAction) {
       .attr("marker-end", "url(#arrowhead)")
       .attr("class", styles.edge)
       .attr("id", d => "path" + d.id)
-      .on("contextmenu", (d) => { mostrarMenuArestas(d, width, height, '#graphSvg') })
+      .on("contextmenu", (d) => { mostrarMenuArestas(nodes, links, d, width, height, '#graphSvg'); })
 
     ed.append("title").text(function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
@@ -147,7 +146,9 @@ export function runGraph(container, data, addNodeAction) {
 
 
     //edgeText
-    edgeText = edgeText.data(links);
+    edgeText = edgeText.data(links, function (d) {
+      return "v" + d.source.id + "-v" + d.target.id;
+    });
 
     edgeText.exit().remove();
 
@@ -185,8 +186,8 @@ export function runGraph(container, data, addNodeAction) {
       .attr("class", "vertex")
       .attr("stroke", "#fff")
       .attr("stroke-width", 2)
-      .on("click", clickEvent)
-      .on("contextmenu", (d) => { mostrarMenuVertices(d, width, height, '#graphSvg') })
+      .on("click", addEdge)
+      .on("contextmenu", (d) => { mostrarMenuVertices(nodes, links, d, width, height, '#graphSvg', removeNodeAction); })
       .call(drag(simulation));
 
     g.append("circle")
@@ -205,7 +206,7 @@ export function runGraph(container, data, addNodeAction) {
     vertices = g.merge(vertices);
 
     simulation.nodes(nodes);
-    // simulation.force("link").links(links);
+    simulation.force("link").links(links);
     simulation.alpha(0.05).restart();
 
   }
@@ -218,7 +219,7 @@ export function runGraph(container, data, addNodeAction) {
     },
     restart: (data) => {
       console.log("Canvas Index:", data);
-      return restart();
+      restart();
     }
   };
 }

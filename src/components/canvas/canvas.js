@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import * as CanvasActions from "../../store/actions/canvasAction";
 import Options from "./options";
 
-const Canvas = ({ data, addNodeAction }) => {
+const Canvas = ({ data, addNodeAction, addEdgeAction, removeNodeAction }) => {
   const containerRef = React.useRef(null);
   const carregarD3Ref = React.useRef(true);
   const restartSVGRef = React.useRef(null);
@@ -21,7 +21,7 @@ const Canvas = ({ data, addNodeAction }) => {
     let destroyFn;
 
     if (containerRef.current && carregarD3Ref.current) {
-      const { destroy, restart } = runGraph(containerRef.current, data, addNodeAction);
+      const { destroy, restart } = runGraph(containerRef.current, data, addNodeAction, addEdgeAction, removeNodeAction);
       carregarD3Ref.current = false;
       restartSVGRef.current = restart;
       destroyFn = destroy;

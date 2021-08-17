@@ -5,6 +5,26 @@ export function addNodeAction(vertice) {
     }
 }
 
+export function removeNodeAction(aresta) {
+    return {
+        type: 'REMOVE_NODE',
+        payload: aresta
+    }
+}
+
+export function addEdgeAction(aresta) {
+    return {
+        type: 'ADD_EDGE',
+        payload: aresta
+    }
+}
+export function removeEdgeAction(aresta) {
+    return {
+        type: 'REMOVE_EDGE',
+        payload: aresta
+    }
+}
+
 
 //Options
 export function optionValoradoAction(valor) {
