@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import styles from "./../canvas.module.css";
 
 
-export const menuFactory = (x, y, menuItems, nodes, links, itemSelecionado, svgId, removeNodeAction) => {
+export const menuFactory = (x, y, menuItems, nodes, links, itemSelecionado, svgId, actions) => {
     console.log("Menu Vertice", nodes);
     console.log("Menu Aresta", links);
     d3.select(`.${styles.contextMenu}`).remove();
@@ -23,7 +23,7 @@ export const menuFactory = (x, y, menuItems, nodes, links, itemSelecionado, svgI
         .attr('rx', 2)
         .attr('width', 150)
         .attr('height', 30)
-        .on('click', (d) => { d.action(nodes, links, itemSelecionado, removeNodeAction) });
+        .on('click', (d) => { d.action(nodes, links, itemSelecionado, actions) });
 
     d3.selectAll(`.${styles.menuEntry}`)
         .append('text')
@@ -32,7 +32,7 @@ export const menuFactory = (x, y, menuItems, nodes, links, itemSelecionado, svgI
         .attr('y', (d, i) => { return y + (i * 30); })
         .attr('dy', 20)
         .attr('dx', 45)
-        .on('click', (d) => { d.action(nodes, links, itemSelecionado, removeNodeAction) });
+        .on('click', (d) => { d.action(nodes, links, itemSelecionado, actions) });
 
     // Other interactions
     d3.select('body')

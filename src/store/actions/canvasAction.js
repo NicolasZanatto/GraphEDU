@@ -18,6 +18,12 @@ export function addEdgeAction(aresta) {
         payload: aresta
     }
 }
+export function editEdgeAction(aresta) {
+    return {
+        type: 'EDIT_EDGE',
+        payload: aresta
+    }
+}
 export function removeEdgeAction(aresta) {
     return {
         type: 'REMOVE_EDGE',

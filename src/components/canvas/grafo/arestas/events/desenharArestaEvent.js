@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { addEdgeValue } from "./edit-edge-value";
+import { addEdgeValue } from "../acoes/adicionarArestaPeso";
 
 var mousedownNode = null;
 
@@ -21,7 +21,7 @@ export const initDragLine = (svg) => {
     .attr("d", "M0,-5L10,0L0,5");
 }
 
-export const beginDragLine = (d, svg) => {
+export const beginDragLine = (d) => {
   //to prevent call of addNode through svg
   d3.event.stopPropagation();
   //to prevent dragging of svg in firefox
@@ -73,7 +73,7 @@ export const hideDragLine = (restart) => {
 //no need to call hideDragLine() and restart() in endDragLine
 //mouseup on vertices propagates to svg which calls hideDragLine
 
-export const endDragLine = (d, links, addEdgeAction, restart) => {
+export const endDragLine = (d, links, addEdgeAction) => {
   if (!mousedownNode || mousedownNode === d) return;
   //return if link already exists
   for (let i = 0; i < links.length; i++) {

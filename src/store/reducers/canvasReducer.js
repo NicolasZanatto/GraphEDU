@@ -3,7 +3,8 @@ import data from "../../data/data.json";
 const INICIAL_STATE = data;
 
 export default function canvas(oldState = INICIAL_STATE, action) {
-    var nodes = [...oldState.nodes];
+    let nodes = [...oldState.nodes];
+    let links = [...oldState.links];
     switch (action.type) {
         case "ADD_NODE":
 
@@ -14,8 +15,11 @@ export default function canvas(oldState = INICIAL_STATE, action) {
             nodes.splice(indexOfNode, 1);
             return { ...oldState, nodes };
         case "ADD_EDGE":
-            let links = [...oldState.links];
             links.push(action.payload)
+            return { ...oldState, links };
+        case "EDIT_EDGE":
+            var objIndex = links.findIndex((i => i.id === action.payload.id));
+            links[objIndex].value = action.payload.value;
             return { ...oldState, links };
         case "OPTION_VALORADO":
             console.log("Valorado", action.payload);

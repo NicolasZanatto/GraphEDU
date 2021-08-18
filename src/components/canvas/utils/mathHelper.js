@@ -1,12 +1,12 @@
-export const xAngle = (v) => {
+const xAngle = (v) => {
     return Math.atan(v.y / v.x) + (v.x < 0 ? Math.PI : 0);
 }
 
-export const isFiniteNumber = (x) => {
+const isFiniteNumber = (x) => {
     return typeof x === 'number' && (Math.abs(x) < Infinity);
 }
 
-export const isVector = (v) => {
+const isVector = (v) => {
     return isFiniteNumber(v.x) && isFiniteNumber(v.y);
 }
 
@@ -21,6 +21,33 @@ export const nodesNextId = (nodes) => {
     }) + 1;
     return id;
 }
+
+export function tickPesoAresta(d) {
+    // Checks just in case, especially useful at the start of the sim
+    if (!(isVector(d.source) && isVector(d.target))) {
+        return '';
+    }
+
+    // Get the geometric center of the text element
+    var box = this.getBBox();
+    var center = {
+        x: box.x + box.width / 2,
+        y: box.y + box.height / 2
+    };
+
+    // Get the tangent vector
+    var delta = {
+        x: d.target.x - d.source.x,
+        y: d.target.y - d.source.y
+    };
+
+    // Rotate about the center
+    return 'rotate('
+        + (-180 / Math.PI * xAngle(delta))
+        + ' ' + center.x
+        + ' ' + center.y
+        + ')';
+};
 
 export const linksNextId = (links) => {
 
