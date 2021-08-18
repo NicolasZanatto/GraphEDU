@@ -13,5 +13,7 @@ export const EditEdgeValue = (links, edge, editEdgeAction) => {
 }
 
 export const UpdateEdgeValueOnSVG = (links) => {
-    d3.selectAll(".textpath").data(links).text(d => d.value);
+    d3.selectAll(".textpath").data(links, function (d) {
+        return d.id;
+    }).text(d => d.value);
 }
