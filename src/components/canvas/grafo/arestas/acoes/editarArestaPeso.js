@@ -1,18 +1,17 @@
+import * as d3 from "d3";
+
 export const EditEdgeValue = (links, edge, editEdgeAction) => {
 
-
     //Find index of specific object using findIndex method.    
-    let objIndex = links.findIndex((obj => obj.id === edge.id));
+    const indice = links.findIndex((obj => obj.id === edge.id));
+    var value = prompt("Digite um valor entre 0 a 100 para a aresta");
+    const arestaEditada = { ...links[indice], value: value };
 
-    //Log object to Console.
-    console.log("Before update: ", links[objIndex])
+    links.splice(indice, 1);
+    links.push(arestaEditada);
+    editEdgeAction(arestaEditada);
+}
 
-    //Update object's name property.
-
-    links[objIndex].value = 5
-
-    //Log object to console again.
-    console.log("After update: ", links[objIndex])
-
-    editEdgeAction(links[objIndex]);
+export const UpdateEdgeValueOnSVG = (links) => {
+    d3.selectAll(".textpath").data(links).text(d => d.value);
 }

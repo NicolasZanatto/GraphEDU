@@ -7,7 +7,6 @@ export default function canvas(oldState = INICIAL_STATE, action) {
     let links = [...oldState.links];
     switch (action.type) {
         case "ADD_NODE":
-
             nodes.push(action.vertice)
             return { ...oldState, nodes };
         case "REMOVE_NODE":
@@ -20,6 +19,15 @@ export default function canvas(oldState = INICIAL_STATE, action) {
         case "EDIT_EDGE":
             var objIndex = links.findIndex((i => i.id === action.payload.id));
             links[objIndex].value = action.payload.value;
+            return { ...oldState, links };
+        case "REMOVE_EDGE":
+            var indiceRemover = links.findIndex((i => i.id === action.payload.id));
+            links.splice(indiceRemover, 1);
+            return { ...oldState, links };
+        case "CHANGE_DIRECTION":
+            var indiceTrocaDirecao = links.findIndex((i => i.id === action.payload.id));
+            links[indiceTrocaDirecao].source = action.payload.source;
+            links[indiceTrocaDirecao].target = action.payload.target;
             return { ...oldState, links };
         case "OPTION_VALORADO":
             console.log("Valorado", action.payload);

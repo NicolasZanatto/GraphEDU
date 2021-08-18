@@ -7,6 +7,7 @@ import { drag } from "./vertices/events/moverVerticesEvent";
 import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/desenharArestaEvent";
 import { adicionarVertice } from "./vertices/acoes/adicionarVertice";
 import { adicionarAresta } from "./arestas/acoes/adicionarAresta";
+import { UpdateEdgeValueOnSVG } from "../grafo/arestas/acoes/editarArestaPeso";
 
 export function runGraph(container, data, actions) {
   const idSVG = "graphSvg";
@@ -61,7 +62,7 @@ export function runGraph(container, data, actions) {
 
   function restart() {
     //edges 
-
+    console.log("links", links);
     edges = edges.data(links, function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
     });
@@ -98,6 +99,8 @@ export function runGraph(container, data, actions) {
       .attr("text-anchor", "middle")
 
     lt.append("textPath")
+      .attr("class", "textpath")
+      .attr("id", d => "textpath" + d.id)
       .attr("xlink:href", d => "#path" + d.id)
       .text(function (d) {
         return d.value;
@@ -155,6 +158,7 @@ export function runGraph(container, data, actions) {
       simulation.stop();
     },
     restart: (data) => {
+      UpdateEdgeValueOnSVG(links);
       console.log("Canvas Index:", data);
       restart();
     }

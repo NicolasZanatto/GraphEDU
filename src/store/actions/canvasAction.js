@@ -31,6 +31,12 @@ export function removeEdgeAction(aresta) {
     }
 }
 
+export function changeEdgeDirectionAction(aresta) {
+    return {
+        type: 'CHANGE_DIRECTION',
+        payload: aresta
+    }
+}
 
 //Options
 export function optionValoradoAction(valor) {

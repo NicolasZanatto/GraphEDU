@@ -1,21 +1,23 @@
 import * as d3 from "d3";
 import { menuFactory } from "./menuFactory";
 import { EditEdgeValue } from "../grafo/arestas/acoes/editarArestaPeso";
+import { RemoveEdgeValue } from "../grafo/arestas/acoes/removerAresta";
+import { changeEdgeDirection } from "../grafo/arestas/acoes/trocarDirecaoAresta";
 const menuArestasItens = [
     {
         title: 'Trocar Direção',
         action: (nodes, links, d, actions) => {
             // TODO: add any action you want to perform
             console.log("Trocar Direção", d);
+            changeEdgeDirection(links, d, actions.changeEdgeDirectionAction)
             d3.event.preventDefault();
         }
     },
     {
         title: 'Editar Peso',
-        action: (nodes, links, d, actions) => {
+        action: (nodes, links, d, actions, restart) => {
             // TODO: add any action you want to perform
-            EditEdgeValue(links, d, actions.editEdgeAction);
-            console.log("Editar Peso", links);
+            EditEdgeValue(links, d, actions.editEdgeAction, restart);
             d3.event.preventDefault();
         }
 
@@ -24,10 +26,9 @@ const menuArestasItens = [
         title: 'Remover Aresta',
         action: (nodes, links, d, actions) => {
             // TODO: add any action you want to perform
-            console.log("Remover Aresta", d);
+            RemoveEdgeValue(links, d, actions.removeEdgeAction)
             d3.event.preventDefault();
         }
-
     }
 ];
 
