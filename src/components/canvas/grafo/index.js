@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import { mostrarMenuVertices } from "../menus/menuVertices";
 import { mostrarMenuArestas } from "../menus/menuArestas";
 import styles from "./../canvas.module.css";
-import { tickPesoAresta } from "../utils/mathHelper";
+import { tickPesoAresta, tickEdge } from "../utils/mathHelper";
 import { drag } from "./vertices/events/moverVerticesEvent";
 import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/desenharArestaEvent";
 import { adicionarVertice } from "./vertices/acoes/adicionarVertice";
@@ -33,6 +33,8 @@ export function runGraph(container, data, actions) {
     }))
     .on("dblclick.zoom", null);
 
+
+
   const simulation = d3
     .forceSimulation(nodes)
     .force("link", d3.forceLink(links).id(d => d.id))
@@ -42,7 +44,7 @@ export function runGraph(container, data, actions) {
     .on("tick", () => {
       //update link positions
       edges
-        .attr("d", d => `M${d.source.x} ${d.source.y} ${d.target.x} ${d.target.y}`);
+        .attr("d", tickEdge);
 
       vertices.attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
@@ -131,7 +133,7 @@ export function runGraph(container, data, actions) {
       .call(drag(simulation));
 
     g.append("circle")
-      .attr("r", 12)
+      .attr("r", 15)
       .attr("fill", d => color[d.id % 10])
       .attr("stroke", "black")
 
