@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { addEdgeValue } from "../acoes/adicionarArestaPeso";
+import { addEdgeValue } from "./adicionarArestaPesoEvent";
 
 var mousedownNode = null;
 

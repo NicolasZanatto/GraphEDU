@@ -1,8 +1,8 @@
 import * as d3 from "d3";
 import { menuFactory } from "./menuFactory";
-import { EditEdgeValue } from "../grafo/arestas/acoes/editarArestaPeso";
-import { RemoveEdgeValue } from "../grafo/arestas/acoes/removerAresta";
-import { changeEdgeDirection } from "../grafo/arestas/acoes/trocarDirecaoAresta";
+import { EditEdgeValue } from "../grafo/arestas/events/editarArestaPesoEvent";
+import { RemoveEdgeValue } from "../grafo/arestas/events/removerArestaEvent";
+import { changeEdgeDirection } from "../grafo/arestas/events/trocarDirecaoArestaEvent";
 const menuArestasItens = [
     {
         title: 'Trocar Direção',

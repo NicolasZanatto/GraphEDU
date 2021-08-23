@@ -5,9 +5,9 @@ import styles from "./../canvas.module.css";
 import { tickPesoAresta, tickEdge } from "../utils/mathHelper";
 import { drag } from "./vertices/events/moverVerticesEvent";
 import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/desenharArestaEvent";
-import { adicionarVertice } from "./vertices/acoes/adicionarVertice";
-import { adicionarAresta } from "./arestas/acoes/adicionarAresta";
-import { UpdateEdgeValueOnSVG } from "../grafo/arestas/acoes/editarArestaPeso";
+import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
+import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
+import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
 
 export function runGraph(container, data, actions) {
   const idSVG = "graphSvg";
@@ -64,7 +64,6 @@ export function runGraph(container, data, actions) {
 
   function restart() {
     //edges 
-    console.log("links", links);
     edges = edges.data(links, function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
     });

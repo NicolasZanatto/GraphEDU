@@ -1,4 +1,4 @@
-import { beginDragLine, endDragLine } from "../../arestas/events/desenharArestaEvent";
+import { beginDragLine, endDragLine } from "./desenharArestaEvent";
 
 
 let singleClickTimer;

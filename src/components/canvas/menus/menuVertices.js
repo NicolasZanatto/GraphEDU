@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import { menuFactory } from "./menuFactory";
-import { removerVertice } from "../grafo/vertices/acoes/removerVertice";
+import { removerVertice } from "../grafo/vertices/events/removerVerticeEvent";
 
 const menuVerticesItens = [
     {
@@ -24,7 +24,7 @@ const menuVerticesItens = [
         title: 'Remover Vértice',
         action: (nodes, links, verticeSelecionado, actions) => {
 
-            removerVertice(nodes, links, verticeSelecionado, actions.removeNodeAction);
+            removerVertice(nodes, links, verticeSelecionado, actions.removeNodeAction, actions.removeEdgeAction);
             d3.event.preventDefault();
         }
 
