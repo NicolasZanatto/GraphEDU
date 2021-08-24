@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-export const EditEdgeValue = (links, edge, editEdgeAction) => {
+export const EditEdgeValue = (links, edge, editEdgeAction, valorado) => {
 
     //Find index of specific object using findIndex method.    
     const indice = links.findIndex((obj => obj.id === edge.id));

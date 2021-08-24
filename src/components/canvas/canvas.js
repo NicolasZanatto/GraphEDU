@@ -8,8 +8,15 @@ import Options from "./opcoes";
 
 const Canvas = ({ data, addNodeAction, addEdgeAction, removeNodeAction, editEdgeAction, removeEdgeAction, changeEdgeDirectionAction }) => {
   const containerRef = React.useRef(null);
-  const carregarD3Ref = React.useRef(true);
+  const actions = { addNodeAction, addEdgeAction, removeNodeAction, editEdgeAction, removeEdgeAction, changeEdgeDirectionAction }
+
+  const [startCanvas, setStartCanvas] = React.useState(false);
+
   const restartSVGRef = React.useRef(null);
+
+  const handleStartCanvas = (value) => {
+    setStartCanvas(value);
+  }
 
   const restartCanvas = () => {
     if (restartSVGRef.current == null) return;
@@ -20,10 +27,9 @@ const Canvas = ({ data, addNodeAction, addEdgeAction, removeNodeAction, editEdge
   React.useEffect(() => {
     let destroyFn;
 
-    if (containerRef.current && carregarD3Ref.current) {
-      const actions = { addNodeAction, addEdgeAction, removeNodeAction, editEdgeAction, removeEdgeAction, changeEdgeDirectionAction }
+    if (containerRef.current && startCanvas) {
       const { destroy, restart } = runGraph(containerRef.current, data, actions);
-      carregarD3Ref.current = false;
+      handleStartCanvas(false);
       restartSVGRef.current = restart;
       destroyFn = destroy;
     }
@@ -34,7 +40,7 @@ const Canvas = ({ data, addNodeAction, addEdgeAction, removeNodeAction, editEdge
   restartCanvas();
   return (
     <div className={styles.canvas}>
-      <Options restartCanvas={restartSVGRef.current}></Options>
+      <Options handleStartCanvas={handleStartCanvas}></Options>
       <div ref={containerRef} className={styles.container}>
       </div>
     </div>

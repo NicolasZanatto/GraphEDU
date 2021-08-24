@@ -13,7 +13,6 @@ export function runGraph(container, data, actions) {
   const idSVG = "graphSvg";
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
-
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
@@ -44,7 +43,7 @@ export function runGraph(container, data, actions) {
     .on("tick", () => {
       //update link positions
       edges
-        .attr("d", tickEdge);
+        .attr("d", d => tickEdge(d, data.dirigido));
 
       vertices.attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
@@ -54,7 +53,7 @@ export function runGraph(container, data, actions) {
 
     });
 
-  initDragLine(svg);
+  initDragLine(svg, data.dirigido);
 
   var edges = svg.append("g").selectAll(`.${styles.edge}`);
 
@@ -75,7 +74,7 @@ export function runGraph(container, data, actions) {
       .attr("marker-end", "url(#arrowhead)")
       .attr("class", styles.edge)
       .attr("id", d => "path" + d.id)
-      .on("contextmenu", (d) => { mostrarMenuArestas(nodes, links, d, width, height, '#graphSvg', actions); })
+      .on("contextmenu", (d) => { mostrarMenuArestas(nodes, links, d, width, height, '#graphSvg', actions, data.dirigido, data.valorado); })
 
     ed.append("title").text(function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
@@ -127,7 +126,7 @@ export function runGraph(container, data, actions) {
       .attr("class", "vertex")
       .attr("stroke", "#fff")
       .attr("stroke-width", 2)
-      .on("click", d => adicionarAresta(d, links, actions.addEdgeAction))
+      .on("click", d => adicionarAresta(d, links, actions.addEdgeAction, data.dirigido, data.valorado))
       .on("contextmenu", (d) => { mostrarMenuVertices(nodes, links, d, width, height, '#graphSvg', actions); })
       .call(drag(simulation));
 
