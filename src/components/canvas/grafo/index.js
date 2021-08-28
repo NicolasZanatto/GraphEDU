@@ -9,8 +9,10 @@ import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
 import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
 import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
 
-export function runGraph(container, data, actions) {
+export function runGraph(container, props) {
   const idSVG = "graphSvg";
+  const data = props.data;
+  const actions = props.actions;
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
   const containerRect = container.getBoundingClientRect();

@@ -1,13 +1,24 @@
-import data from "../../data/data.json";
 
-const INICIAL_STATE = data;
+import {ICanvas, ICanvasAction} from "../types/canvasTypes";
 
-export default function canvas(oldState = INICIAL_STATE, action) {
-    let nodes = [...oldState.nodes];
-    let links = [...oldState.links];
+
+
+
+const INICIAL_STATE : ICanvas = {
+    canvas: {
+        nodes: [],
+        links: [],
+        valorado: false,
+        dirigido: false
+      }
+};
+
+export default function canvas(oldState = INICIAL_STATE, action : ICanvasAction) {
+    let nodes = [...oldState.canvas.nodes];
+    let links = [...oldState.canvas.links];
     switch (action.type) {
         case "ADD_NODE":
-            nodes.push(action.vertice)
+            nodes.push(action.payload)
             return { ...oldState, nodes };
         case "REMOVE_NODE":
             var indexOfNode = nodes.findIndex(i => i.id === action.payload.id);

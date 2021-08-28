@@ -1,34 +1,36 @@
 import React from "react";
 import { runGraph } from "./grafo";
 import styles from "./canvas.module.css";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as CanvasActions from "../../store/actions/canvasAction";
 import Options from "./opcoes";
+import { ICanvas, IGrafo } from "../../store/types/canvasTypes";
+import { Dispatch } from 'redux';
 
-const Canvas = ({ data, addNodeAction, addEdgeAction, removeNodeAction, editEdgeAction, removeEdgeAction, changeEdgeDirectionAction }) => {
+
+const Canvas = (props : Props) => {
   const containerRef = React.useRef(null);
-  const actions = { addNodeAction, addEdgeAction, removeNodeAction, editEdgeAction, removeEdgeAction, changeEdgeDirectionAction }
 
   const [startCanvas, setStartCanvas] = React.useState(false);
 
-  const restartSVGRef = React.useRef(null);
+  const restartSVGRef = React.useRef<((value: IGrafo) => void) | null >(null);
 
-  const handleStartCanvas = (value) => {
+  const handleStartCanvas = (value : boolean) => {
     setStartCanvas(value);
   }
 
   const restartCanvas = () => {
-    if (restartSVGRef.current == null) return;
-
-    restartSVGRef.current(data);
+    if (restartSVGRef.current !== null) {
+      restartSVGRef.current(props.data);
+    }
   }
 
   React.useEffect(() => {
     let destroyFn;
 
     if (containerRef.current && startCanvas) {
-      const { destroy, restart } = runGraph(containerRef.current, data, actions);
+      const { destroy, restart } = runGraph(containerRef.current, props);
       handleStartCanvas(false);
       restartSVGRef.current = restart;
       destroyFn = destroy;
@@ -47,11 +49,15 @@ const Canvas = ({ data, addNodeAction, addEdgeAction, removeNodeAction, editEdge
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state : ICanvas) => ({
   data: state.canvas
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch : Dispatch) =>
   bindActionCreators(CanvasActions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Canvas);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type Props = ConnectedProps<typeof connector>
+
+export default connector(Canvas)
