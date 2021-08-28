@@ -1,21 +1,19 @@
 
-import {ICanvas, ICanvasAction} from "../types/canvasTypes";
+import {IGrafo, ICanvasAction} from "../types/canvasTypes";
 
 
 
 
-const INICIAL_STATE : ICanvas = {
-    canvas: {
+const INICIAL_STATE : IGrafo = {
         nodes: [],
         links: [],
         valorado: false,
         dirigido: false
-      }
 };
 
 export default function canvas(oldState = INICIAL_STATE, action : ICanvasAction) {
-    let nodes = [...oldState.canvas.nodes];
-    let links = [...oldState.canvas.links];
+    let nodes = [...oldState.nodes];
+    let links = [...oldState.links];
     switch (action.type) {
         case "ADD_NODE":
             nodes.push(action.payload)

@@ -12,7 +12,8 @@ import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
 export function runGraph(container, props) {
   const idSVG = "graphSvg";
   const data = props.data;
-  const actions = props.actions;
+  console.log("Grafo props", props)
+  const actions = props;
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
   const containerRect = container.getBoundingClientRect();

@@ -4,29 +4,27 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
-
 import RadioButtonDirigido from "./RadioButtonDirigido";
 import RadioButtonValorado from "./RadioButtonValorado";
 import { Grid } from "@material-ui/core";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
-export default function Options({ handleStartCanvas }) {
+interface IOptions{
+    handleStartCanvas : (start : boolean) => void
+}
+
+export default function Options(props : IOptions) {
     const [open, setOpen] = React.useState(true);
 
     const handleClose = () => {
         setOpen(false);
-        handleStartCanvas(true);
+        props.handleStartCanvas(true);
     };
 
     return (
         <div>
             <Dialog
                 open={open}
-                TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-slide-title"

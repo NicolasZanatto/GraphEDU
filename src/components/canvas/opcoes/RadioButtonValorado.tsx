@@ -1,19 +1,20 @@
 import React from 'react';
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect, ConnectedProps } from "react-redux";
+import { Dispatch,bindActionCreators } from "redux";
 import * as CanvasActions from "../../../store/actions/canvasAction";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { ICanvas } from "../../../store/types/canvasTypes";
 
-const RadioButtonValoradoNaoValorado = ({ valorado, optionValoradoAction }) => {
-    const [value, setValue] = React.useState(valorado);
+const RadioButtonValoradoNaoValorado = (props : Props) => {
+    const [value, setValue] = React.useState(props.valorado);
 
-    const handleChange = (event) => {
+    const handleChange = (event : any) => {
         var isTrue = (event.target.value === 'true');
         setValue(isTrue);
-        optionValoradoAction(isTrue);
+        props.optionValoradoAction(isTrue);
     };
 
     return (
@@ -28,11 +29,15 @@ const RadioButtonValoradoNaoValorado = ({ valorado, optionValoradoAction }) => {
 
 
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state : ICanvas) => ({
     valorado: state.canvas.valorado
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch : Dispatch) =>
     bindActionCreators(CanvasActions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(RadioButtonValoradoNaoValorado);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type Props = ConnectedProps<typeof connector>
+    
+export default connector(RadioButtonValoradoNaoValorado)
