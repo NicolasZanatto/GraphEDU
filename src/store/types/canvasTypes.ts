@@ -1,15 +1,15 @@
 
-import {Action} from "redux";
+import { Action } from "redux";
 
 
 export interface IVertice {
-    id: Number,
-    x: Number,
-    y: Number,
-    fx: Number,
-    fy: Number
-    vx: Number,
-    vy: Number
+    id: number,
+    x: number,
+    y: number,
+    fx: number,
+    fy: number
+    vx: number,
+    vy: number
 };
 
 export interface IAresta {
@@ -25,49 +25,49 @@ export interface IGrafo {
     valorado: Boolean,
     dirigido: Boolean
     verticeInicial?: Number,
-    verticeFinal?: Number 
+    verticeFinal?: Number
 };
 
 export interface ICanvas {
     canvas: IGrafo
 };
 
-export interface IAddNode extends Action{
+export interface IAddNode extends Action {
     type: "ADD_NODE",
     payload: IVertice
 };
 
-export interface IRemoveNode extends Action{
+export interface IRemoveNode extends Action {
     type: "REMOVE_NODE",
     payload: IVertice
 };
 
-export interface IAddEdge extends Action{
+export interface IAddEdge extends Action {
     type: "ADD_EDGE",
     payload: IAresta
 };
 
-export interface IEditEdge extends Action{
+export interface IEditEdge extends Action {
     type: "EDIT_EDGE",
     payload: IAresta
 };
 
-export interface IRemoveEdge extends Action{
+export interface IRemoveEdge extends Action {
     type: "REMOVE_EDGE",
     payload: IAresta
 };
 
-export interface IChangeDirection extends Action{
+export interface IChangeDirection extends Action {
     type: "CHANGE_DIRECTION",
     payload: IAresta
 };
 
-export interface IOptionValorado extends Action{
+export interface IOptionValorado extends Action {
     type: "OPTION_VALORADO",
     payload: Boolean
 };
 
-export interface IOptionDirigido extends Action{
+export interface IOptionDirigido extends Action {
     type: "OPTION_DIRIGIDO",
     payload: Boolean
 };
