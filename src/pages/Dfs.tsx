@@ -4,7 +4,7 @@ import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSi
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import {EAlgoritmos} from "../Algoritmos/EAlgoritmos"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,13 +30,14 @@ export default function Dfs() {
             </Grid>
             <Grid item xs={6}>
                 <Canvas />
+                <Grid className={classes.simulacao} item xs={12}>
+                    <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
+                </Grid>
             </Grid>
             <Grid item xs={3}>
                 <Paper className={classes.paper}>PseudoCódigo</Paper>
             </Grid>
-            <Grid className={classes.simulacao} item xs={12}>
-                <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
-            </Grid>
+            
         </Grid>
     );
 }

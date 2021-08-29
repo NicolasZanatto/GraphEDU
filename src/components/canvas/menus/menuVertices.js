@@ -18,7 +18,7 @@ const menuVerticesItens = [
             console.log("Vertice Final", vertices, verticeSelecionado);
             d3.event.preventDefault();
         }
-
+        
     },
     {
         title: 'Remover Vértice',

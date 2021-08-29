@@ -24,6 +24,8 @@ export interface IGrafo {
     links: Array<IAresta>,
     valorado: Boolean,
     dirigido: Boolean
+    verticeInicial?: Number,
+    verticeFinal?: Number 
 };
 
 export interface ICanvas {

@@ -8,7 +8,9 @@ const INICIAL_STATE : IGrafo = {
         nodes: [],
         links: [],
         valorado: false,
-        dirigido: false
+        dirigido: false,
+        verticeInicial: undefined,
+        verticeFinal: undefined
 };
 
 export default function canvas(oldState = INICIAL_STATE, action : ICanvasAction) {
