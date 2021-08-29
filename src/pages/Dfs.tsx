@@ -4,7 +4,6 @@ import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSi
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {EAlgoritmos} from "../Algoritmos/EAlgoritmos"
 
 const useStyles = makeStyles((theme) => ({
     root: {

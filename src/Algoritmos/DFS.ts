@@ -1,4 +1,4 @@
-import { IGrafo, IVertice, IAresta } from "../store/types/canvasTypes";
+import { IGrafo, IAresta } from "../store/types/canvasTypes";
 
 class Visitados {
     idVertice: number;
