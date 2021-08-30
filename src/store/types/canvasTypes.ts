@@ -24,12 +24,8 @@ export interface IGrafo {
     links: Array<IAresta>,
     valorado: Boolean,
     dirigido: Boolean
-    verticeInicial?: Number,
-    verticeFinal?: Number
-};
-
-export interface ICanvas {
-    canvas: IGrafo
+    verticeInicial?: number,
+    verticeFinal?: number
 };
 
 export interface IAddNode extends Action {
@@ -41,6 +37,16 @@ export interface IRemoveNode extends Action {
     type: "REMOVE_NODE",
     payload: IVertice
 };
+
+export interface IStartNode extends Action {
+    type: "SELECT_START_NODE",
+    payload: number
+}
+
+export interface IFinalNode extends Action {
+    type: "SELECT_FINAL_NODE",
+    payload: number
+}
 
 export interface IAddEdge extends Action {
     type: "ADD_EDGE",
@@ -72,4 +78,4 @@ export interface IOptionDirigido extends Action {
     payload: Boolean
 };
 
-export type ICanvasAction = | IAddNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido;
+export type ICanvasAction = | IAddNode | IStartNode | IFinalNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido;

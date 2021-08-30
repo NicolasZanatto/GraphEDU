@@ -1,39 +1,55 @@
-import {IVertice, IAresta, IAddNode} from "../types/canvasTypes";
+import { IVertice, IAresta, IAddNode, IRemoveNode, IAddEdge, IEditEdge, IRemoveEdge, IChangeDirection, IOptionValorado, IOptionDirigido, IStartNode, IFinalNode } from "../types/canvasTypes";
 
-export const addNodeAction = (vertice : IVertice) : IAddNode => {
+// Vértices
+export const addNodeAction = (vertice: IVertice): IAddNode => {
     return {
         type: 'ADD_NODE',
         payload: vertice
     }
 }
 
-export function removeNodeAction(aresta : IAresta) {
+export const removeNodeAction = (vertice: IVertice): IRemoveNode => {
     return {
         type: 'REMOVE_NODE',
-        payload: aresta
+        payload: vertice
     }
 }
 
-export function addEdgeAction(aresta : IAresta) {
+export const selectStartNodeAction = (idVertice: number): IStartNode => {
+    return {
+        type: 'SELECT_START_NODE',
+        payload: idVertice
+    }
+}
+
+export const selectFinalNodeAction = (idVertice: number): IFinalNode => {
+    return {
+        type: 'SELECT_FINAL_NODE',
+        payload: idVertice
+    }
+}
+
+//Arestas
+export const addEdgeAction = (aresta: IAresta): IAddEdge => {
     return {
         type: 'ADD_EDGE',
         payload: aresta
     }
 }
-export function editEdgeAction(aresta : IAresta) {
+export const editEdgeAction = (aresta: IAresta): IEditEdge => {
     return {
         type: 'EDIT_EDGE',
         payload: aresta
     }
 }
-export function removeEdgeAction(aresta : IAresta) {
+export const removeEdgeAction = (aresta: IAresta): IRemoveEdge => {
     return {
         type: 'REMOVE_EDGE',
         payload: aresta
     }
 }
 
-export function changeEdgeDirectionAction(aresta : IAresta) {
+export const changeEdgeDirectionAction = (aresta: IAresta): IChangeDirection => {
     return {
         type: 'CHANGE_DIRECTION',
         payload: aresta
@@ -41,14 +57,14 @@ export function changeEdgeDirectionAction(aresta : IAresta) {
 }
 
 //Options
-export function optionValoradoAction(valor : Boolean) {
+export const optionValoradoAction = (valor: Boolean): IOptionValorado => {
     return {
         type: 'OPTION_VALORADO',
         payload: valor
     }
 }
 
-export function optionDirigidoAction(valor : Boolean) {
+export const optionDirigidoAction = (valor: Boolean): IOptionDirigido => {
     return {
         type: 'OPTION_DIRIGIDO',
         payload: valor

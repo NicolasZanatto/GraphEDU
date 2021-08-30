@@ -5,24 +5,26 @@ import { connect, ConnectedProps } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as CanvasActions from "../../store/actions/canvasAction";
 import Options from "./opcoes";
-import { ICanvas, IGrafo } from "../../store/types/canvasTypes";
+import { IGrafo } from "../../store/types/canvasTypes";
+import { IState } from "../../store/types/"
 import { Dispatch } from 'redux';
+import { ISimulacao } from "../../store/types/simulacaoTypes";
 
 
-const Canvas = (props : Props) => {
+const Canvas = (props: Props) => {
   const containerRef = React.useRef(null);
 
   const [startCanvas, setStartCanvas] = React.useState(false);
 
-  const restartSVGRef = React.useRef<((value: IGrafo) => void) | null >(null);
+  const restartSVGRef = React.useRef<((value: IGrafo, simulacao: ISimulacao) => void) | null>(null);
 
-  const handleStartCanvas = (value : boolean) => {
+  const handleStartCanvas = (value: boolean) => {
     setStartCanvas(value);
   }
 
   const restartCanvas = () => {
     if (restartSVGRef.current !== null) {
-      restartSVGRef.current(props.data);
+      restartSVGRef.current(props.data, props.simulacao);
     }
   }
 
@@ -35,6 +37,7 @@ const Canvas = (props : Props) => {
       restartSVGRef.current = restart;
       destroyFn = destroy;
     }
+    console.log("Props:", props);
 
     return destroyFn;
   });
@@ -49,11 +52,12 @@ const Canvas = (props : Props) => {
   );
 }
 
-const mapStateToProps = (state : ICanvas) => ({
-  data: state.canvas
+const mapStateToProps = (state: IState) => ({
+  data: state.canvas,
+  simulacao: state.simulacao
 });
 
-const mapDispatchToProps = (dispatch : Dispatch) =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(CanvasActions, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

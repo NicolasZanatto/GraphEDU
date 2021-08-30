@@ -1,29 +1,28 @@
 import * as d3 from "d3";
 import { menuFactory } from "./menuFactory";
 import { removerVertice } from "../grafo/vertices/events/removerVerticeEvent";
+import { selecionarVerticeInicial } from "../grafo/vertices/events/selecionarVerticeInicialEvent";
+import { selecionarVerticeFinal } from "../grafo/vertices/events/selecionarVerticeFinalEvent";
 
 const menuVerticesItens = [
     {
         title: 'Vértice Inicial',
         action: (nodes, links, verticeSelecionado, actions) => {
-            // TODO: add any action you want to perform
-
+            selecionarVerticeInicial(verticeSelecionado, actions.selectStartNodeAction);
             d3.event.preventDefault();
         }
     },
     {
         title: 'Vértice Final',
         action: (vertices, arestas, verticeSelecionado, actions) => {
-            // TODO: add any action you want to perform
-            console.log("Vertice Final", vertices, verticeSelecionado);
+            selecionarVerticeFinal(verticeSelecionado, actions.selectFinalNodeAction);
             d3.event.preventDefault();
         }
-        
+
     },
     {
         title: 'Remover Vértice',
         action: (nodes, links, verticeSelecionado, actions) => {
-
             removerVertice(nodes, links, verticeSelecionado, actions.removeNodeAction, actions.removeEdgeAction);
             d3.event.preventDefault();
         }

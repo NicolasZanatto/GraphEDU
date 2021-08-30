@@ -9,8 +9,8 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import FastForwardIcon from '@material-ui/icons/FastForward';
-import { ICanvas } from "../../store/types/canvasTypes";
-import * as CanvasActions from "../../store/actions/canvasAction";
+import { IState } from "../../store/types";
+import * as SimulacaoActions from "../../store/actions/simulacaoAction";
 import DFS from "../../Algoritmos/DFS";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,10 +36,12 @@ const ComponenteSimulacao = (props: Props) => {
 
   const handleSimulacaoIniciada = (props: Props) => {
     setSimulacaoIniciada(!simulacaoIniciada);
-    if (simulacaoIniciada) {
+    if (!simulacaoIniciada) {
       const dfs = new DFS(props.canvas);
-      dfs.main();
+      const retorno = dfs.main();
+      props.updateDFSAction(retorno)
     }
+
   }
   const classes = useStyles();
 
@@ -65,12 +67,13 @@ const ComponenteSimulacao = (props: Props) => {
 }
 
 
-const mapStateToProps = (state: ICanvas) => ({
-  canvas: state.canvas
+const mapStateToProps = (state: IState) => ({
+  canvas: state.canvas,
+  simulacao: state.simulacao
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(CanvasActions, dispatch);
+  bindActionCreators(SimulacaoActions, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

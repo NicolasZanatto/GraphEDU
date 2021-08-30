@@ -77,7 +77,6 @@ export const updateDragLine = () => {
 export const hideDragLine = (restart, data) => {
   dragLine.classed("hidden", true);
   mousedownNode = null;
-  console.log("HideDragLine", data);
   restart(data);
 }
 //no need to call hideDragLine() and restart() in endDragLine

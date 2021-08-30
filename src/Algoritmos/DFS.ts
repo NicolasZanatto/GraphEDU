@@ -1,4 +1,25 @@
-import { IGrafo, IVertice, IAresta } from "../store/types/canvasTypes";
+import { IGrafo, IAresta } from "../store/types/canvasTypes";
+import { IRetornoDFS, ICaminho } from "../store/types/simulacaoTypes";
+
+
+class Retorno implements IRetornoDFS {
+    caminho = new Array<Caminho>();
+    passo = 0;
+
+    adicionarPasso(verticeInicial: number, verticeFinal: number) {
+        this.caminho.push(new Caminho(verticeInicial, verticeFinal));
+    }
+}
+
+class Caminho implements ICaminho {
+    verticeInicial: number;
+    verticeFinal: number;
+
+    constructor(verticeInicial: number, verticeFinal: number) {
+        this.verticeInicial = verticeInicial;
+        this.verticeFinal = verticeFinal;
+    }
+}
 
 class Visitados {
     idVertice: number;
@@ -9,22 +30,12 @@ class Visitados {
     }
 }
 
-class Retorno {
-    verticeInicial: number;
-    verticeFinal: number;
-
-    constructor(verticeInicial: number, verticeFinal: number) {
-        this.verticeInicial = verticeInicial;
-        this.verticeFinal = verticeFinal;
-    }
-}
-
 
 class DFS {
     visitados = new Array<Visitados>();
     s?: number;
     grafo: IGrafo;
-    retorno = Array<Retorno>();
+    retorno = new Retorno();
     adj = Array<IAresta>();
 
     constructor(grafo: IGrafo) {
@@ -52,6 +63,7 @@ class DFS {
                 return (vertice.idVertice === aresta.target.id || vertice.idVertice === aresta.source.id) && !vertice.visitado
             })
                 .forEach(vertice => {
+                    this.retorno.adicionarPasso(s, vertice.idVertice);
                     this.dfs(vertice.idVertice);
                 })
         })
@@ -59,16 +71,14 @@ class DFS {
     }
 
     main() {
-        this.s = 1;
-
         this.grafo.nodes.forEach((vertice) => {
             this.visitados.push(new Visitados(vertice.id, false));
         })
 
-        this.dfs(this.s);
+        this.dfs(this.grafo.verticeInicial ?? 1);
         console.log(this.grafo);
 
-
+        return this.retorno;
     }
 
 }

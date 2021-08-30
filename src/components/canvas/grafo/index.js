@@ -8,6 +8,7 @@ import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/des
 import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
 import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
 import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
+import { AtualizarCorVerticeInicialEVerticeFinal, AtualizarCaminhoGrafo } from "../utils/svgHelper";
 
 export function runGraph(container, props) {
   const idSVG = "graphSvg";
@@ -19,7 +20,6 @@ export function runGraph(container, props) {
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
   const width = containerRect.width;
-  const color = d3.schemeCategory10;
 
   const svg = d3
     .select(container)
@@ -127,7 +127,7 @@ export function runGraph(container, props) {
       .enter()
       .append("g")
       .attr("class", "vertex")
-      .attr("stroke", "#fff")
+      .attr("stroke", "#000")
       .attr("stroke-width", 2)
       .on("click", d => adicionarAresta(d, links, actions.addEdgeAction, data.dirigido, data.valorado))
       .on("contextmenu", (d) => { mostrarMenuVertices(nodes, links, d, width, height, '#graphSvg', actions); })
@@ -135,7 +135,7 @@ export function runGraph(container, props) {
 
     g.append("circle")
       .attr("r", 15)
-      .attr("fill", d => color[d.id % 10])
+      .attr("fill", "#fff")
       .attr("stroke", "black")
 
     g.append("text")
@@ -160,8 +160,11 @@ export function runGraph(container, props) {
     destroy: () => {
       simulation.stop();
     },
-    restart: (data) => {
+    restart: (data, simulacao) => {
       UpdateEdgeValueOnSVG(links);
+      AtualizarCorVerticeInicialEVerticeFinal(data.verticeInicial, data.verticeFinal, nodes);
+      AtualizarCaminhoGrafo(simulacao, nodes);
+      console.log("Canvas Index Simulacao:", simulacao);
       console.log("Canvas Index:", data);
       restart();
     }
