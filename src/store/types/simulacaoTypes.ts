@@ -20,4 +20,9 @@ export interface IUpdateDFS extends Action {
     payload: IRetornoDFS
 };
 
-export type ISimulacaoAction = | IUpdateDFS;
+export interface ISetPassoDFS extends Action {
+    type: "SET_PASSO_DFS",
+    payload: number
+};
+
+export type ISimulacaoAction = | IUpdateDFS | ISetPassoDFS;

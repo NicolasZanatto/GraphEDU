@@ -53,11 +53,9 @@ export default function canvas(oldState = INICIAL_STATE, action: ICanvasAction) 
             return { ...oldState, links };
 
         case "OPTION_VALORADO":
-            console.log("Valorado", action.payload);
             return { ...oldState, valorado: action.payload };
 
         case "OPTION_DIRIGIDO":
-            console.log("Dirigido", action.payload);
             return { ...oldState, dirigido: action.payload };
 
         default:

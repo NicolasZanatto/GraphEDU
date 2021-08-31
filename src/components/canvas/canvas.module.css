@@ -34,6 +34,11 @@
 .edge:hover{
   stroke: #f11303b6
 }
+
+.edgeVisitada{
+  stroke: #e29f0d;
+}
+
 .edgeText{
   font-size: 18px;
   font-weight: bold;

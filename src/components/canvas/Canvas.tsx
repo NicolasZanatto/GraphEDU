@@ -37,8 +37,6 @@ const Canvas = (props: Props) => {
       restartSVGRef.current = restart;
       destroyFn = destroy;
     }
-    console.log("Props:", props);
-
     return destroyFn;
   });
 

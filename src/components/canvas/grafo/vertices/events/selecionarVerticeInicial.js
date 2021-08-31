@@ -1,4 +1,4 @@
-export const removerVertice = (nodes, links, verticeSelecionado, removeNodeAction, removeEdgeAction) => {
+export const selecionarVerticeInicial = (nodes, verticeSelecionado, selectStartNodeeAction) => {
     const tamanho = links.length;
     for (let i = tamanho - 1; i >= 0; i--) {
         if (links[i].source.id === verticeSelecionado.id || links[i].target.id === verticeSelecionado.id) {

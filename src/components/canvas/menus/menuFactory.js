@@ -3,8 +3,6 @@ import styles from "./../canvas.module.css";
 
 
 export const menuFactory = (x, y, menuItems, nodes, links, itemSelecionado, svgId, actions, restart) => {
-    console.log("Menu Vertice", nodes);
-    console.log("Menu Aresta", links);
     d3.select(`.${styles.contextMenu}`).remove();
 
     // Draw the menu

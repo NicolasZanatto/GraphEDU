@@ -8,12 +8,11 @@ import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/des
 import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
 import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
 import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
-import { AtualizarCorVerticeInicialEVerticeFinal, AtualizarCaminhoGrafo } from "../utils/svgHelper";
+import { AtualizarCoresGrafo } from "../utils/svgHelper";
 
 export function runGraph(container, props) {
   const idSVG = "graphSvg";
   const data = props.data;
-  console.log("Grafo props", props)
   const actions = props;
   var links = data.links.map((d) => Object.assign({}, d));
   var nodes = data.nodes.map((d) => Object.assign({}, d));
@@ -162,10 +161,7 @@ export function runGraph(container, props) {
     },
     restart: (data, simulacao) => {
       UpdateEdgeValueOnSVG(links);
-      AtualizarCorVerticeInicialEVerticeFinal(data.verticeInicial, data.verticeFinal, nodes);
-      AtualizarCaminhoGrafo(simulacao, nodes);
-      console.log("Canvas Index Simulacao:", simulacao);
-      console.log("Canvas Index:", data);
+      AtualizarCoresGrafo(data.verticeInicial, data.verticeFinal, nodes,links, simulacao);
       restart();
     }
   };

@@ -32,17 +32,41 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ComponenteSimulacao = (props: Props) => {
 
-  const [simulacaoIniciada, setSimulacaoIniciada] = useState(false);
+  const [startSimulacao, setStartSimulacao] = useState(false);
+  const [passo, setPasso] = useState(0);
+  const [qntdPassos, setQntdPassos] = useState(0);
 
-  const handleSimulacaoIniciada = (props: Props) => {
-    setSimulacaoIniciada(!simulacaoIniciada);
-    if (!simulacaoIniciada) {
+  const handleStartSimulacao = (props: Props) => {
+    setStartSimulacao(!startSimulacao);
+    if (!startSimulacao) {
       const dfs = new DFS(props.canvas);
       const retorno = dfs.main();
       props.updateDFSAction(retorno)
+      setQntdPassos(retorno.caminho.length);
     }
 
   }
+
+
+
+  React.useEffect(() => {
+   const timeout = setTimeout(() => {
+      if (startSimulacao){
+      console.log("Entrou UseEffect simulacao");
+        setPasso(passo+1);
+        props.setPassoDFSAction(passo);
+        if(passo === qntdPassos){
+          setStartSimulacao(false);
+          setPasso(0);
+        }
+      }
+      
+    }, 1000);
+
+   return () => clearTimeout(timeout);
+  },[startSimulacao,passo,qntdPassos,props]);
+
+
   const classes = useStyles();
 
   return (
@@ -53,8 +77,8 @@ const ComponenteSimulacao = (props: Props) => {
       <IconButton aria-label="add an alarm">
         <SkipPreviousIcon className={classes.button} />
       </IconButton>
-      <IconButton color="secondary" aria-label="Iniciar" onClick={() => handleSimulacaoIniciada(props)}>
-        {simulacaoIniciada ? <PauseIcon className={classes.button}></PauseIcon> : <PlayArrowIcon className={classes.button} />}
+      <IconButton color="secondary" aria-label="Iniciar" onClick={() => handleStartSimulacao(props)}>
+        {startSimulacao ? <PauseIcon className={classes.button}></PauseIcon> : <PlayArrowIcon className={classes.button} />}
       </IconButton>
       <IconButton aria-label="Iniciar">
         <SkipNextIcon className={classes.button} />

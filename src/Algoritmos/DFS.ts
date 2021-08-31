@@ -50,18 +50,26 @@ class DFS {
         console.log("Vertice Visitado:", v);
     }
 
+    obtemListaAdjacencias(s: number){
+        return this.grafo.links.filter((aresta) => {
+            return aresta.source.id === s || aresta.target.id === s
+        });
+    }
+
+    obtemVerticesNaoVisitados(aresta : IAresta){
+        return this.visitados.filter(vertice => {
+            return (vertice.idVertice === aresta.target.id || vertice.idVertice === aresta.source.id) && !vertice.visitado
+        })
+    }
+
     dfs(s: number) {
         console.log("Visitados", this.visitados);
         this.setVisitado(s);
 
-        this.adj = this.grafo.links.filter((aresta) => {
-            return aresta.source.id === s || aresta.target.id === s
-        });
+        this.adj = this.obtemListaAdjacencias(s);
 
         this.adj.forEach(aresta => {
-            this.visitados.filter(vertice => {
-                return (vertice.idVertice === aresta.target.id || vertice.idVertice === aresta.source.id) && !vertice.visitado
-            })
+            this.obtemVerticesNaoVisitados(aresta)
                 .forEach(vertice => {
                     this.retorno.adicionarPasso(s, vertice.idVertice);
                     this.dfs(vertice.idVertice);

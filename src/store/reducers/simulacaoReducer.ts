@@ -16,6 +16,9 @@ export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAc
             dfs.caminho = action.payload.caminho
             return { ...oldState, dfs };
 
+        case "SET_PASSO_DFS":
+            dfs.passo = action.payload;
+            return { ...oldState, dfs}
         default:
             return oldState;
     }

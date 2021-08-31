@@ -8,7 +8,6 @@ const menuArestasDirigidasValoradasItens = [
         title: 'Trocar Direção',
         action: (nodes, links, d, actions) => {
             // TODO: add any action you want to perform
-            console.log("Trocar Direção", d);
             changeEdgeDirection(links, d, actions.changeEdgeDirectionAction)
             d3.event.preventDefault();
         }
