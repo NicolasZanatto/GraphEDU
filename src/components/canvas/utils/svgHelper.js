@@ -8,23 +8,23 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
         if (verticeInicial === vertice.id) {
             return "#32b31b";
         }
-        if (verticeFinal === vertice.id){
+        if (verticeFinal === vertice.id) {
             return "#f04d4d";
         }
-        const caminho = simulacao.dfs.caminho[simulacao.dfs.passo]
+        const caminho = simulacao.dfs.caminho[simulacao.passo]
         if (caminho === undefined) return "#fff";
         if (caminho.verticeInicial === vertice.id || caminho.verticeFinal === vertice.id) {
             return "#e29f0d"
         }
         return "#fff";
     })
-    .attr("r", vertice => {
-        const caminho = simulacao.dfs.caminho[simulacao.dfs.passo]
-        if (caminho === undefined) return 15;
-        if (caminho.verticeInicial === vertice.id || caminho.verticeFinal === vertice.id) {
-            return 18;
-        }
-        return 15;
-    });
+        .attr("r", vertice => {
+            const caminho = simulacao.dfs.caminho[simulacao.passo]
+            if (caminho === undefined) return 15;
+            if (caminho.verticeInicial === vertice.id || caminho.verticeFinal === vertice.id) {
+                return 18;
+            }
+            return 15;
+        });
 
 }

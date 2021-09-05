@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     button: {
-      fontSize: "2.0rem"
+      fontSize: "1.5rem"
     }
   }),
 );
@@ -32,58 +32,114 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ComponenteSimulacao = (props: Props) => {
 
+  const [voltarAoInicio, setvoltarAoInicio] = useState(false);
+  const [voltarPasso, setVoltarPasso] = useState(false);
   const [startSimulacao, setStartSimulacao] = useState(false);
+  const [avancarPasso, setAvancarPasso] = useState(false);
+  const [avancarAoFinal, setAvancarAoFinal] = useState(false);
   const [passo, setPasso] = useState(0);
   const [qntdPassos, setQntdPassos] = useState(0);
+
+
+  const handleVoltarAoInicio = (props: Props) => {
+    setvoltarAoInicio(true);
+  }
+
+  const handleVoltar1Passo = (props: Props) => {
+    setVoltarPasso(true);
+  }
 
   const handleStartSimulacao = (props: Props) => {
     setStartSimulacao(!startSimulacao);
     if (!startSimulacao) {
       const dfs = new DFS(props.canvas);
       const retorno = dfs.main();
+      console.log("Lista de Passos", retorno);
       props.updateDFSAction(retorno)
       setQntdPassos(retorno.caminho.length);
+      props.setPassoAction(0);
     }
 
   }
 
+  const handleAvancar1Passo = (props: Props) => {
+    setAvancarPasso(true);
+  }
 
+  const handleAvancarAoFinal = (props: Props) => {
+    setAvancarAoFinal(true);
+  }
 
   React.useEffect(() => {
-   const timeout = setTimeout(() => {
-      if (startSimulacao){
-      console.log("Entrou UseEffect simulacao");
-        setPasso(passo+1);
-        props.setPassoDFSAction(passo);
-        if(passo === qntdPassos){
+    // props.setPassoAction(passo);
+
+    if (voltarAoInicio) {
+      setStartSimulacao(false);
+      setvoltarAoInicio(false)
+      setPasso(0);
+      props.setPassoAction(0);
+    }
+    if (voltarPasso) {
+      setStartSimulacao(false);
+      setVoltarPasso(false);
+      if (passo > 0) {
+        setPasso(passo - 1);
+        props.setPassoAction(passo - 1);
+      }
+    }
+    if (avancarPasso) {
+      setStartSimulacao(false);
+      setAvancarPasso(false);
+      if (passo < qntdPassos) {
+        setPasso(passo + 1);
+        props.setPassoAction(passo + 1);
+      }
+      if (passo === qntdPassos) {
+        setPasso(0);
+        props.setPassoAction(0);
+      }
+    }
+    if (avancarAoFinal) {
+      setStartSimulacao(false);
+      setAvancarAoFinal(false);
+      setPasso(qntdPassos - 1);
+      props.setPassoAction(qntdPassos - 1);
+    }
+
+    const timeout = setTimeout(() => {
+      if (startSimulacao) {
+        props.setPassoAction(passo);
+        setPasso(passo + 1);
+        if (passo >= qntdPassos) {
           setStartSimulacao(false);
           setPasso(0);
         }
       }
-      
     }, 1000);
 
-   return () => clearTimeout(timeout);
-  },[startSimulacao,passo,qntdPassos,props]);
+    return () => clearTimeout(timeout);
+
+
+  }, [passo, qntdPassos, props, voltarAoInicio, voltarPasso, startSimulacao, avancarPasso, avancarAoFinal]);
 
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <IconButton aria-label="delete">
+      <IconButton aria-label="Voltar ao Início" onClick={() => handleVoltarAoInicio(props)}>
         <FastRewindIcon className={classes.button} />
       </IconButton>
-      <IconButton aria-label="add an alarm">
+      <IconButton aria-label="Voltar 1 Passo" onClick={() => handleVoltar1Passo(props)}>
         <SkipPreviousIcon className={classes.button} />
       </IconButton>
       <IconButton color="secondary" aria-label="Iniciar" onClick={() => handleStartSimulacao(props)}>
         {startSimulacao ? <PauseIcon className={classes.button}></PauseIcon> : <PlayArrowIcon className={classes.button} />}
       </IconButton>
-      <IconButton aria-label="Iniciar">
+      <IconButton aria-label="Avançar 1 Passo" onClick={() => handleAvancar1Passo(props)}>
         <SkipNextIcon className={classes.button} />
       </IconButton>
-      <IconButton aria-label="Iniciar">
+      <IconButton aria-label="Avançar ao Final" onClick={() => handleAvancarAoFinal(props)}>
         <FastForwardIcon className={classes.button} />
       </IconButton>
     </div>

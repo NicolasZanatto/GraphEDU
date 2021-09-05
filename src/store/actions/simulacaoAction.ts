@@ -1,4 +1,4 @@
-import { IRetornoDFS, IUpdateDFS,ISetPassoDFS } from "../types/simulacaoTypes";
+import { IRetornoDFS, IUpdateDFS, ISetPasso } from "../types/simulacaoTypes";
 
 export const updateDFSAction = (retorno: IRetornoDFS): IUpdateDFS => {
     return {
@@ -7,9 +7,9 @@ export const updateDFSAction = (retorno: IRetornoDFS): IUpdateDFS => {
     }
 }
 
-export const setPassoDFSAction = (passo: number): ISetPassoDFS => {
+export const setPassoAction = (passo: number): ISetPasso => {
     return {
-        type: "SET_PASSO_DFS",
+        type: "SET_PASSO",
         payload: passo
     }
 }

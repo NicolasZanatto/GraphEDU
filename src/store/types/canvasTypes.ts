@@ -13,7 +13,7 @@ export interface IVertice {
 };
 
 export interface IAresta {
-    id: Number,
+    id: number,
     source: IVertice,
     target: IVertice,
     value: Number

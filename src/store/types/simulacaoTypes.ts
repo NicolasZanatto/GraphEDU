@@ -1,18 +1,22 @@
 import { Action } from "redux";
+import { IVertice } from "./canvasTypes";
 
 
 export interface ISimulacao {
-    dfs: IRetornoDFS
+    dfs: IRetornoDFS,
+    passo: number
+
 }
 
 export interface IRetornoDFS {
-    caminho: Array<ICaminho>,
-    passo: number
+    caminho: Array<ICaminho>
 }
 
 export interface ICaminho {
-    verticeInicial: number,
-    verticeFinal: number
+    verticeInicial?: number,
+    verticeFinal?: number,
+    linha: number,
+    listaAdj: Array<number>
 }
 
 export interface IUpdateDFS extends Action {
@@ -20,9 +24,9 @@ export interface IUpdateDFS extends Action {
     payload: IRetornoDFS
 };
 
-export interface ISetPassoDFS extends Action {
-    type: "SET_PASSO_DFS",
+export interface ISetPasso extends Action {
+    type: "SET_PASSO",
     payload: number
 };
 
-export type ISimulacaoAction = | IUpdateDFS | ISetPassoDFS;
+export type ISimulacaoAction = | IUpdateDFS | ISetPasso;
