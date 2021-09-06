@@ -125,6 +125,7 @@ export function runGraph(container, props) {
     var g = vertices
       .enter()
       .append("g")
+      .attr("id", d => `vertice${d.id}`)
       .attr("class", "vertex")
       .attr("stroke", "#000")
       .attr("stroke-width", 2)
@@ -161,7 +162,7 @@ export function runGraph(container, props) {
     },
     restart: (data, simulacao) => {
       UpdateEdgeValueOnSVG(links);
-      AtualizarCoresGrafo(data.verticeInicial, data.verticeFinal, nodes,links, simulacao);
+      AtualizarCoresGrafo(data.verticeInicial, data.verticeFinal, nodes, links, simulacao);
       restart();
     }
   };

@@ -13,10 +13,16 @@ export interface IRetornoDFS {
 }
 
 export interface ICaminho {
-    verticeInicial?: number,
-    verticeFinal?: number,
+    verticeS?: number,
+    verticeV?: number,
     linha: number,
     listaAdj: Array<number>
+    listaVisitados: Array<IVIsitadosDFS>
+}
+
+export interface IVIsitadosDFS {
+    idVertice: number;
+    visitado: boolean;
 }
 
 export interface IUpdateDFS extends Action {

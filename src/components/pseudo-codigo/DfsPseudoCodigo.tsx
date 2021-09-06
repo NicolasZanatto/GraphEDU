@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme: Theme) =>
             '& > *': {
                 margin: theme.spacing(1),
             },
+            borderBottom: "1px solid rgba(0, 0, 0, 0.2)",
+            maxWidth: 310,
+
         },
         p20: {
             paddingLeft: "20px",

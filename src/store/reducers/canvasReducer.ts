@@ -44,6 +44,8 @@ export default function canvas(oldState = INICIAL_STATE, action: ICanvasAction) 
         case "REMOVE_EDGE":
             var indiceRemover = links.findIndex((i => i.id === action.payload.id));
             links.splice(indiceRemover, 1);
+            console.log("action.payload", action.payload);
+            console.log("REMOVE_EDGE", links);
             return { ...oldState, links };
 
         case "CHANGE_DIRECTION":

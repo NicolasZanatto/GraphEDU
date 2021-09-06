@@ -50,6 +50,7 @@ const ComponenteSimulacao = (props: Props) => {
   }
 
   const handleStartSimulacao = (props: Props) => {
+    console.log("Canvas:", props.canvas);
     setStartSimulacao(!startSimulacao);
     if (!startSimulacao) {
       const dfs = new DFS(props.canvas);

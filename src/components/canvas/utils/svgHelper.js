@@ -21,10 +21,28 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
         .attr("r", vertice => {
             const caminho = simulacao.dfs.caminho[simulacao.passo]
             if (caminho === undefined) return 15;
-            if (caminho.verticeInicial === vertice.id || caminho.verticeFinal === vertice.id) {
+            if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
                 return 18;
             }
             return 15;
-        });
+        })
+        .attr("stroke", vertice => {
+            const caminho = simulacao.dfs.caminho[simulacao.passo]
+            if (caminho === undefined) return "black";
+            const verticeVisitado = caminho.listaVisitados.find(x => { return FindVerticeVisitado(x, vertice) });
 
+            if (verticeVisitado === undefined) return "black";
+
+            if (!verticeVisitado.visitado)
+                return "blue";
+
+            return "red";
+
+        })
 }
+
+
+const FindVerticeVisitado = (obj, vertice) => {
+    return obj.idVertice === vertice.id;
+}
+
