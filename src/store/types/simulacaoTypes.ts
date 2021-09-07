@@ -1,11 +1,12 @@
 import { Action } from "redux";
+import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
 import { IVertice } from "./canvasTypes";
 
 
 export interface ISimulacao {
     dfs: IRetornoDFS,
-    passo: number
-
+    passo: number,
+    tipoAlgoritmo?: EAlgoritmos
 }
 
 export interface IRetornoDFS {
@@ -35,4 +36,9 @@ export interface ISetPasso extends Action {
     payload: number
 };
 
-export type ISimulacaoAction = | IUpdateDFS | ISetPasso;
+export interface ISetAlgoritmo extends Action {
+    type: "SET_ALGORITMO",
+    payload: EAlgoritmos
+}
+
+export type ISimulacaoAction = | IUpdateDFS | ISetPasso | ISetAlgoritmo;

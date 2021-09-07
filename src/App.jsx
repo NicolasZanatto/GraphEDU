@@ -9,6 +9,7 @@ import {
 import './App.css';
 
 import Dfs from "./pages/Dfs";
+import Bfs from "./pages/Bfs";
 import Home from "./pages/Home";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home}></Route>
             <Route path="/Algoritmos/DFS" component={Dfs}></Route>
+            <Route path="/Algoritmos/BFS" component={Bfs}></Route>
           </Switch>
         </Router>
       </Provider>

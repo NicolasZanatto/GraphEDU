@@ -55,7 +55,9 @@ export default function Home() {
                         </Link>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper className={classes.button}>BFS</Paper>
+                        <Link to='/Algoritmos/BFS'>
+                            <Paper className={classes.button}>BFS</Paper>
+                        </Link>
                     </Grid>
                 </Grid>
             </Container>

@@ -12,6 +12,8 @@ import FastForwardIcon from '@material-ui/icons/FastForward';
 import { IState } from "../../store/types";
 import * as SimulacaoActions from "../../store/actions/simulacaoAction";
 import DFS from "../../Algoritmos/DFS";
+import BFS from "../../Algoritmos/BFS";
+import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +42,22 @@ const ComponenteSimulacao = (props: Props) => {
   const [passo, setPasso] = useState(0);
   const [qntdPassos, setQntdPassos] = useState(0);
 
+  const ExecutarAlgoritmo = (props: Props) => {
+
+    switch (props.simulacao.tipoAlgoritmo) {
+      case EAlgoritmos.DFS:
+        const dfs = new DFS(props.canvas);
+        var retorno = dfs.main();
+        console.log("Lista de Passos", retorno);
+        props.updateDFSAction(retorno)
+        setQntdPassos(retorno.caminho.length);
+        break;
+      case EAlgoritmos.BFS:
+        const bfs = new BFS(props.canvas);
+        bfs.main();
+    }
+
+  }
 
   const handleVoltarAoInicio = (props: Props) => {
     setvoltarAoInicio(true);
@@ -53,11 +71,7 @@ const ComponenteSimulacao = (props: Props) => {
     console.log("Canvas:", props.canvas);
     setStartSimulacao(!startSimulacao);
     if (!startSimulacao) {
-      const dfs = new DFS(props.canvas);
-      const retorno = dfs.main();
-      console.log("Lista de Passos", retorno);
-      props.updateDFSAction(retorno)
-      setQntdPassos(retorno.caminho.length);
+      ExecutarAlgoritmo(props);
       props.setPassoAction(0);
     }
 
@@ -72,8 +86,6 @@ const ComponenteSimulacao = (props: Props) => {
   }
 
   React.useEffect(() => {
-    // props.setPassoAction(passo);
-
     if (voltarAoInicio) {
       setStartSimulacao(false);
       setvoltarAoInicio(false)

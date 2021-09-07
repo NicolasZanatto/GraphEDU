@@ -13,7 +13,7 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
         }
         const caminho = simulacao.dfs.caminho[simulacao.passo]
         if (caminho === undefined) return "#fff";
-        if (caminho.verticeInicial === vertice.id || caminho.verticeFinal === vertice.id) {
+        if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
             return "#e29f0d"
         }
         return "#fff";

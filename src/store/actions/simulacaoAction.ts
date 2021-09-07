@@ -1,3 +1,4 @@
+import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
 import { IRetornoDFS, IUpdateDFS, ISetPasso } from "../types/simulacaoTypes";
 
 export const updateDFSAction = (retorno: IRetornoDFS): IUpdateDFS => {
@@ -11,5 +12,12 @@ export const setPassoAction = (passo: number): ISetPasso => {
     return {
         type: "SET_PASSO",
         payload: passo
+    }
+}
+
+export const SetAlgoritmoAction = (eAlgoritmo: EAlgoritmos) => {
+    return {
+        type: "SET_ALGORITMO",
+        payload: eAlgoritmo
     }
 }

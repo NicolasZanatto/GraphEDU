@@ -3,8 +3,8 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch, bindActionCreators } from "redux";
 import Canvas from "../components/canvas/Canvas";
 import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSimulacao";
-import DFSPseudoCodigo from "../components/pseudo-codigo/DfsPseudoCodigo";
-import DFSCamposAdicionais from "../components/campos-adicionais/DFSCamposAdicionais";
+import BFSPseudoCodigo from "../components/pseudo-codigo/BfsPseudoCodigo";
+import BFSCamposAdicionais from "../components/campos-adicionais/BFSCamposAdicionais";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
     }
 }));
+
 const Dfs = (props: Props) => {
     const useFirstRender = () => {
         const ref = React.useRef(true);
@@ -35,14 +36,14 @@ const Dfs = (props: Props) => {
 
 
     if (useFirstRender())
-        props.SetAlgoritmoAction(EAlgoritmos.DFS);
-
+        props.SetAlgoritmoAction(EAlgoritmos.BFS);
 
     const classes = useStyles();
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={3}>
-                <Paper className={classes.paper}>DFS</Paper>
+                <Paper className={classes.paper}>BFS</Paper>
             </Grid>
             <Grid item xs={6}>
                 <Canvas />
@@ -51,8 +52,8 @@ const Dfs = (props: Props) => {
                 </Grid>
             </Grid>
             <Grid item xs={3}>
-                <DFSPseudoCodigo></DFSPseudoCodigo>
-                <DFSCamposAdicionais></DFSCamposAdicionais>
+                <BFSPseudoCodigo></BFSPseudoCodigo>
+                <BFSCamposAdicionais></BFSCamposAdicionais>
             </Grid>
 
         </Grid>
