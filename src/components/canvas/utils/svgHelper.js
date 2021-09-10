@@ -68,15 +68,18 @@ export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, si
         }
         const caminho = simulacao.bfs.caminho[simulacao.passo]
         if (caminho === undefined) return "#fff";
-        if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
+        if (caminho.verticeV === vertice.id) {
             return "#e29f0d"
+        }
+        if (caminho.verticeE === vertice.id) {
+            return "#f55a42"
         }
         return "#fff";
     })
         .attr("r", vertice => {
             const caminho = simulacao.bfs.caminho[simulacao.passo]
             if (caminho === undefined) return 15;
-            if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
+            if (caminho.verticeE === vertice.id || caminho.verticeV === vertice.id) {
                 return 18;
             }
             return 15;
@@ -92,7 +95,6 @@ export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, si
                 return "blue";
 
             return "red";
-
         })
 }
 
