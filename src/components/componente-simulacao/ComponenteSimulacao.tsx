@@ -47,14 +47,18 @@ const ComponenteSimulacao = (props: Props) => {
     switch (props.simulacao.tipoAlgoritmo) {
       case EAlgoritmos.DFS:
         const dfs = new DFS(props.canvas);
-        var retorno = dfs.main();
-        console.log("Lista de Passos", retorno);
-        props.updateDFSAction(retorno)
-        setQntdPassos(retorno.caminho.length);
+        const retornoDFS = dfs.main();
+        console.log("Lista de Passos", retornoDFS);
+        props.updateDFSAction(retornoDFS)
+        setQntdPassos(retornoDFS.caminho.length);
         break;
       case EAlgoritmos.BFS:
         const bfs = new BFS(props.canvas);
-        bfs.main();
+        const retornoBFS = bfs.main();
+        console.log("Lista de Passos", retornoBFS);
+        props.updateBFSAction(retornoBFS);
+        setQntdPassos(retornoBFS.caminho.length);
+        break;
     }
 
   }

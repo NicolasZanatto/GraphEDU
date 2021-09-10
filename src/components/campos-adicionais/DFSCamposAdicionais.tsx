@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: 210,
             backgroundColor: theme.palette.background.paper,
         },
+        item: {
+            fontSize: "14px",
+            paddingBottom: 0,
+            paddingTop: 0
+        }
     })
 );
 
@@ -29,21 +34,21 @@ const DFSCamposAdicionais = (props: Props) => {
     return (
         <List subheader={<ListSubheader>Campos Adicionais</ListSubheader>} className={classes.root}>
             <ListItem>
-                <ListItemText id="switch-list-label-wifi" primary="Vértice s:" />
+                <ListItemText id="switch-list-label-wifi" classes={{ primary: classes.item }} primary="Vértice s:" />
                 <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-wifi" primary={verticeS || ""} />
+                    <ListItemText id="switch-list-label-wifi" classes={{ primary: classes.item }} primary={verticeS || ""} />
+                </ListItemSecondaryAction>
+            </ListItem >
+            <ListItem>
+                <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary="Vértice v:" />
+                <ListItemSecondaryAction>
+                    <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary={verticeV || ""} />
                 </ListItemSecondaryAction>
             </ListItem>
             <ListItem>
-                <ListItemText id="switch-list-label-bluetooth" primary="Vértice v:" />
+                <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary="Vértices Adjacentes:" />
                 <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-bluetooth" primary={verticeV || ""} />
-                </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-                <ListItemText id="switch-list-label-bluetooth" primary="Vértices Adjacentes:" />
-                <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-bluetooth" primary={verticesAdj || ""} />
+                    <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary={verticesAdj || ""} />
                 </ListItemSecondaryAction>
             </ListItem>
         </List>

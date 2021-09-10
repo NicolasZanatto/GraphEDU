@@ -1,5 +1,5 @@
 import { IGrafo, IAresta } from "../store/types/canvasTypes";
-import { IRetornoDFS, ICaminho, IVIsitadosDFS } from "../store/types/simulacaoTypes";
+import { IRetornoDFS, ICaminho, IVIsitadosDFS } from "../store/types/dfsTypes";
 
 
 class Retorno implements IRetornoDFS {

@@ -1,34 +1,23 @@
 import { Action } from "redux";
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
-import { IVertice } from "./canvasTypes";
-
+import { IRetornoDFS } from "./dfsTypes";
+import { IRetornoBFS } from "./bfsTypes";
 
 export interface ISimulacao {
     dfs: IRetornoDFS,
+    bfs: IRetornoBFS,
     passo: number,
     tipoAlgoritmo?: EAlgoritmos
-}
-
-export interface IRetornoDFS {
-    caminho: Array<ICaminho>
-}
-
-export interface ICaminho {
-    verticeS?: number,
-    verticeV?: number,
-    linha: number,
-    listaAdj: Array<number>
-    listaVisitados: Array<IVIsitadosDFS>
-}
-
-export interface IVIsitadosDFS {
-    idVertice: number;
-    visitado: boolean;
 }
 
 export interface IUpdateDFS extends Action {
     type: "UPDATE_DFS",
     payload: IRetornoDFS
+};
+
+export interface IUpdateBFS extends Action {
+    type: "UPDATE_BFS",
+    payload: IRetornoBFS
 };
 
 export interface ISetPasso extends Action {
@@ -41,4 +30,4 @@ export interface ISetAlgoritmo extends Action {
     payload: EAlgoritmos
 }
 
-export type ISimulacaoAction = | IUpdateDFS | ISetPasso | ISetAlgoritmo;
+export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS | ISetPasso | ISetAlgoritmo;

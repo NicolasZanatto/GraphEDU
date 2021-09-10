@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme: Theme) =>
                 margin: theme.spacing(1),
             },
             borderBottom: "1px solid rgba(0, 0, 0, 0.2)",
+            fontSize: "14px",
             maxWidth: 310,
+            maxHeight: 350,
+            overflowY: "scroll"
 
         },
         p20: {

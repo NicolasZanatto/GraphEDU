@@ -1,9 +1,18 @@
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
-import { IRetornoDFS, IUpdateDFS, ISetPasso } from "../types/simulacaoTypes";
+import { IUpdateDFS, IUpdateBFS, ISetPasso } from "../types/simulacaoTypes";
+import { IRetornoDFS } from "../types/dfsTypes";
+import { IRetornoBFS } from "../types/bfsTypes";
 
 export const updateDFSAction = (retorno: IRetornoDFS): IUpdateDFS => {
     return {
         type: "UPDATE_DFS",
+        payload: retorno
+    }
+}
+
+export const updateBFSAction = (retorno: IRetornoBFS): IUpdateBFS => {
+    return {
+        type: "UPDATE_BFS",
         payload: retorno
     }
 }
