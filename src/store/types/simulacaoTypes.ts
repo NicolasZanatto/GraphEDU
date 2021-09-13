@@ -7,6 +7,7 @@ export interface ISimulacao {
     dfs: IRetornoDFS,
     bfs: IRetornoBFS,
     passo: number,
+    qntdPassos: number,
     tipoAlgoritmo?: EAlgoritmos
 }
 
@@ -25,9 +26,14 @@ export interface ISetPasso extends Action {
     payload: number
 };
 
+export interface ISetQntdPassos extends Action {
+    type: "SET_QNTD_PASSOS",
+    payload: number
+};
+
 export interface ISetAlgoritmo extends Action {
     type: "SET_ALGORITMO",
     payload: EAlgoritmos
 }
 
-export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS | ISetPasso | ISetAlgoritmo;
+export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS | ISetPasso | ISetQntdPassos | ISetAlgoritmo;

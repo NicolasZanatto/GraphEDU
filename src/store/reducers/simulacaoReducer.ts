@@ -8,6 +8,7 @@ const INICIAL_STATE: ISimulacao = {
         caminho: []
     },
     passo: 0,
+    qntdPassos: 0,
     tipoAlgoritmo: undefined
 };
 
@@ -24,6 +25,8 @@ export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAc
             return { ...oldState, bfs }
         case "SET_PASSO":
             return { ...oldState, passo: action.payload }
+        case "SET_QNTD_PASSOS":
+            return { ...oldState, qntdPassos: action.payload }
         case "SET_ALGORITMO":
             console.log("SET_ALGORITMO", action.payload);
             return { ...oldState, tipoAlgoritmo: action.payload }

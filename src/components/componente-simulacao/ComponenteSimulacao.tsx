@@ -14,7 +14,7 @@ import * as SimulacaoActions from "../../store/actions/simulacaoAction";
 import DFS from "../../Algoritmos/DFS";
 import BFS from "../../Algoritmos/BFS";
 import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
-import ContadorPassos from "./utils/Slider";
+import ContadorPassos from "./utils/ContadorPassos";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -51,6 +51,7 @@ const ComponenteSimulacao = (props: Props) => {
         console.log("Lista de Passos", retornoDFS);
         props.updateDFSAction(retornoDFS)
         setQntdPassos(retornoDFS.caminho.length);
+        props.setQntdPassosAction(retornoDFS.caminho.length);
         break;
       case EAlgoritmos.BFS:
         const bfs = new BFS(props.canvas);
@@ -58,6 +59,7 @@ const ComponenteSimulacao = (props: Props) => {
         console.log("Lista de Passos", retornoBFS);
         props.updateBFSAction(retornoBFS);
         setQntdPassos(retornoBFS.caminho.length);
+        props.setQntdPassosAction(retornoBFS.caminho.length);
         break;
     }
 

@@ -1,5 +1,5 @@
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
-import { IUpdateDFS, IUpdateBFS, ISetPasso } from "../types/simulacaoTypes";
+import { IUpdateDFS, IUpdateBFS, ISetPasso, ISetQntdPassos } from "../types/simulacaoTypes";
 import { IRetornoDFS } from "../types/dfsTypes";
 import { IRetornoBFS } from "../types/bfsTypes";
 
@@ -21,6 +21,12 @@ export const setPassoAction = (passo: number): ISetPasso => {
     return {
         type: "SET_PASSO",
         payload: passo
+    }
+}
+export const setQntdPassosAction = (qntdPassos: number): ISetQntdPassos => {
+    return {
+        type: "SET_QNTD_PASSOS",
+        payload: qntdPassos
     }
 }
 
