@@ -14,7 +14,7 @@ import * as SimulacaoActions from "../../store/actions/simulacaoAction";
 import DFS from "../../Algoritmos/DFS";
 import BFS from "../../Algoritmos/BFS";
 import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
-
+import ContadorPassos from "./utils/Slider";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -144,6 +144,7 @@ const ComponenteSimulacao = (props: Props) => {
 
   return (
     <div className={classes.root}>
+      <ContadorPassos></ContadorPassos>
       <IconButton aria-label="Voltar ao Início" onClick={() => handleVoltarAoInicio(props)}>
         <FastRewindIcon className={classes.button} />
       </IconButton>
