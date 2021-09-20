@@ -1,14 +1,14 @@
 import * as d3 from "d3";
-import { mostrarMenuVertices } from "../menus/menuVertices";
-import { mostrarMenuArestas } from "../menus/menuArestas";
+import { mostrarMenuVertices } from "./menus/menuVertices";
+import { mostrarMenuArestas } from "./menus/menuArestas";
 import styles from "./../canvas.module.css";
-import { tickPesoAresta, tickEdge } from "../utils/mathHelper";
+import { tickPesoAresta, tickEdge } from "./utils/mathHelper";
 import { drag } from "./vertices/events/moverVerticesEvent";
 import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/desenharArestaEvent";
 import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
 import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
 import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
-import { AtualizarCoresGrafo } from "../utils/svgHelper";
+import { AtualizarCoresGrafo } from "./utils/svgHelper";
 
 export function runGraph(container, props) {
   const idSVG = "graphSvg";
@@ -134,8 +134,9 @@ export function runGraph(container, props) {
       .call(drag(simulation));
 
     g.append("circle")
+      .attr("class", "CircleCanvas")
       .attr("r", 15)
-      .attr("fill", "#fff")
+      .attr("fill", "#FFF1D0")
       .attr("stroke", "black")
 
     g.append("text")

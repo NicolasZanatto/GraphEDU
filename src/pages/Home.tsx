@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 300,
         fontSize: "40px",
     },
+    subTitle: {
+        textAlign: 'justify',
+        fontWeight: 100,
+        fontSize: "25px",
+    },
     button: {
         padding: theme.spacing(6),
         textAlign: 'center',
@@ -48,6 +53,7 @@ export default function Home() {
         <div className={classes.root}>
             <Container maxWidth="md">
                 <p className={classes.title}>SISTEMA PARA VISUALIZAÇÃO DE ALGORITMOS DE GRAFOS</p>
+                <p className={classes.subTitle}>Algoritmos de Busca:</p>
                 <Grid container xs={8} spacing={8}>
                     <Grid item xs={6}>
                         <Link to='/Algoritmos/DFS'>
@@ -57,6 +63,14 @@ export default function Home() {
                     <Grid item xs={6}>
                         <Link to='/Algoritmos/BFS'>
                             <Paper className={classes.button}>BFS</Paper>
+                        </Link>
+                    </Grid>
+                </Grid>
+                <p className={classes.subTitle}>Algoritmos de Caminho Mínimo:</p>
+                <Grid container xs={8} spacing={8}>
+                    <Grid item xs={6}>
+                        <Link to='/Algoritmos/DIJKSTRA'>
+                            <Paper className={classes.button}>DIJKSTRA</Paper>
                         </Link>
                     </Grid>
                 </Grid>

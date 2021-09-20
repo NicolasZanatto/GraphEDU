@@ -1,8 +1,8 @@
 export interface IRetornoBFS {
-    caminho: Array<ICaminhoBFS>
+    caminho: Array<ICaminhoDIJKSTRA>
 }
 
-export interface ICaminhoBFS {
+export interface ICaminhoDIJKSTRA {
     verticeV?: number,
     verticeE?: number,
     linha: number,

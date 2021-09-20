@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import styles from "./../canvas.module.css";
+import styles from "./../../canvas.module.css";
 
 
 export const menuFactory = (x, y, menuItems, nodes, links, itemSelecionado, svgId, actions, restart) => {

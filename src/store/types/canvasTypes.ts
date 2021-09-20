@@ -28,6 +28,11 @@ export interface IGrafo {
     verticeFinal?: number
 };
 
+export interface ICaminhoVertice {
+    vertice: number,
+    caminho: Array<number>
+}
+
 export interface IAddNode extends Action {
     type: "ADD_NODE",
     payload: IVertice

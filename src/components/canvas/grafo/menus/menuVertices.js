@@ -1,8 +1,8 @@
 import * as d3 from "d3";
 import { menuFactory } from "./menuFactory";
-import { removerVertice } from "../grafo/vertices/events/removerVerticeEvent";
-import { selecionarVerticeInicial } from "../grafo/vertices/events/selecionarVerticeInicialEvent";
-import { selecionarVerticeFinal } from "../grafo/vertices/events/selecionarVerticeFinalEvent";
+import { removerVertice } from "../vertices/events/removerVerticeEvent";
+import { selecionarVerticeInicial } from "../vertices/events/selecionarVerticeInicialEvent";
+import { selecionarVerticeFinal } from "../vertices/events/selecionarVerticeFinalEvent";
 
 const menuVerticesItens = [
     {

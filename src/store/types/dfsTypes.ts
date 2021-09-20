@@ -1,3 +1,4 @@
+import { ICaminhoVertice } from "./canvasTypes";
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
 
 export interface ISimulacao {
@@ -16,6 +17,7 @@ export interface ICaminho {
     linha: number,
     listaAdj: Array<number>
     listaVisitados: Array<IVIsitadosDFS>
+    caminhoVertice : Array<number>
 }
 
 export interface IVIsitadosDFS {

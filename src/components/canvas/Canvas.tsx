@@ -5,11 +5,12 @@ import { connect, ConnectedProps } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as CanvasActions from "../../store/actions/canvasAction";
 import Options from "./opcoes";
+import Legendas from "./legendas/index";
 import { IGrafo } from "../../store/types/canvasTypes";
 import { IState } from "../../store/types/"
 import { Dispatch } from 'redux';
 import { ISimulacao } from "../../store/types/simulacaoTypes";
-
+import { Grid } from "@material-ui/core";
 
 const Canvas = (props: Props) => {
   const containerRef = React.useRef(null);
@@ -42,11 +43,15 @@ const Canvas = (props: Props) => {
 
   restartCanvas();
   return (
-    <div className={styles.canvas}>
-      <Options handleStartCanvas={handleStartCanvas}></Options>
-      <div ref={containerRef} className={styles.container}>
-      </div>
-    </div>
+    <Grid container className={styles.canvas}>
+      <Grid item xs={12}>
+        <Legendas></Legendas>
+      </Grid>
+      <Grid item xs={12}>
+        <Options handleStartCanvas={handleStartCanvas}></Options>
+        <div ref={containerRef} className={styles.container}></div>
+      </Grid>
+    </Grid>
   );
 }
 

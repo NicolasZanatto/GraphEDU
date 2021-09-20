@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { EAlgoritmos } from "../../../Algoritmos/EAlgoritmos";
+import { EAlgoritmos } from "../../../../Algoritmos/EAlgoritmos";
 
 export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, simulacao) => {
 
@@ -16,21 +16,35 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
 
 
 export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, simulacao) => {
-    d3.selectAll("circle").data(nodes, function (d) {
+    d3.selectAll(".CircleCanvas").data(nodes, function (d) {
         return d.id;
     }).attr("fill", vertice => {
-        if (verticeInicial === vertice.id) {
+            
+        const caminho = simulacao.dfs.caminho[simulacao.passo]
+        if (caminho === undefined && verticeInicial === vertice.id) {
             return "#32b31b";
         }
-        if (verticeFinal === vertice.id) {
+        if (caminho === undefined && verticeFinal === vertice.id) {
             return "#f04d4d";
         }
-        const caminho = simulacao.dfs.caminho[simulacao.passo]
-        if (caminho === undefined) return "#fff";
-        if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
-            return "#e29f0d"
+
+        
+        if (caminho === undefined) return "#FFF1D0";
+        const verticeVisitado = caminho.listaVisitados.find(x => { return FindVerticeVisitado(x, vertice) });
+
+        
+
+        if (caminho.caminhoVertice.some(o => o === vertice.id)) {
+            return "#F8D525"
         }
-        return "#fff";
+
+        if (verticeVisitado === undefined) return "#FFF1D0";
+
+        if (!verticeVisitado.visitado)
+            return "#07A0C3";
+
+
+        return "#DD1C1A";
     })
         .attr("r", vertice => {
             const caminho = simulacao.dfs.caminho[simulacao.passo]
@@ -40,24 +54,11 @@ export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, si
             }
             return 15;
         })
-        .attr("stroke", vertice => {
-            const caminho = simulacao.dfs.caminho[simulacao.passo]
-            if (caminho === undefined) return "black";
-            const verticeVisitado = caminho.listaVisitados.find(x => { return FindVerticeVisitado(x, vertice) });
-
-            if (verticeVisitado === undefined) return "black";
-
-            if (!verticeVisitado.visitado)
-                return "blue";
-
-            return "red";
-
-        })
 }
 
 
 export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, simulacao) => {
-    d3.selectAll("circle").data(nodes, function (d) {
+    d3.selectAll(".CircleCanvas").data(nodes, function (d) {
         return d.id;
     }).attr("fill", vertice => {
         if (verticeInicial === vertice.id) {

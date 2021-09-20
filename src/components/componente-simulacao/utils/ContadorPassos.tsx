@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ContadorPassos = (props: Props) => {
   const [passo, setPasso] = useState(0);
-  const [qntdPassos, setQntdPassos] = useState(0);
+  const [qntdPassos, setQntdPassos] = useState(1);
 
   const marks = [
     {
@@ -27,8 +27,8 @@ const ContadorPassos = (props: Props) => {
       label: '0',
     },
     {
-      value: qntdPassos,
-      label: `${qntdPassos}`,
+      value: qntdPassos === 0? 1 : qntdPassos,
+      label: `${qntdPassos === 0? 1 : qntdPassos}`,
     },
   ];
 

@@ -10,6 +10,7 @@ import './App.css';
 
 import Dfs from "./pages/Dfs";
 import Bfs from "./pages/Bfs";
+import Dijkstra from "./pages/Dijkstra";
 import Home from "./pages/Home";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" exact component={Home}></Route>
             <Route path="/Algoritmos/DFS" component={Dfs}></Route>
             <Route path="/Algoritmos/BFS" component={Bfs}></Route>
+            <Route path="/Algoritmos/DIJKSTRA" component={Dijkstra}></Route>
           </Switch>
         </Router>
       </Provider>
