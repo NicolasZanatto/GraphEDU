@@ -94,15 +94,32 @@ class DIJKSTRA {
             verticeE);
     }
 
-    obterVerticeComDistanciaMinima(u: number){
-        var distancias = this.distancia.filter(o => o.peso !== undefined).map(m => new DistanciaNaoNula(m.idVertice,m.peso));
-        this.distancia.sort((a,b) => {return (b.peso - a.peso)})
+    obterVerticeComDistanciaMinima(){
+        var distancias = this.distancia
+                            .filter(o => !o.infinito)
+                            .map(m => new DistanciaNaoNula(m.idVertice,m.peso ?? 1));
+
+        distancias.sort((a,b) => {return (b.peso - a.peso)});
+        return distancias[0];
+    }
+
+
+    obterVerticeDestino(v: number | undefined, aresta: IAresta) {
+        return aresta.source.id === v ? aresta.target.id : aresta.source.id;
+    }
+
+    obterArestaUV(u: number,v: number){
+        return this.grafo.links.filter(o => o.source.id === u && o.target.id === v)[0];
     }
 
     obtemListaAdjacencias(s: number) {
         return this.grafo.links.filter((aresta) => {
             return this.grafo.dirigido ? (aresta.source.id === s) : (aresta.source.id === s || aresta.target.id === s)
         });
+    }
+
+    obterDistancia(vertice : number){
+        return this.distancia.filter(o => o.idVertice === vertice)[0]
     }
 
     obterVerticesAdjacentes(listaAdj: Array<IAresta>, verticeInicial?: number) {
@@ -124,7 +141,20 @@ class DIJKSTRA {
         this.Q = this.grafo.nodes.map(vertice => vertice.id);
         this.adicionarPasso(7);
         while(this.Q.length > 0){
-            var u = 
+            var u = this.obterVerticeComDistanciaMinima();
+            if(u.idVertice === this.grafo.verticeFinal){
+                return;
+            }
+            this.adj = this.obtemListaAdjacencias(u.idVertice);
+            this.adj.forEach(aresta => {
+                var v = this.obterVerticeDestino(u.idVertice, aresta)
+                if(this.Q.includes(v)){
+                    var e = this.obterArestaUV(u.idVertice, v);
+                    if(this.distancia){
+                        
+                    }
+                }
+            })
         }
 
 
