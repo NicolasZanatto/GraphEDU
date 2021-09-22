@@ -1,11 +1,18 @@
 import * as d3 from "d3";
 import { EAlgoritmos } from "../../../../Algoritmos/EAlgoritmos";
 
-export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, simulacao) => {
+const CorVertice = "#FFF1D0";
+const CorVerticeInicial = "#32b31b";
+const CorVerticeFinal = "#f04d4d";
+const CorCaminhoVertice = "#F8D525";
+const CorVerticeNaoVisitado = "#07A0C3";
+const CorVerticeVisitado = "#DD1C1A";
+
+export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, simulacao, styles) => {
 
     switch (simulacao.tipoAlgoritmo) {
         case EAlgoritmos.DFS:
-            AtualizarGrafoDFS(verticeInicial, verticeFinal, nodes, links, simulacao);
+            AtualizarGrafoDFS(verticeInicial, verticeFinal, nodes, links, simulacao,styles);
             break;
         case EAlgoritmos.BFS:
             AtualizarGrafoBFS(verticeInicial, verticeFinal, nodes, links, simulacao);
@@ -15,36 +22,32 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
 }
 
 
-export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, simulacao) => {
+export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, simulacao, styles) => {
     d3.selectAll(".CircleCanvas").data(nodes, function (d) {
         return d.id;
-    }).attr("fill", vertice => {
-            
+    }).attr("fill", vertice => {            
         const caminho = simulacao.dfs.caminho[simulacao.passo]
         if (caminho === undefined && verticeInicial === vertice.id) {
-            return "#32b31b";
+            return CorVerticeInicial;
         }
         if (caminho === undefined && verticeFinal === vertice.id) {
-            return "#f04d4d";
+            return CorVerticeFinal;
         }
-
         
-        if (caminho === undefined) return "#FFF1D0";
+        if (caminho === undefined) return CorVertice;
+        
         const verticeVisitado = caminho.listaVisitados.find(x => { return FindVerticeVisitado(x, vertice) });
-
-        
-
         if (caminho.caminhoVertice.some(o => o === vertice.id)) {
-            return "#F8D525"
+            return CorCaminhoVertice;
         }
 
-        if (verticeVisitado === undefined) return "#FFF1D0";
+        if (verticeVisitado === undefined) return CorVertice;
 
         if (!verticeVisitado.visitado)
-            return "#07A0C3";
+            return CorVerticeNaoVisitado;
 
 
-        return "#DD1C1A";
+        return CorVerticeVisitado;
     })
         .attr("r", vertice => {
             const caminho = simulacao.dfs.caminho[simulacao.passo]
@@ -53,7 +56,24 @@ export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, si
                 return 18;
             }
             return 15;
-        })
+        });
+
+
+    // Atualização arestas:
+
+    d3.selectAll(`${styles.edge}`).data(links, function (d) {
+        return "v" + d.source.id + "-v" + d.target.id;
+      })
+      .attr("fill", aresta => {
+            const caminho = simulacao.dfs.caminho[simulacao.passo];
+            if(caminho === undefined) return "black";
+
+            if((caminho.verticeS === aresta.source.id && caminho.verticeV === aresta.target.id) || (caminho.verticeS === aresta.target.id && caminho.verticeV === aresta.source.id))
+                return "#F8D525";
+
+            return "black";
+
+      })
 }
 
 
@@ -61,27 +81,36 @@ export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, si
     d3.selectAll(".CircleCanvas").data(nodes, function (d) {
         return d.id;
     }).attr("fill", vertice => {
-        if (verticeInicial === vertice.id) {
-            return "#32b31b";
-        }
-        if (verticeFinal === vertice.id) {
-            return "#f04d4d";
-        }
         const caminho = simulacao.bfs.caminho[simulacao.passo]
-        if (caminho === undefined) return "#fff";
-        if (caminho.verticeV === vertice.id) {
-            return "#e29f0d"
+        if (caminho === undefined && verticeInicial === vertice.id) {
+            return CorVerticeInicial;
         }
-        if (caminho.verticeE === vertice.id) {
-            return "#f55a42"
+        if (caminho === undefined && verticeFinal === vertice.id) {
+            return CorVerticeFinal;
         }
-        return "#fff";
+        
+        if (caminho === undefined) return CorVertice;
+        
+        const verticeVisitado = caminho.listaVisitados.find(x => { return FindVerticeVisitado(x, vertice) });
+        if (caminho.filaQ.some(o => o === vertice.id)) {
+            return CorCaminhoVertice;
+        }
+
+        if (verticeVisitado === undefined) return CorVertice;
+
+        if (!verticeVisitado.visitado)
+            return CorVerticeNaoVisitado;
+
+
+        return CorVerticeVisitado;
+
+        
     })
         .attr("r", vertice => {
             const caminho = simulacao.bfs.caminho[simulacao.passo]
             if (caminho === undefined) return 15;
             if (caminho.verticeE === vertice.id || caminho.verticeV === vertice.id) {
-                return 18;
+                return 19;
             }
             return 15;
         })
@@ -93,9 +122,9 @@ export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, si
             if (verticeVisitado === undefined) return "black";
 
             if (!verticeVisitado.visitado)
-                return "blue";
+                return CorVerticeNaoVisitado;
 
-            return "red";
+            return CorVerticeVisitado;
         })
 }
 

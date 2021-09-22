@@ -1,11 +1,20 @@
 import { IGrafo, IAresta } from "../store/types/canvasTypes";
 import { IVisitadosBFS, IRetornoBFS, ICaminhoBFS } from "../store/types/bfsTypes";
+import { CaminhoVertice } from "./Common/CaminhoVertice";
 
 class Retorno implements IRetornoBFS {
     caminho = new Array<Caminho>();
 
-    adicionarPasso(linha: number, listaVisitados: Array<IVisitadosBFS>, filaQ: Array<number>, listaAdj: Array<number>, verticeV?: number, verticeE?: number) {
-        this.caminho.push(new Caminho(linha, listaVisitados, filaQ, listaAdj, verticeV, verticeE));
+    adicionarPasso(
+        linha: number, 
+        listaVisitados: Array<IVisitadosBFS>, 
+        filaQ: Array<number>, 
+        listaAdj: Array<number>, 
+        caminhoVertice: Array<number>, 
+        verticeV?: number, 
+        verticeE?: number) {
+        this.caminho.push(
+            new Caminho(linha, listaVisitados, filaQ, listaAdj, caminhoVertice, verticeV, verticeE));
     }
 }
 
@@ -25,14 +34,16 @@ class Caminho implements ICaminhoBFS {
     filaQ = new Array<number>();
     listaAdj = new Array<number>();
     listaVisitados = new Array<Visitados>();
+    caminhoVertice = new Array<number>();
 
-    constructor(linha: number, listaVisitados: Array<Visitados>, filaQ: Array<number>, listaAdj: Array<number>, verticeV?: number, verticeE?: number) {
+    constructor(linha: number, listaVisitados: Array<Visitados>, filaQ: Array<number>, listaAdj: Array<number>, caminhoVertice: Array<number>, verticeV?: number, verticeE?: number) {
         this.verticeV = verticeV;
         this.verticeE = verticeE;
         this.linha = linha;
         filaQ.forEach(val => this.filaQ.push(val));
         listaAdj.forEach(val => this.listaAdj.push(val));
         listaVisitados.forEach(val => this.listaVisitados.push(Object.assign({}, val)));
+        this.caminhoVertice = caminhoVertice;
     }
 }
 
@@ -44,13 +55,21 @@ class BFS {
     retorno = new Retorno();
     Q = new Array<number>();
     listaAdj = new Array<IAresta>();
+    caminhoVertice = new Array<CaminhoVertice>()
 
     constructor(grafo: IGrafo) {
         this.grafo = grafo;
     }
 
-    adicionarPasso(linha: number, verticeV?: number, verticeE?: number) {
-        this.retorno.adicionarPasso(linha, this.visitados, this.Q, this.listaAdj.map(o => { return this.obterVerticeDestino(verticeV, o) }), verticeV, verticeE)
+    adicionarPasso(linha: number, verticeV?: number, verticeE?: number, verticeS?: number) {
+        this.retorno.adicionarPasso(
+            linha, 
+            this.visitados, 
+            this.Q, 
+            this.listaAdj.map(o => { return this.obterVerticeDestino(verticeV, o) }), 
+            this.caminhoVertice.find(x => x.vertice === verticeS || (verticeE === undefined? x.vertice === verticeV : x.vertice === verticeE))?.caminho?? [],
+            verticeV, 
+            verticeE)
     }
 
     setVisitado(v: number) {
@@ -65,6 +84,34 @@ class BFS {
         return this.visitados.some(vertice => {
             return (vertice.idVertice === v || vertice.idVertice === v) && !vertice.visitado
         })
+    }
+
+    obterCaminhoAteVerticeAtual(verticeV?: number, verticeE?: number){
+        console.log("verticeV",verticeV);
+        console.log("verticeE",verticeE);
+        var caminho = new Array<number>();
+        console.log("this.caminhoVertice",this.caminhoVertice);
+        //Obtendo o caminho do vérticeS e inserindo na variável caminho;
+        this.caminhoVertice.find(o => o.vertice === verticeV)?.caminho.forEach(val => caminho.push(val));
+    
+        if(verticeE !== undefined)
+            caminho.push(verticeE);
+        // Setando novo caminho para o verticeE, obtendo caminho do verticeV + verticeE
+        
+        const elementsIndex = this.caminhoVertice.findIndex(element => element.vertice === verticeE )
+        console.log("elementsIndex",elementsIndex);
+        let copyCaminhoVertice = [...this.caminhoVertice];
+        copyCaminhoVertice[elementsIndex].caminho =  caminho;
+
+        console.log(`Caminho Vértice ${verticeV}:`, caminho);
+    }
+
+    adicionarCaminhoVerticeInicial(verticeInicial : number){
+        const elementsIndex = this.caminhoVertice.findIndex(element => element.vertice === verticeInicial )
+        console.log("elementsIndex",elementsIndex);
+        let copyCaminhoVertice = [...this.caminhoVertice];
+        copyCaminhoVertice[elementsIndex].caminho =  [verticeInicial];
+        console.log("Caminho:", this.caminhoVertice);
     }
 
     obterVerticeDestino(v: number | undefined, aresta: IAresta) {
@@ -82,13 +129,14 @@ class BFS {
         this.adicionarPasso(2);
         this.adicionarPasso(3);
         this.setVisitado(s);
-        this.adicionarPasso(4);
+        this.adicionarCaminhoVerticeInicial(s);
+        this.adicionarPasso(4,undefined,undefined,s);
         this.Q.push(s);
-        this.adicionarPasso(5);
+        this.adicionarPasso(5,undefined,undefined,s);
         while (this.Q.length > 0) {
-            this.adicionarPasso(6);
+            this.adicionarPasso(6,undefined,undefined,s);
             let v = this.Q.shift();
-            this.adicionarPasso(7, v);
+            this.adicionarPasso(7, v,undefined,s);
             this.listaAdj = this.obtemListaAdjacencias(v);
             this.listaAdj.forEach((e) => {
                 var verticeDestino = this.obterVerticeDestino(v, e)
@@ -97,6 +145,7 @@ class BFS {
                     this.Q.push(verticeDestino)
                     this.adicionarPasso(9, v, verticeDestino);
                     this.setVisitado(verticeDestino);
+                    this.obterCaminhoAteVerticeAtual(v, verticeDestino);
                     this.adicionarPasso(10, v, verticeDestino);
                 }
                 this.adicionarPasso(11, v, verticeDestino);
@@ -113,6 +162,7 @@ class BFS {
         this.grafo.nodes.forEach((vertice) => {
             this.adicionarPasso(16, vertice.id);
             this.visitados.push(new Visitados(vertice.id, false));
+            this.caminhoVertice.push(new CaminhoVertice(vertice.id, []))
             this.adicionarPasso(17, vertice.id);
         });
         this.adicionarPasso(19);

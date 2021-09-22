@@ -48,7 +48,6 @@ const ComponenteSimulacao = (props: Props) => {
       case EAlgoritmos.DFS:
         const dfs = new DFS(props.canvas);
         const retornoDFS = dfs.main();
-        console.log("Lista de Passos", retornoDFS);
         props.updateDFSAction(retornoDFS)
         setQntdPassos(retornoDFS.caminho.length);
         props.setQntdPassosAction(retornoDFS.caminho.length);
@@ -56,7 +55,6 @@ const ComponenteSimulacao = (props: Props) => {
       case EAlgoritmos.BFS:
         const bfs = new BFS(props.canvas);
         const retornoBFS = bfs.main();
-        console.log("Lista de Passos", retornoBFS);
         props.updateBFSAction(retornoBFS);
         setQntdPassos(retornoBFS.caminho.length);
         props.setQntdPassosAction(retornoBFS.caminho.length);
@@ -74,7 +72,6 @@ const ComponenteSimulacao = (props: Props) => {
   }
 
   const handleStartSimulacao = (props: Props) => {
-    console.log("Canvas:", props.canvas);
     setStartSimulacao(!startSimulacao);
     if (!startSimulacao) {
       ExecutarAlgoritmo(props);
@@ -117,12 +114,14 @@ const ComponenteSimulacao = (props: Props) => {
         setPasso(0);
         props.setPassoAction(0);
       }
+      console.log(props.simulacao.bfs.caminho[props.simulacao.passo]);
     }
     if (avancarAoFinal) {
       setStartSimulacao(false);
       setAvancarAoFinal(false);
       setPasso(qntdPassos - 1);
       props.setPassoAction(qntdPassos - 1);
+      console.log(props.simulacao.bfs.caminho)
     }
 
     const timeout = setTimeout(() => {

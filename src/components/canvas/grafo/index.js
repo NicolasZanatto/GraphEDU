@@ -163,7 +163,7 @@ export function runGraph(container, props) {
     },
     restart: (data, simulacao) => {
       UpdateEdgeValueOnSVG(links);
-      AtualizarCoresGrafo(data.verticeInicial, data.verticeFinal, nodes, links, simulacao);
+      AtualizarCoresGrafo(data.verticeInicial, data.verticeFinal, nodes, links, simulacao, styles);
       restart();
     }
   };

@@ -54,7 +54,7 @@ const DijkstraPseudoCodigo = (props: Props) => {
         <div className={classes.root}>
             <div id="code1"><p>Dijkstra(s){chaveEsquerda}</p></div>
             <div id="code2"><p className={classes.p20}>para cada v em G</p></div>
-            <div id="code3"><p className={classes.p20}>d[v] = infinito</p></div>
+            <div id="code3"><p className={classes.p40}>d[v] = infinito</p></div>
             <div id="code4"><p className={classes.p20}>fimpara</p></div>
             <div id="code5"><p className={classes.p20}>d[s] = 0</p></div>
             <div id="code6"><p className={classes.p20}>Q = Vertices que a distância ainda não foi calculada</p></div>

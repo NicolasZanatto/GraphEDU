@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
 import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
+import LegendasDFS from "../components/canvas/legendas/LegendasDFS";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     },
     simulacao: {
         textAlign: 'center',
+    },
+    canvas: {
+        boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.6)"
     }
 }));
 const Dfs = (props: Props) => {
@@ -45,7 +49,14 @@ const Dfs = (props: Props) => {
                 <Paper className={classes.paper}>DFS</Paper>
             </Grid>
             <Grid item xs={6}>
-                <Canvas />
+                <Grid container className={classes.canvas}>
+                    <Grid item xs={12}>
+                        <LegendasDFS></LegendasDFS>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Canvas></Canvas>
+                    </Grid>
+                </Grid>
                 <Grid className={classes.simulacao} item xs={12}>
                     <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
                 </Grid>

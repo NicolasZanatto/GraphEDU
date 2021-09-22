@@ -1,4 +1,4 @@
-export interface IRetornoBFS {
+export interface IRetornoDIJKSTRA {
     caminho: Array<ICaminhoDIJKSTRA>
 }
 
@@ -8,10 +8,16 @@ export interface ICaminhoDIJKSTRA {
     linha: number,
     filaQ: Array<number>,
     listaAdj: Array<number>,
-    listaVisitados: Array<IVisitadosBFS>
+    listaDistancia: Array<IDistancia>
 }
 
-export interface IVisitadosBFS {
+export interface IDistancia {
     idVertice: number;
-    visitado: boolean;
+    peso?: number;
+    infinito: boolean;
+}
+
+export interface IDistanciaNaoInfinitas {
+    idVertice: number;
+    peso: number;
 }

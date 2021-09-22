@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const DIJKSTRACamposAdicionais = (props: Props) => {
     const classes = useStyles();
     const passo = props.simulacao.bfs.caminho[props.simulacao.passo];
-    console.log("Passo Campos Adicionais", passo);
     const verticeE = passo !== undefined ? passo.verticeE : 0;
     const verticeV = passo !== undefined ? passo.verticeV : 0;
     const filaQ = passo !== undefined ? passo.filaQ.toString() : "";

@@ -139,6 +139,7 @@ class DFS {
                     this.adicionarPasso(4, s, vertice.idVertice);
                     this.adicionarPasso(5, s, vertice.idVertice);
                     this.dfs(vertice.idVertice);
+                    this.adj = this.obtemListaAdjacencias(s);
                     this.adicionarPasso(3, s, undefined);
 
                 })

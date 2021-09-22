@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const DFSCamposAdicionais = (props: Props) => {
     const classes = useStyles();
     const passo = props.simulacao.dfs.caminho[props.simulacao.passo];
-    console.log("Passo Campos Adicionais", passo);
     const verticeS = passo !== undefined ? passo.verticeS : 0;
     const verticeV = passo !== undefined ? passo.verticeV : 0;
     const verticesAdj = passo !== undefined ? passo.listaAdj.toString() : "";

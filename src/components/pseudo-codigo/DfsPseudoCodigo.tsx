@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const DFSPseudoCodigo = (props: Props) => {
     const classes = useStyles();
     const passo = props.simulacao.dfs.caminho[props.simulacao.passo];
-    console.log("Pseudo Passo:", passo);
     const classNameC1 = passo?.linha === 1 ? classes.selected : "";
     const classNameC2 = passo?.linha === 2 ? classes.selected : "";
     const classNameC3 = passo?.linha === 3 ? classes.selected : "";

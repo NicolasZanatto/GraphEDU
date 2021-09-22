@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const BFSPseudoCodigo = (props: Props) => {
     const classes = useStyles();
     const passo = props.simulacao.bfs.caminho[props.simulacao.passo];
-    console.log("Pseudo Passo:", classes.selected);
     if (passo !== undefined) {
         const numeroLinhas = 21;
         for (let i = 1; i <= numeroLinhas; i++) {
