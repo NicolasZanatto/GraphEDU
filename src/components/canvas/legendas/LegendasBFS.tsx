@@ -40,6 +40,18 @@ export default function Legendas() {
                     </svg>
                     Vértice final
                 </span>
+                <span>
+                    <svg width="5%" height="30">
+                        <circle cx="15" cy="20" r="8" stroke="#07A0C3" strokeWidth="2" fill="#07A0C3" />
+                    </svg>
+                    Vértice não visitado
+                </span>
+                <span>
+                    <svg width="5%" height="30">
+                        <circle cx="15" cy="20" r="8" stroke="#DD1C1A" strokeWidth="2" fill="#DD1C1A" />
+                    </svg>
+                    Vértice visitado
+                </span>
             </Grid>
             <Grid item xs className={classes.svg}>
                 <span>
@@ -50,16 +62,16 @@ export default function Legendas() {
                 </span>
                 <span>
                     <svg width="5%" height="30">
-                        <circle cx="15" cy="20" r="8" stroke="black" strokeWidth="2" fill="#07A0C3" />
+                        <circle cx="15" cy="20" r="8" stroke="#07A0C3" strokeWidth="2" fill="#F8D525" />
                     </svg>
-                    Vértice não visitado
+                    Fila Q e Vértice não visitado
                 </span>
                 <span>
                     <svg width="5%" height="30">
-                        <circle cx="15" cy="20" r="8" stroke="black" strokeWidth="2" fill="#DD1C1A" />
+                        <circle cx="15" cy="20" r="8" stroke="#DD1C1A" strokeWidth="2" fill="#F8D525" />
                     </svg>
-                    Vértice visitado
-                </span>
+                    Fila Q e Vértice visitado
+                </span>               
             </Grid>
         </Grid> 
     );

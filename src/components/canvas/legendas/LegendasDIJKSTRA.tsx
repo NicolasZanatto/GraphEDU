@@ -46,7 +46,7 @@ export default function Legendas() {
                     <svg width="5%" height="30">
                         <circle cx="15" cy="20" r="8" stroke="black" strokeWidth="2" fill="#F8D525" />
                     </svg>
-                    Q
+                    Conjunto Q
                 </span>
                 <span>
                     <svg width="5%" height="30">

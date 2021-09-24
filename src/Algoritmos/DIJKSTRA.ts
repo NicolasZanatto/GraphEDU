@@ -118,8 +118,14 @@ class DIJKSTRA {
         });
     }
 
-    obterDistancia(vertice : number){
-        return this.distancia.filter(o => o.idVertice === vertice)[0]
+    obterDistancia(vertice? : number){
+        return this.distancia.find(o => o.idVertice === vertice)?.peso ?? 10000000
+    }
+
+    setDistancia(vertice? : number, valor?: number){
+        let copyDistancia = [...this.distancia.filter(x => x.idVertice === vertice)];
+        const elementsIndex = this.distancia.findIndex(element => element.idVertice === vertice )
+        copyDistancia[elementsIndex].peso =  valor;
     }
 
     obterVerticesAdjacentes(listaAdj: Array<IAresta>, verticeInicial?: number) {
@@ -150,8 +156,9 @@ class DIJKSTRA {
                 var v = this.obterVerticeDestino(u.idVertice, aresta)
                 if(this.Q.includes(v)){
                     var e = this.obterArestaUV(u.idVertice, v);
-                    if(this.distancia){
-                        
+                    var distanciaU = this.obterDistancia(u.idVertice);
+                    if(this.obterDistancia(v) > distanciaU + e.value){
+                        this.setDistancia(v, distanciaU + e.value);
                     }
                 }
             })
@@ -162,8 +169,7 @@ class DIJKSTRA {
 
     main() {
         this.dijkstra(this.grafo.verticeInicial ?? 1);
-        
-    }
+     }
 
 }
 

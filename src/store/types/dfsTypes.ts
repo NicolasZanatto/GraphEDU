@@ -18,6 +18,7 @@ export interface ICaminho {
     listaAdj: Array<number>
     listaVisitados: Array<IVIsitadosDFS>
     caminhoVertice : Array<number>
+    caminhoAresta : Array<number>
 }
 
 export interface IVIsitadosDFS {

@@ -8,7 +8,8 @@ export interface ICaminhoBFS {
     linha: number,
     filaQ: Array<number>,
     listaAdj: Array<number>,
-    listaVisitados: Array<IVisitadosBFS>
+    listaVisitados: Array<IVisitadosBFS>,
+    caminhoAresta: Array<number>
 }
 
 export interface IVisitadosBFS {

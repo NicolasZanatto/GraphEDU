@@ -11,10 +11,11 @@ class Retorno implements IRetornoBFS {
         filaQ: Array<number>, 
         listaAdj: Array<number>, 
         caminhoVertice: Array<number>, 
+        caminhoAresta: Array<number>, 
         verticeV?: number, 
         verticeE?: number) {
         this.caminho.push(
-            new Caminho(linha, listaVisitados, filaQ, listaAdj, caminhoVertice, verticeV, verticeE));
+            new Caminho(linha, listaVisitados, filaQ, listaAdj, caminhoVertice,caminhoAresta, verticeV, verticeE));
     }
 }
 
@@ -35,8 +36,9 @@ class Caminho implements ICaminhoBFS {
     listaAdj = new Array<number>();
     listaVisitados = new Array<Visitados>();
     caminhoVertice = new Array<number>();
+    caminhoAresta = new Array<number>();
 
-    constructor(linha: number, listaVisitados: Array<Visitados>, filaQ: Array<number>, listaAdj: Array<number>, caminhoVertice: Array<number>, verticeV?: number, verticeE?: number) {
+    constructor(linha: number, listaVisitados: Array<Visitados>, filaQ: Array<number>, listaAdj: Array<number>, caminhoVertice: Array<number>,caminhoAresta: Array<number>, verticeV?: number, verticeE?: number) {
         this.verticeV = verticeV;
         this.verticeE = verticeE;
         this.linha = linha;
@@ -44,6 +46,7 @@ class Caminho implements ICaminhoBFS {
         listaAdj.forEach(val => this.listaAdj.push(val));
         listaVisitados.forEach(val => this.listaVisitados.push(Object.assign({}, val)));
         this.caminhoVertice = caminhoVertice;
+        caminhoAresta.forEach(val => this.caminhoAresta.push(val));
     }
 }
 
@@ -56,6 +59,7 @@ class BFS {
     Q = new Array<number>();
     listaAdj = new Array<IAresta>();
     caminhoVertice = new Array<CaminhoVertice>()
+    caminhoAresta = new Array<number>()
 
     constructor(grafo: IGrafo) {
         this.grafo = grafo;
@@ -68,8 +72,16 @@ class BFS {
             this.Q, 
             this.listaAdj.map(o => { return this.obterVerticeDestino(verticeV, o) }), 
             this.caminhoVertice.find(x => x.vertice === verticeS || (verticeE === undefined? x.vertice === verticeV : x.vertice === verticeE))?.caminho?? [],
+            this.caminhoAresta,
             verticeV, 
             verticeE)
+    }
+    adicionarCaminhoAresta(origem?: number, destino?: number){
+        var idAresta = this.grafo.dirigido? 
+                            this.grafo.links.filter(x => x.source.id === origem && x.target.id === destino)[0].id :
+                            this.grafo.links.filter(x => (x.source.id === origem && x.target.id === destino) 
+                                                    || (x.target.id === origem && x.source.id === destino))[0].id
+        this.caminhoAresta.push(idAresta); 
     }
 
     setVisitado(v: number) {
@@ -142,11 +154,12 @@ class BFS {
                 var verticeDestino = this.obterVerticeDestino(v, e)
                 this.adicionarPasso(8, v, verticeDestino);
                 if (this.foiVisitado(verticeDestino)) {
-                    this.Q.push(verticeDestino)
                     this.adicionarPasso(9, v, verticeDestino);
+                    this.Q.push(verticeDestino)
+                    this.adicionarPasso(10, v, verticeDestino);
                     this.setVisitado(verticeDestino);
                     this.obterCaminhoAteVerticeAtual(v, verticeDestino);
-                    this.adicionarPasso(10, v, verticeDestino);
+                    this.adicionarCaminhoAresta(v, verticeDestino);
                 }
                 this.adicionarPasso(11, v, verticeDestino);
             })

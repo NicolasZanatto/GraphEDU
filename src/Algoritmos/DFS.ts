@@ -9,7 +9,8 @@ class Retorno implements IRetornoDFS {
         linha: number, 
         listaVisitados: Array<IVIsitadosDFS>, 
         listaAdj: Array<number>, 
-        caminhoVertice: Array<number>, 
+        caminhoVertice: Array<number>,
+        caminhoAresta: Array<number>, 
         verticeS?: number, 
         verticeV?: number) {
         this.caminho.push(
@@ -18,6 +19,7 @@ class Retorno implements IRetornoDFS {
                 listaVisitados, 
                 listaAdj, 
                 caminhoVertice, 
+                caminhoAresta,
                 verticeS, 
                 verticeV)
         );
@@ -31,14 +33,16 @@ class Caminho implements ICaminho {
     listaAdj = new Array<number>();
     listaVisitados = new Array<Visitados>();
     caminhoVertice = new Array<number>();
+    caminhoAresta = new Array<number>();
 
-    constructor(linha: number, listaVisitados: Array<Visitados>, listaAdj: Array<number>, caminhoVertice: Array<number>, verticeS?: number, verticeV?: number) {
+    constructor(linha: number, listaVisitados: Array<Visitados>, listaAdj: Array<number>, caminhoVertice: Array<number>, caminhoAresta: Array<number>, verticeS?: number, verticeV?: number) {
         this.verticeS = verticeS;
         this.verticeV = verticeV;
         this.linha = linha;
         this.listaAdj = listaAdj;
         listaVisitados.forEach(val => this.listaVisitados.push(Object.assign({}, val)));
         this.caminhoVertice = caminhoVertice;
+        caminhoAresta.forEach(val => this.caminhoAresta.push(val));
     }
 }
 
@@ -58,6 +62,7 @@ class DFS {
     visitados = new Array<Visitados>();
     adj = Array<IAresta>();
     caminhoVertice = new Array<CaminhoVertice>()
+    caminhoAresta = new Array<number>()
 
     constructor(grafo: IGrafo) {
         this.grafo = grafo;
@@ -69,8 +74,18 @@ class DFS {
             this.visitados, 
             this.obterVerticesAdjacentes(this.adj, verticeS),
             this.caminhoVertice.find(x => x.vertice === verticeS)?.caminho?? [],
+            this.caminhoAresta,
             verticeS, 
             verticeV);
+    }
+
+    adicionarCaminhoAresta(s: number, v: number){
+        
+        var idAresta = this.grafo.dirigido? 
+                            this.grafo.links.filter(x => x.source.id === s && x.target.id === v)[0].id :
+                            this.grafo.links.filter(x => (x.source.id === s && x.target.id === v) 
+                                                    || (x.target.id === s && x.source.id === v))[0].id
+        this.caminhoAresta.push(idAresta); 
     }
 
     obterCaminhoAteVerticeAtual(verticeS: number, verticeV: number){
@@ -138,6 +153,7 @@ class DFS {
                     console.log("CaminhoPósAdicao", testeCaminho);
                     this.adicionarPasso(4, s, vertice.idVertice);
                     this.adicionarPasso(5, s, vertice.idVertice);
+                    this.adicionarCaminhoAresta(s, vertice.idVertice)
                     this.dfs(vertice.idVertice);
                     this.adj = this.obtemListaAdjacencias(s);
                     this.adicionarPasso(3, s, undefined);

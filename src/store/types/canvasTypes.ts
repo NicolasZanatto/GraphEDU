@@ -16,7 +16,7 @@ export interface IAresta {
     id: number,
     source: IVertice,
     target: IVertice,
-    value: Number
+    value: number
 };
 
 export interface IGrafo {

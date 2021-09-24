@@ -28,8 +28,9 @@
 
 .edge{
   fill:none;
-  stroke: #000000;
   stroke-width: 3.8;
+  transition-property: stroke;
+  transition-duration: 500ms;
 }
 .edge:hover{
   stroke: #f11303b6

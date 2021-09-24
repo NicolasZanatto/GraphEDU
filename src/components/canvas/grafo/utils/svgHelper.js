@@ -25,12 +25,14 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
 export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, simulacao, styles) => {
     d3.selectAll(".CircleCanvas").data(nodes, function (d) {
         return d.id;
-    }).attr("fill", vertice => {            
+    })
+    .transition()
+    .attr("fill", vertice => {            
         const caminho = simulacao.dfs.caminho[simulacao.passo]
-        if (caminho === undefined && verticeInicial === vertice.id) {
+        if (verticeInicial === vertice.id) {
             return CorVerticeInicial;
         }
-        if (caminho === undefined && verticeFinal === vertice.id) {
+        if (verticeFinal === vertice.id) {
             return CorVerticeFinal;
         }
         
@@ -49,6 +51,7 @@ export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, si
 
         return CorVerticeVisitado;
     })
+        .transition()
         .attr("r", vertice => {
             const caminho = simulacao.dfs.caminho[simulacao.passo]
             if (caminho === undefined) return 15;
@@ -58,34 +61,36 @@ export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, si
             return 15;
         });
 
-
-    // Atualização arestas:
-
-    d3.selectAll(`${styles.edge}`).data(links, function (d) {
-        return "v" + d.source.id + "-v" + d.target.id;
-      })
-      .attr("fill", aresta => {
-            const caminho = simulacao.dfs.caminho[simulacao.passo];
-            if(caminho === undefined) return "black";
-
-            if((caminho.verticeS === aresta.source.id && caminho.verticeV === aresta.target.id) || (caminho.verticeS === aresta.target.id && caminho.verticeV === aresta.source.id))
-                return "#F8D525";
-
-            return "black";
-
-      })
+        d3.selectAll(`.edge`).data(links, function (d) {
+            return "v" + d.source.id + "-v" + d.target.id;
+            })
+            .transition()
+            .duration(500)
+            .attr("stroke", aresta => {
+                const caminho = simulacao.dfs.caminho[simulacao.passo];
+                if(caminho === undefined) return "black";
+    
+                if(caminho.caminhoAresta.includes(aresta.id))
+                    return CorVerticeVisitado
+    
+                return "black";
+    
+            })
 }
 
 
 export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, simulacao) => {
     d3.selectAll(".CircleCanvas").data(nodes, function (d) {
         return d.id;
-    }).attr("fill", vertice => {
+    })
+    .transition()
+    .duration(500)
+    .attr("fill", vertice => {
         const caminho = simulacao.bfs.caminho[simulacao.passo]
-        if (caminho === undefined && verticeInicial === vertice.id) {
+        if (verticeInicial === vertice.id) {
             return CorVerticeInicial;
         }
-        if (caminho === undefined && verticeFinal === vertice.id) {
+        if (verticeFinal === vertice.id) {
             return CorVerticeFinal;
         }
         
@@ -126,9 +131,24 @@ export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, si
 
             return CorVerticeVisitado;
         })
+
+        d3.selectAll(`.edge`).data(links, function (d) {
+            return "v" + d.source.id + "-v" + d.target.id;
+            })
+            .transition()
+            .duration(500)
+            .attr("stroke", aresta => {
+                const caminho = simulacao.bfs.caminho[simulacao.passo];
+                if(caminho === undefined) return "black";
+    
+                if(caminho.caminhoAresta.includes(aresta.id))
+                    return CorVerticeVisitado
+    
+                return "black";
+    
+            })
 }
 
 const FindVerticeVisitado = (obj, vertice) => {
     return obj.idVertice === vertice.id;
 }
-

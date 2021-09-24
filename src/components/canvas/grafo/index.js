@@ -57,7 +57,7 @@ export function runGraph(container, props) {
 
   initDragLine(svg, data.dirigido);
 
-  var edges = svg.append("g").selectAll(`.${styles.edge}`);
+  var edges = svg.append("g").selectAll(`.edge`);
 
   var edgeText = svg.append("g").selectAll(`.${styles.edgeText}`);
 
@@ -74,7 +74,9 @@ export function runGraph(container, props) {
       .enter()
       .append("path")
       .attr("marker-end", "url(#arrowhead)")
-      .attr("class", styles.edge)
+      .attr("stroke", "#000000")
+      .attr("stroke-width", 3.8)
+      .attr("class", "edge")
       .attr("id", d => "path" + d.id)
       .on("contextmenu", (d) => { mostrarMenuArestas(nodes, links, d, width, height, '#graphSvg', actions, data.dirigido, data.valorado); })
 
