@@ -7,6 +7,9 @@ const INICIAL_STATE: ISimulacao = {
     bfs: {
         caminho: []
     },
+    dijkstra: {
+        caminho: []
+    },
     passo: 0,
     qntdPassos: 0,
     tipoAlgoritmo: undefined
@@ -16,13 +19,17 @@ const INICIAL_STATE: ISimulacao = {
 export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAction) {
     let dfs = { ...oldState.dfs };
     let bfs = { ...oldState.bfs };
+    let dijkstra = { ...oldState.dijkstra };
     switch (action.type) {
         case "UPDATE_DFS":
             dfs.caminho = action.payload.caminho;
             return { ...oldState, dfs };
         case "UPDATE_BFS":
             bfs.caminho = action.payload.caminho;
-            return { ...oldState, bfs }
+            return { ...oldState, bfs };
+        case "UPDATE_DIJKSTRA":
+            dijkstra.caminho = action.payload.caminho;
+            return { ...oldState, dijkstra }
         case "SET_PASSO":
             return { ...oldState, passo: action.payload }
         case "SET_QNTD_PASSOS":

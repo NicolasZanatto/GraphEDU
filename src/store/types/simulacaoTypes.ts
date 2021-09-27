@@ -2,10 +2,12 @@ import { Action } from "redux";
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
 import { IRetornoDFS } from "./dfsTypes";
 import { IRetornoBFS } from "./bfsTypes";
+import { IRetornoDIJKSTRA } from "./dijkstraTypes";
 
 export interface ISimulacao {
     dfs: IRetornoDFS,
     bfs: IRetornoBFS,
+    dijkstra: IRetornoDIJKSTRA,
     passo: number,
     qntdPassos: number,
     tipoAlgoritmo?: EAlgoritmos
@@ -19,6 +21,11 @@ export interface IUpdateDFS extends Action {
 export interface IUpdateBFS extends Action {
     type: "UPDATE_BFS",
     payload: IRetornoBFS
+};
+
+export interface IUpdateDIJKSTRA extends Action {
+    type: "UPDATE_DIJKSTRA",
+    payload: IRetornoDIJKSTRA
 };
 
 export interface ISetPasso extends Action {
@@ -36,4 +43,4 @@ export interface ISetAlgoritmo extends Action {
     payload: EAlgoritmos
 }
 
-export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS | ISetPasso | ISetQntdPassos | ISetAlgoritmo;
+export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS  | IUpdateDIJKSTRA | ISetPasso | ISetQntdPassos | ISetAlgoritmo;

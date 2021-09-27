@@ -2,11 +2,7 @@ import React from 'react';
 import { connect, ConnectedProps } from "react-redux";
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { IState } from "../../store/types";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
+import ItemCampoAdicional from "./common/ItemCampo";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -14,8 +10,11 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             fontSize: "14px",
             maxHeight: "20%",
-            overflowY: "scroll",
+            overflowY: "auto",
             backgroundColor: theme.palette.background.paper,
+        },
+        title: {
+            textAlign:"center"
         },
         item: {
             fontSize: "14px",
@@ -27,47 +26,27 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DIJKSTRACamposAdicionais = (props: Props) => {
     const classes = useStyles();
-    const passo = props.simulacao.bfs.caminho[props.simulacao.passo];
-    const verticeE = passo !== undefined ? passo.verticeE : 0;
-    const verticeV = passo !== undefined ? passo.verticeV : 0;
-    const filaQ = passo !== undefined ? passo.filaQ.toString() : "";
+    const passo = props.simulacao.dijkstra.caminho[props.simulacao.passo];
+    const conjuntoQ = passo !== undefined ? passo.conjuntoQ.toString() : "";
+    const verticeV = passo !== undefined ? passo.verticeV?.toString() : "";
+    const distanciaV = passo !== undefined ? passo.distanciaV?.toString() : "";
+    const verticeU = passo !== undefined ? passo.verticeU?.toString() : "";
+    const distanciaU = passo !== undefined ? passo.distanciaU?.toString() : "";
+    const arestaE = passo !== undefined ? passo.arestaE?.toString() : "";
+
     const verticesAdj = passo !== undefined ? passo.listaAdj.toString() : "";
 
     return (
         <div className={classes.root}>
-        <List subheader={<ListSubheader>Campos Adicionais</ListSubheader>}>
-            <ListItem>
-                <ListItemText id="switch-list-label-wifi" classes={{ primary: classes.item }} primary="Fila Q:" />
-                <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-wifi" classes={{ primary: classes.item }} primary={filaQ || ""} />
-                </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-                <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary="Vértice s:" />
-                <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary={verticeV || ""} />
-                </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-                <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary="Vértice v:" />
-                <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary={verticeV || ""} />
-                </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-                <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary="Vértice e:" />
-                <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary={verticeE || ""} />
-                </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-                <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary="Vértices Adjacentes:" />
-                <ListItemSecondaryAction>
-                    <ListItemText id="switch-list-label-bluetooth" classes={{ primary: classes.item }} primary={verticesAdj || ""} />
-                </ListItemSecondaryAction>
-            </ListItem>
-        </List>
-        </div>
+            <p className={classes.title}> Campos Adicionais</p>
+            <ItemCampoAdicional id={"conjunto-q"} titulo={'Conjunto Q'} valor={conjuntoQ}></ItemCampoAdicional>
+            <ItemCampoAdicional id={"vertices-adjacentes"} titulo={'Vértices Adjacentes'} valor={verticesAdj}></ItemCampoAdicional>
+            <ItemCampoAdicional id={"vertice-u"} titulo={'Vértice u'} valor={verticeU}></ItemCampoAdicional>
+            <ItemCampoAdicional id={"vertice-v"} titulo={'Vértice v'} valor={verticeV}></ItemCampoAdicional>
+            <ItemCampoAdicional id={"distancia-v"} titulo={'Distância v'} valor={distanciaV}></ItemCampoAdicional>
+            <ItemCampoAdicional id={"distancia-u"} titulo={'Distância u'} valor={distanciaU}></ItemCampoAdicional>
+            <ItemCampoAdicional id={"aresta-e"} titulo={'Peso Aresta e'} valor={arestaE}></ItemCampoAdicional>
+            </div>
     );
 }
 

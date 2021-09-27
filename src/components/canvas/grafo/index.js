@@ -8,7 +8,7 @@ import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/des
 import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
 import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
 import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
-import { AtualizarCoresGrafo } from "./utils/svgHelper";
+import { AtualizarCoresGrafo } from "./utils/atualizarGrafo";
 
 export function runGraph(container, props) {
   const idSVG = "graphSvg";
@@ -44,59 +44,61 @@ export function runGraph(container, props) {
     .force("y", d3.forceY())
     .on("tick", () => {
       //update link positions
-      edges
+      arestas
         .attr("d", d => tickEdge(d, data.dirigido));
 
       vertices.attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
 
-      edgeText.attr("transform", tickPesoAresta);
+      pesoArestas.attr("transform", tickPesoAresta);
 
     });
 
   initDragLine(svg, data.dirigido);
 
-  var edges = svg.append("g").selectAll(`.edge`);
-
-  var edgeText = svg.append("g").selectAll(`.${styles.edgeText}`);
-
+  var arestas = svg.append("g").selectAll(`.edge`);
+  var pesoArestas = svg.append("g").selectAll(`.${styles.pesoArestas}`);
   var vertices = svg.append("g").selectAll(".vertex");
+  
 
   function restart() {
-    //edges 
-    edges = edges.data(links, function (d) {
+    //arestas 
+    arestas = arestas.data(links, function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
     });
-    edges.exit().remove();
+    arestas.exit().remove();
 
-    var ed = edges
+    var ed = arestas
       .enter()
       .append("path")
       .attr("marker-end", "url(#arrowhead)")
+      .attr("fill", "none")
       .attr("stroke", "#000000")
       .attr("stroke-width", 3.8)
       .attr("class", "edge")
       .attr("id", d => "path" + d.id)
       .on("contextmenu", (d) => { mostrarMenuArestas(nodes, links, d, width, height, '#graphSvg', actions, data.dirigido, data.valorado); })
-
+      .on("mouseover", (d) =>{ d3.select("#path" + d.id).attr("stroke", "#f11303b6")})
+      .on("mouseout", (d) =>{ d3.select("#path" + d.id).attr("stroke", "black")}  );
+      
     ed.append("title").text(function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
     });
 
-    edges = ed.merge(edges);
+    arestas = ed.merge(arestas);
 
 
-    //edgeText
-    edgeText = edgeText.data(links, function (d) {
+    //pesoArestas
+    pesoArestas = pesoArestas.data(links, function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
     });
 
-    edgeText.exit().remove();
+    pesoArestas.exit().remove();
 
-    var lt = edgeText.enter()
+    var lt = pesoArestas.enter()
       .append("text")
-      .attr("class", styles.edgeText)
+      .attr("class", styles.pesoArestas)
 
       .attr("x", "50")
       .attr("dy", "-2")
@@ -110,7 +112,7 @@ export function runGraph(container, props) {
         return d.value;
       });
 
-    edgeText = lt.merge(edgeText);
+    pesoArestas = lt.merge(pesoArestas);
 
 
     //vertices are known by id
@@ -148,6 +150,13 @@ export function runGraph(container, props) {
       .text(function (d) {
         return d.id;
       });
+
+    g.append("text")
+      .attr("class", "informacoes-vertice")
+      .attr("font-size", "15px")
+      .attr("font-weight", "lighter")
+      .attr("text-anchor", "middle")
+      .attr("y", 50);
 
     vertices = g.merge(vertices);
 

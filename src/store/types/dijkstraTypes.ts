@@ -3,10 +3,14 @@ export interface IRetornoDIJKSTRA {
 }
 
 export interface ICaminhoDIJKSTRA {
+    verticeS?: number,
+    verticeU?: number,
     verticeV?: number,
-    verticeE?: number,
+    distanciaU?: number;
+    distanciaV?: number;
+    arestaE?: number,
     linha: number,
-    filaQ: Array<number>,
+    conjuntoQ: Array<number>,
     listaAdj: Array<number>,
     listaDistancia: Array<IDistancia>
 }
@@ -15,6 +19,7 @@ export interface IDistancia {
     idVertice: number;
     peso?: number;
     infinito: boolean;
+    verticePai: number;
 }
 
 export interface IDistanciaNaoInfinitas {

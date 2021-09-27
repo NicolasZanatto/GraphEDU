@@ -15,6 +15,7 @@ import DFS from "../../Algoritmos/DFS";
 import BFS from "../../Algoritmos/BFS";
 import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
 import ContadorPassos from "./utils/ContadorPassos";
+import DIJKSTRA from '../../Algoritmos/DIJKSTRA';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -43,7 +44,7 @@ const ComponenteSimulacao = (props: Props) => {
   const [qntdPassos, setQntdPassos] = useState(0);
 
   const ExecutarAlgoritmo = (props: Props) => {
-
+    console.log("Executar Algoritmo", props.simulacao.tipoAlgoritmo)
     switch (props.simulacao.tipoAlgoritmo) {
       case EAlgoritmos.DFS:
         const dfs = new DFS(props.canvas);
@@ -58,6 +59,13 @@ const ComponenteSimulacao = (props: Props) => {
         props.updateBFSAction(retornoBFS);
         setQntdPassos(retornoBFS.caminho.length);
         props.setQntdPassosAction(retornoBFS.caminho.length);
+        break;
+      case EAlgoritmos.DIJKSTRA:
+        const dijkstra = new DIJKSTRA(props.canvas);
+        const retornoDijkstra = dijkstra.main();
+        props.updateDIJKSTRAAction(retornoDijkstra);
+        setQntdPassos(retornoDijkstra.caminho.length);
+        props.setQntdPassosAction(retornoDijkstra.caminho.length);
         break;
     }
 
