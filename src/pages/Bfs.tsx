@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     paper: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(3),
         textAlign: 'center',
         color: theme.palette.text.primary,
     },
@@ -47,7 +47,8 @@ const Dfs = (props: Props) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={3}>
-                <Paper className={classes.paper}>BFS</Paper>
+                <div className={classes.paper}>BFS</div>
+                <BFSCamposAdicionais></BFSCamposAdicionais>
             </Grid>
             <Grid item xs={6}>
                 <Grid container className={classes.canvas}>
@@ -64,7 +65,6 @@ const Dfs = (props: Props) => {
             </Grid>
             <Grid item xs={3}>
                 <BFSPseudoCodigo></BFSPseudoCodigo>
-                <BFSCamposAdicionais></BFSCamposAdicionais>
             </Grid>
 
         </Grid>

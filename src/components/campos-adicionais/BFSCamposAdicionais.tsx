@@ -11,10 +11,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: '100%',
-            maxWidth: 250,
             fontSize: "14px",
-            maxHeight: 400,
             backgroundColor: theme.palette.background.paper,
         },
         item: {
