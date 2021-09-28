@@ -6,7 +6,6 @@ import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSi
 import BFSPseudoCodigo from "../components/pseudo-codigo/BfsPseudoCodigo";
 import BFSCamposAdicionais from "../components/campos-adicionais/BFSCamposAdicionais";
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
