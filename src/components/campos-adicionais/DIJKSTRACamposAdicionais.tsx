@@ -3,14 +3,12 @@ import { connect, ConnectedProps } from "react-redux";
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { IState } from "../../store/types";
 import ItemCampoAdicional from "./common/ItemCampo";
-
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: '100%',
             fontSize: "14px",
-            maxHeight: "20%",
-            overflowY: "auto",
             backgroundColor: theme.palette.background.paper,
         },
         title: {
@@ -37,8 +35,7 @@ const DIJKSTRACamposAdicionais = (props: Props) => {
     const verticesAdj = passo !== undefined ? passo.listaAdj.toString() : "";
 
     return (
-        <div className={classes.root}>
-            <p className={classes.title}> Campos Adicionais</p>
+        <List subheader={<ListSubheader>Informações Adicionais</ListSubheader>} className={classes.root}>
             <ItemCampoAdicional id={"conjunto-q"} titulo={'Conjunto Q'} valor={conjuntoQ}></ItemCampoAdicional>
             <ItemCampoAdicional id={"vertices-adjacentes"} titulo={'Vértices Adjacentes'} valor={verticesAdj}></ItemCampoAdicional>
             <ItemCampoAdicional id={"vertice-u"} titulo={'Vértice u'} valor={verticeU}></ItemCampoAdicional>
@@ -46,7 +43,7 @@ const DIJKSTRACamposAdicionais = (props: Props) => {
             <ItemCampoAdicional id={"distancia-v"} titulo={'Distância v'} valor={distanciaV}></ItemCampoAdicional>
             <ItemCampoAdicional id={"distancia-u"} titulo={'Distância u'} valor={distanciaU}></ItemCampoAdicional>
             <ItemCampoAdicional id={"aresta-e"} titulo={'Peso Aresta e'} valor={arestaE}></ItemCampoAdicional>
-            </div>
+        </List>
     );
 }
 

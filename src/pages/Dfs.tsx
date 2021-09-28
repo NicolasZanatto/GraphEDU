@@ -6,7 +6,6 @@ import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSi
 import DFSPseudoCodigo from "../components/pseudo-codigo/DfsPseudoCodigo";
 import DFSCamposAdicionais from "../components/campos-adicionais/DFSCamposAdicionais";
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
@@ -46,7 +45,8 @@ const Dfs = (props: Props) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={3}>
-                <Paper className={classes.paper}>DFS</Paper>
+                <div className={classes.paper}>DFS</div>
+                <DFSCamposAdicionais></DFSCamposAdicionais>
             </Grid>
             <Grid item xs={6}>
                 <Grid container className={classes.canvas}>
@@ -63,7 +63,6 @@ const Dfs = (props: Props) => {
             </Grid>
             <Grid item xs={3}>
                 <DFSPseudoCodigo></DFSPseudoCodigo>
-                <DFSCamposAdicionais></DFSCamposAdicionais>
             </Grid>
 
         </Grid>

@@ -31,7 +31,7 @@ const BFSCamposAdicionais = (props: Props) => {
     const verticesAdj = passo !== undefined ? passo.listaAdj.toString() : "";
 
     return (
-        <List subheader={<ListSubheader>Campos Adicionais</ListSubheader>} className={classes.root}>
+        <List subheader={<ListSubheader>Informações Adicionais</ListSubheader>} className={classes.root}>
             <ListItem>
                 <ListItemText id="switch-list-label-wifi" classes={{ primary: classes.item }} primary="Fila Q:" />
                 <ListItemSecondaryAction>

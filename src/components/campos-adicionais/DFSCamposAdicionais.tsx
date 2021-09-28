@@ -11,8 +11,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: '100%',
-            maxWidth: 210,
+            fontSize: "14px",
             backgroundColor: theme.palette.background.paper,
         },
         item: {
@@ -31,7 +30,7 @@ const DFSCamposAdicionais = (props: Props) => {
     const verticesAdj = passo !== undefined ? passo.listaAdj.toString() : "";
 
     return (
-        <List subheader={<ListSubheader>Campos Adicionais</ListSubheader>} className={classes.root}>
+        <List subheader={<ListSubheader>Informações Adicionais</ListSubheader>} className={classes.root}>
             <ListItem>
                 <ListItemText id="switch-list-label-wifi" classes={{ primary: classes.item }} primary="Vértice s:" />
                 <ListItemSecondaryAction>
