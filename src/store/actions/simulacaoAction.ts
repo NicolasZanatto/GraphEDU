@@ -1,8 +1,9 @@
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
-import { IUpdateDFS, IUpdateBFS, IUpdateDIJKSTRA, ISetPasso, ISetQntdPassos } from "../types/simulacaoTypes";
+import { IUpdateDFS, IUpdateBFS, IUpdateDIJKSTRA, IUpdateBELLMANFORD, ISetPasso, ISetQntdPassos } from "../types/simulacaoTypes";
 import { IRetornoDFS } from "../types/dfsTypes";
 import { IRetornoBFS } from "../types/bfsTypes";
 import { IRetornoDIJKSTRA } from "../types/dijkstraTypes";
+import { IRetornoBELLMANFORD } from "../types/bellmanFordTypes";
 
 export const updateDFSAction = (retorno: IRetornoDFS): IUpdateDFS => {
     return {
@@ -21,6 +22,13 @@ export const updateBFSAction = (retorno: IRetornoBFS): IUpdateBFS => {
 export const updateDIJKSTRAAction = (retorno: IRetornoDIJKSTRA): IUpdateDIJKSTRA => {
     return {
         type: "UPDATE_DIJKSTRA",
+        payload: retorno
+    }
+}
+
+export const updateBELLMANFORDAction = (retorno: IRetornoBELLMANFORD): IUpdateBELLMANFORD => {
+    return {
+        type: "UPDATE_BELLMANFORD",
         payload: retorno
     }
 }

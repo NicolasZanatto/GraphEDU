@@ -1,8 +1,8 @@
 import { IGrafo, IAresta } from "../store/types/canvasTypes";
-import { IRetornoDIJKSTRA, ICaminhoDIJKSTRA, IDistancia,IDistanciaNaoInfinitas } from "../store/types/dijkstraTypes";
+import { IRetornoBELLMANFORD, ICaminhoBELLMANNFORD, IDistancia,IDistanciaNaoInfinitas } from "../store/types/bellmanFordTypes";
 import { CaminhoVertice } from "./Common/CaminhoVertice";
 
-class Retorno implements IRetornoDIJKSTRA {
+class Retorno implements IRetornoBELLMANFORD {
     caminho = new Array<Caminho>();
 
     adicionarPasso(
@@ -32,7 +32,7 @@ class Retorno implements IRetornoDIJKSTRA {
         }
     }
 
-class Caminho  implements ICaminhoDIJKSTRA{
+class Caminho  implements ICaminhoBELLMANNFORD{
     linha: number;
     verticeS?: number;
     verticeU?: number;
@@ -90,7 +90,7 @@ class DistanciaNaoInfinitas implements IDistanciaNaoInfinitas {
     }
 }
 
-class DIJKSTRA {
+class BELLMANFORD {
     grafo: IGrafo;
     retorno = new Retorno();
     distancia = new Array<Distancia>();
@@ -163,7 +163,7 @@ class DIJKSTRA {
         this.Q.splice(index, 1);
     }
 
-    dijkstra(s: number) {
+    bellmanford(s: number) {
         this.grafo.nodes.forEach((vertice) => {
             this.adicionarPasso(2, s, undefined);
             this.adicionarPasso(3, s, vertice.id);
@@ -218,11 +218,11 @@ class DIJKSTRA {
 
     main() {
         console.log("Iniciou Execucao DIJKSTRA");
-        this.dijkstra(this.grafo.verticeInicial ?? 1);
+        this.bellmanford(this.grafo.verticeInicial ?? 1);
 
         return this.retorno;
      }
 
 }
 
-export default DIJKSTRA;
+export default BELLMANFORD;
