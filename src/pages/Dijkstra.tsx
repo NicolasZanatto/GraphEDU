@@ -6,7 +6,6 @@ import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSi
 import DijkstraPseudoCodigo from "../components/pseudo-codigo/DijkstraPseudoCodigo";
 import DIJKSTRACamposAdicionais from "../components/campos-adicionais/DIJKSTRACamposAdicionais";
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
@@ -46,7 +45,8 @@ const Dikstra = (props: Props) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={3}>
-                <Paper className={classes.paper}>DIJKSTRA</Paper>
+                <div className={classes.paper}>DIJKSTRA</div>
+                <DIJKSTRACamposAdicionais></DIJKSTRACamposAdicionais>
             </Grid>
             <Grid item xs={6}>
                 <Grid container className={classes.canvas}>
@@ -63,7 +63,6 @@ const Dikstra = (props: Props) => {
             </Grid>
             <Grid item xs={3}>
                 <DijkstraPseudoCodigo></DijkstraPseudoCodigo>
-                <DIJKSTRACamposAdicionais></DIJKSTRACamposAdicionais>
             </Grid>
 
         </Grid>

@@ -13,9 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             borderBottom: "1px solid rgba(0, 0, 0, 0.2)",
             fontSize: "14px",
-            maxWidth: "100%",
-            maxHeight: "40%",
-            overflowY: "scroll"
 
         },
         p20: {
