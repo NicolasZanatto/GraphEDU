@@ -11,6 +11,7 @@ import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
 import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
 import Legendas from '../components/canvas/legendas/LegendasBFS';
+import { MenuLateral } from './common/MenuLateral';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,29 +45,30 @@ const Dfs = (props: Props) => {
     const classes = useStyles();
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={3}>
-                <div className={classes.paper}>BFS</div>
-                <BFSCamposAdicionais></BFSCamposAdicionais>
-            </Grid>
-            <Grid item xs={6}>
-                <Grid container className={classes.canvas}>
-                    <Grid item xs={12}>
-                        <Legendas></Legendas>
+        <MenuLateral>
+            <Grid container spacing={2}>
+                <Grid item xs={3}>
+                    <div className={classes.paper}>BFS</div>
+                    <BFSCamposAdicionais></BFSCamposAdicionais>
+                </Grid>
+                <Grid item xs={6}>
+                    <Grid container className={classes.canvas}>
+                        <Grid item xs={12}>
+                            <Legendas></Legendas>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Canvas></Canvas>
+                        </Grid>
+                    </Grid>                
+                    <Grid className={classes.simulacao} item xs={12}>
+                        <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Canvas></Canvas>
-                    </Grid>
-                </Grid>                
-                <Grid className={classes.simulacao} item xs={12}>
-                    <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
+                </Grid>
+                <Grid item xs={3}>
+                    <BFSPseudoCodigo></BFSPseudoCodigo>
                 </Grid>
             </Grid>
-            <Grid item xs={3}>
-                <BFSPseudoCodigo></BFSPseudoCodigo>
-            </Grid>
-
-        </Grid>
+        </MenuLateral>
     );
 }
 

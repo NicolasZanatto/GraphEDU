@@ -11,6 +11,7 @@ import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
 import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
 import LegendasDIJKSTRA from "../components/canvas/legendas/LegendasDIJKSTRA";
+import { MenuLateral } from './common/MenuLateral';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,29 +44,30 @@ const Dikstra = (props: Props) => {
     const classes = useStyles();
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={3}>
-                <div className={classes.paper}>DIJKSTRA</div>
-                <DIJKSTRACamposAdicionais></DIJKSTRACamposAdicionais>
-            </Grid>
-            <Grid item xs={6}>
-                <Grid container className={classes.canvas}>
-                    <Grid item xs={12}>
-                        <LegendasDIJKSTRA></LegendasDIJKSTRA>
+        <MenuLateral>
+            <Grid container spacing={2}>
+                <Grid item xs={3}>
+                    <div className={classes.paper}>DIJKSTRA</div>
+                    <DIJKSTRACamposAdicionais></DIJKSTRACamposAdicionais>
+                </Grid>
+                <Grid item xs={6}>
+                    <Grid container className={classes.canvas}>
+                        <Grid item xs={12}>
+                            <LegendasDIJKSTRA></LegendasDIJKSTRA>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Canvas></Canvas>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Canvas></Canvas>
+                    <Grid className={classes.simulacao} item xs={12}>
+                        <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
                     </Grid>
                 </Grid>
-                <Grid className={classes.simulacao} item xs={12}>
-                    <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
+                <Grid item xs={3}>
+                    <DijkstraPseudoCodigo></DijkstraPseudoCodigo>
                 </Grid>
             </Grid>
-            <Grid item xs={3}>
-                <DijkstraPseudoCodigo></DijkstraPseudoCodigo>
-            </Grid>
-
-        </Grid>
+        </MenuLateral>
     );
 }
 

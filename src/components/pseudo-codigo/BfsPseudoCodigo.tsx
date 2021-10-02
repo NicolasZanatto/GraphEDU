@@ -8,11 +8,15 @@ import $ from "jquery";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            '& > *': {
-                margin: theme.spacing(1),
+            '& p': {
+                margin: "10px",
+                fontWeight: 'lighter',
+                fontSize: "17px"
             },
             borderBottom: "1px solid rgba(0, 0, 0, 0.2)",
             fontSize: "14px",
+            maxHeight: "100vh",
+            overflow: "auto"
         },
         p20: {
             paddingLeft: "20px",
