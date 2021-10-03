@@ -99,5 +99,5 @@ const AtualizarAresta = (links, simulacao) => {
 }
 
 const ObterTextoDistanciaVertice = (distancia, verticePai) => {
-    return `[d: ${distancia  !== undefined ? distancia.toString() : " ∞ "}; vpai: ${verticePai}]`;
+    return `[d: ${distancia  !==  undefined ? distancia.toString() : " ∞ "}; vpai: ${verticePai}]`;
 }

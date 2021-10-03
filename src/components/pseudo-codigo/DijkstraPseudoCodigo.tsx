@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             borderBottom: "1px solid rgba(0, 0, 0, 0.2)",
             fontSize: "14px",
+            maxHeight: "80vh",
+            overflow: "auto"
 
         },
         p20: {

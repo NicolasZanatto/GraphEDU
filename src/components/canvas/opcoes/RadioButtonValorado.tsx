@@ -7,9 +7,19 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { IState } from "../../../store/types";
+import { EAlgoritmos } from '../../../Algoritmos/EAlgoritmos';
 
 const RadioButtonValoradoNaoValorado = (props: Props) => {
-    const [value, setValue] = React.useState(props.valorado);
+    const handleValue = () =>{
+        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA){
+            props.optionValoradoAction(true);
+            return true;
+        }
+
+        return props.valorado;
+    }
+    
+    const [value, setValue] = React.useState(handleValue());
 
     const handleChange = (event: any) => {
         var isTrue = (event.target.value === 'true');
@@ -17,11 +27,18 @@ const RadioButtonValoradoNaoValorado = (props: Props) => {
         props.optionValoradoAction(isTrue);
     };
 
+    const handleDisabled = () =>{
+        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA)
+            return true;
+        
+        return false;
+    }
+
     return (
         <FormControl component="fieldset">
             <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                <FormControlLabel value={true} control={<Radio />} label="Valorado" labelPlacement="end" />
-                <FormControlLabel value={false} control={<Radio />} label="Não Valorado" labelPlacement="end" />
+                <FormControlLabel disabled={handleDisabled()} value={true} control={<Radio />} label="Valorado" labelPlacement="end" />
+                <FormControlLabel disabled={handleDisabled()} value={false} control={<Radio />} label="Não Valorado" labelPlacement="end" />
             </RadioGroup>
         </FormControl>
     );
@@ -30,7 +47,8 @@ const RadioButtonValoradoNaoValorado = (props: Props) => {
 
 
 const mapStateToProps = (state: IState) => ({
-    valorado: state.canvas.valorado
+    valorado: state.canvas.valorado,
+    tipoAlgoritmo: state.simulacao.tipoAlgoritmo
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

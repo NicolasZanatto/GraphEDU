@@ -7,20 +7,37 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { IState } from "../../../store/types";
+import { EAlgoritmos } from '../../../Algoritmos/EAlgoritmos';
 
 const RadioButtonDirigidoNaoDirigido = (props: Props) => {
-    const [value, setValue] = React.useState(props.dirigido);
+    const handleValue = () =>{
+        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA){
+            props.optionDirigidoAction(true);
+            return true;    
+        }
+
+        return props.dirigido;
+    }
+    
+    const [value, setValue] = React.useState(handleValue());
     const handleChange = (event: any) => {
         var isTrue = (event.target.value === 'true');
         setValue(isTrue);
         props.optionDirigidoAction(isTrue);
     };
+    
+    const handleDisabled = () =>{
+        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA)
+            return true;
+        
+        return false;
+    }
 
     return (
         <FormControl component="fieldset">
             <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                <FormControlLabel value={true} control={<Radio />} label="Dirigido" labelPlacement="end" />
-                <FormControlLabel value={false} control={<Radio />} label="Não Dirigido" labelPlacement="end" />
+                <FormControlLabel disabled={handleDisabled()} value={true} control={<Radio />} label="Dirigido" labelPlacement="end" />
+                <FormControlLabel disabled={handleDisabled()} value={false} control={<Radio />} label="Não Dirigido" labelPlacement="end" />
             </RadioGroup>
         </FormControl>
     );
@@ -28,7 +45,8 @@ const RadioButtonDirigidoNaoDirigido = (props: Props) => {
 
 
 const mapStateToProps = (state: IState) => ({
-    dirigido: state.canvas.dirigido
+    dirigido: state.canvas.dirigido,
+    tipoAlgoritmo: state.simulacao.tipoAlgoritmo
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
