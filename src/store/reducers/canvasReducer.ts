@@ -58,6 +58,9 @@ export default function canvas(oldState = INICIAL_STATE, action: ICanvasAction) 
         case "OPTION_DIRIGIDO":
             return { ...oldState, dirigido: action.payload };
 
+        case "LIMPAR_GRAFO":
+            return {...oldState, nodes: [], links: []}
+            
         default:
             return oldState;
     }

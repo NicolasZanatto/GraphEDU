@@ -42,7 +42,7 @@ export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, si
             const caminho = simulacao.dfs.caminho[simulacao.passo]
             if (caminho === undefined) return 15;
             if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
-                return 18;
+                return 19;
             }
             return 15;
         });

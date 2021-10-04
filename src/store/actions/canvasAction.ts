@@ -1,4 +1,4 @@
-import { IVertice, IAresta, IAddNode, IRemoveNode, IAddEdge, IEditEdge, IRemoveEdge, IChangeDirection, IOptionValorado, IOptionDirigido, IStartNode, IFinalNode } from "../types/canvasTypes";
+import { IVertice, IAresta, IAddNode, IRemoveNode, IAddEdge, IEditEdge, IRemoveEdge, IChangeDirection, IOptionValorado, IOptionDirigido, IStartNode, IFinalNode, ILimparGrafo } from "../types/canvasTypes";
 
 // Vértices
 export const addNodeAction = (vertice: IVertice): IAddNode => {
@@ -68,5 +68,11 @@ export const optionDirigidoAction = (valor: Boolean): IOptionDirigido => {
     return {
         type: 'OPTION_DIRIGIDO',
         payload: valor
+    }
+}
+
+export const limparGrafoAction = () : ILimparGrafo =>{
+    return {
+        type: "LIMPAR_GRAFO"
     }
 }

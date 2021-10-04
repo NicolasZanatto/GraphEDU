@@ -4,7 +4,7 @@ import store from "./store";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Switch
 } from "react-router-dom"
 import './App.css';
 
@@ -17,12 +17,12 @@ function App() {
   return (
     <div>
       <Provider store={store}>
-        <Router>
+        <Router forceRefresh={true}>
           <Switch>
-            <Route path="/" exact component={Home}></Route>
-            <Route path="/Algoritmos/DFS" component={Dfs}></Route>
-            <Route path="/Algoritmos/BFS" component={Bfs}></Route>
-            <Route path="/Algoritmos/DIJKSTRA" component={Dijkstra}></Route>
+            <Route path="/" exact component={()=> <Home></Home>}></Route>
+            <Route path="/Algoritmos/DFS" component={()=><Dfs></Dfs>}></Route>
+            <Route path="/Algoritmos/BFS" component={()=><Bfs></Bfs>}></Route>
+            <Route path="/Algoritmos/DIJKSTRA" component={()=><Dijkstra></Dijkstra>}></Route>
           </Switch>
         </Router>
       </Provider>

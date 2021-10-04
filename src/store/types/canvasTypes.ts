@@ -83,4 +83,8 @@ export interface IOptionDirigido extends Action {
     payload: Boolean
 };
 
-export type ICanvasAction = | IAddNode | IStartNode | IFinalNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido;
+export interface ILimparGrafo extends Action {
+    type: "LIMPAR_GRAFO"
+};
+
+export type ICanvasAction = | IAddNode | IStartNode | IFinalNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido | ILimparGrafo;
