@@ -46,7 +46,7 @@ const Dikstra = (props: Props) => {
     return (
         <MenuLateral>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={7}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
                             <LegendasDIJKSTRA></LegendasDIJKSTRA>
@@ -62,7 +62,7 @@ const Dikstra = (props: Props) => {
                 <Grid item xs={3}>
                     <DijkstraPseudoCodigo></DijkstraPseudoCodigo>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <div className={classes.paper}>DIJKSTRA</div>
                     <DIJKSTRACamposAdicionais></DIJKSTRACamposAdicionais>
                 </Grid>
