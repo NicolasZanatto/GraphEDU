@@ -60,12 +60,13 @@ const Dikstra = (props: Props) => {
                     </Grid>
                 </Grid>
                 <Grid item xs={3}>
+                    <DijkstraPseudoCodigo></DijkstraPseudoCodigo>
+                </Grid>
+                <Grid item xs={3}>
                     <div className={classes.paper}>DIJKSTRA</div>
                     <DIJKSTRACamposAdicionais></DIJKSTRACamposAdicionais>
                 </Grid>
-                <Grid item xs={3}>
-                    <DijkstraPseudoCodigo></DijkstraPseudoCodigo>
-                </Grid>
+                
             </Grid>
         </MenuLateral>
     );
