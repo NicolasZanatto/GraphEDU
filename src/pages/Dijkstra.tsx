@@ -16,16 +16,17 @@ import { MenuLateral } from './common/MenuLateral';
 const useStyles = makeStyles((theme) => ({
     root: {
     },
-    paper: {
-        padding: theme.spacing(2),
+    title: {
+        padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.primary,
+        fontSize: "17px"
     },
     simulacao: {
         textAlign: 'center',
     },
     canvas: {
-        boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.6)"
+        boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.6)"
     }
 }));
 
@@ -49,6 +50,9 @@ const Dikstra = (props: Props) => {
                 <Grid item xs={7}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
+                            <div className={classes.title}>DIJKSTRA</div>
+                        </Grid>
+                        <Grid item xs={12}>
                             <LegendasDIJKSTRA></LegendasDIJKSTRA>
                         </Grid>
                         <Grid item xs={12}>
@@ -63,10 +67,8 @@ const Dikstra = (props: Props) => {
                     <DijkstraPseudoCodigo></DijkstraPseudoCodigo>
                 </Grid>
                 <Grid item xs={2}>
-                    <div className={classes.paper}>DIJKSTRA</div>
                     <DIJKSTRACamposAdicionais></DIJKSTRACamposAdicionais>
                 </Grid>
-                
             </Grid>
         </MenuLateral>
     );

@@ -4,8 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        paddingLeft: "10px",
-        marginTop: 0
+        margin: 0,
+        wordWrap: "break-word",
+        fontSize: "14px" 
     },
     legenda: {
         textAlign: "center",
@@ -20,8 +21,6 @@ export default function Legendas() {
 
     return (
         <Grid item xs className={classes.root}>
-            <p className={classes.legenda}>Legendas</p>
-            <Grid item xs className={classes.svg}>
                 <span>
                     <svg width="5%" height="30">
                         <circle cx="15" cy="20" r="8" stroke="black" strokeWidth="2" fill="#FFF1D0" />
@@ -40,8 +39,6 @@ export default function Legendas() {
                     </svg>
                     Vértice final
                 </span>
-            </Grid>
-            <Grid item xs className={classes.svg}>
                 <span>
                     <svg width="5%" height="30">
                         <circle cx="15" cy="20" r="8" stroke="black" strokeWidth="2" fill="#F8D525" />
@@ -66,7 +63,6 @@ export default function Legendas() {
                     </svg>
                     Vértice e
                 </span>
-            </Grid>
         </Grid> 
     );
 }
