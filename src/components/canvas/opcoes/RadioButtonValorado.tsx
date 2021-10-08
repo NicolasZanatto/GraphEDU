@@ -10,8 +10,9 @@ import { IState } from "../../../store/types";
 import { EAlgoritmos } from '../../../Algoritmos/EAlgoritmos';
 
 const RadioButtonValoradoNaoValorado = (props: Props) => {
+    const algoritmosValorados = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD];
     const handleValue = () =>{
-        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA){
+        if(algoritmosValorados.includes(props.tipoAlgoritmo ?? 0)){
             props.optionValoradoAction(true);
             return true;
         }
@@ -28,7 +29,7 @@ const RadioButtonValoradoNaoValorado = (props: Props) => {
     };
 
     const handleDisabled = () =>{
-        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA)
+        if(algoritmosValorados.includes(props.tipoAlgoritmo ?? 0))
             return true;
         
         return false;

@@ -2,6 +2,7 @@ import { EAlgoritmos } from "../../../../Algoritmos/EAlgoritmos";
 import {AtualizarGrafoDFS}from "./atualizarGrafoDFS";
 import {AtualizarGrafoBFS}from "./atualizarGrafoBFS";
 import {AtualizarGrafoDIJKSTRA}from "./atualizarGrafoDIJKSTRA";
+import {AtualizarGrafoBELLMANFORD} from "./atualizarGrafoBELLMANFORD";
 
 export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, simulacao, styles) => {
 
@@ -14,6 +15,9 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
             break;
         case EAlgoritmos.DIJKSTRA:
             AtualizarGrafoDIJKSTRA(verticeInicial, verticeFinal, nodes, links, simulacao);
+            break; 
+        case EAlgoritmos.BELLMANFORD:
+            AtualizarGrafoBELLMANFORD(verticeInicial, verticeFinal, nodes, links, simulacao);
             break; 
         default:
     }

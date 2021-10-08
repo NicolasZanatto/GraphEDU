@@ -16,6 +16,7 @@ import BFS from "../../Algoritmos/BFS";
 import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
 import ContadorPassos from "./utils/ContadorPassos";
 import DIJKSTRA from '../../Algoritmos/DIJKSTRA';
+import BELLMANFORD from '../../Algoritmos/BELLMANFORD';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -66,6 +67,13 @@ const ComponenteSimulacao = (props: Props) => {
         props.updateDIJKSTRAAction(retornoDijkstra);
         setQntdPassos(retornoDijkstra.caminho.length);
         props.setQntdPassosAction(retornoDijkstra.caminho.length);
+        break;
+      case EAlgoritmos.BELLMANFORD:
+        const bellman = new BELLMANFORD(props.canvas);
+        const retornoBellman = bellman.main();
+        props.updateBELLMANFORDAction(retornoBellman);
+        setQntdPassos(retornoBellman.caminho.length);
+        props.setQntdPassosAction(retornoBellman.caminho.length);
         break;
     }
 

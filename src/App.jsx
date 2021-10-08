@@ -11,6 +11,7 @@ import './App.css';
 import Dfs from "./pages/Dfs";
 import Bfs from "./pages/Bfs";
 import Dijkstra from "./pages/Dijkstra";
+import BellmanFord from "./pages/BellmanFord";
 import Home from "./pages/Home";
 
 function App() {
@@ -19,10 +20,11 @@ function App() {
       <Provider store={store}>
         <Router forceRefresh={true}>
           <Switch>
-            <Route path="/" exact component={()=> <Home></Home>}></Route>
-            <Route path="/Algoritmos/DFS" component={()=><Dfs></Dfs>}></Route>
-            <Route path="/Algoritmos/BFS" component={()=><Bfs></Bfs>}></Route>
-            <Route path="/Algoritmos/DIJKSTRA" component={()=><Dijkstra></Dijkstra>}></Route>
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/Algoritmos/DFS" component={Dfs}></Route>
+            <Route path="/Algoritmos/BFS" component={Bfs}></Route>
+            <Route path="/Algoritmos/DIJKSTRA" component={Dijkstra}></Route>
+            <Route path="/Algoritmos/BELLMANFORD" component={BellmanFord}></Route>
           </Switch>
         </Router>
       </Provider>

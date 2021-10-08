@@ -20,12 +20,8 @@ const useStyles = makeStyles((theme) => ({
 const itens = [
     {nome: "Vértice", stroke: "black", fill: "#FFF1D0"},
     {nome: "Vértice inicial", stroke: "black", fill: "#32b31b"},
-    {nome: "Vértice final", stroke: "black", fill: "#f04d4d"},
-    {nome: "Vértice não visitado", stroke: "#07A0C3", fill: "#07A0C3"},
-    {nome: "Vértice visitado", stroke: "#DD1C1A", fill: "#DD1C1A"},
-    {nome: "Fila Q", stroke: "black", fill: "#F8D525"},
-    {nome: "Fila Q e Vértice não visitado", stroke: "#07A0C3", fill: "#F8D525"},
-    {nome: "Fila Q e Vértice visitado", stroke: "#DD1C1A", fill: "#F8D525"},
+    {nome: "Vértice u", stroke: "black", fill: "#07A0C3"},
+    {nome: "Vértice v", stroke: "black", fill: "#DD1C1A"}
 ]
 
 export default function Legendas() {
@@ -41,6 +37,6 @@ export default function Legendas() {
                     {legenda.nome}
                 </span>
             })}
-       </Grid> 
+        </Grid> 
     );
 }

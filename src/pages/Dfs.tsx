@@ -17,16 +17,17 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
-    paper: {
-        padding: theme.spacing(2),
+    title: {
+        padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.primary,
+        fontSize: "17px"
     },
     simulacao: {
         textAlign: 'center',
     },
     canvas: {
-        boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.6)"
+        boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.6)"
     }
 }));
 const Dfs = (props: Props) => {
@@ -46,8 +47,11 @@ const Dfs = (props: Props) => {
     return (
         <MenuLateral>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={7}>
                     <Grid container className={classes.canvas}>
+                        <Grid item xs={12}>
+                            <div className={classes.title}>DFS</div>
+                        </Grid>
                         <Grid item xs={12}>
                             <LegendasDFS></LegendasDFS>
                         </Grid>
@@ -60,13 +64,11 @@ const Dfs = (props: Props) => {
                     </Grid>
                 </Grid>
                 <Grid item xs={3}>
-                    <div className={classes.paper}>DFS</div>
-                    <DFSCamposAdicionais></DFSCamposAdicionais>
-                </Grid>
-                <Grid item xs={3}>
                     <DFSPseudoCodigo></DFSPseudoCodigo>
                 </Grid>
-
+                <Grid item xs={2}>
+                    <DFSCamposAdicionais></DFSCamposAdicionais>
+                </Grid>
             </Grid>
         </MenuLateral>
     );

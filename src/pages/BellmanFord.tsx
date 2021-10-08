@@ -3,19 +3,18 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch, bindActionCreators } from "redux";
 import Canvas from "../components/canvas/Canvas";
 import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSimulacao";
-import BFSPseudoCodigo from "../components/pseudo-codigo/BfsPseudoCodigo";
-import BFSCamposAdicionais from "../components/campos-adicionais/BFSCamposAdicionais";
+import BellmanFordPseudoCodigo from "../components/pseudo-codigo/BellmanFordPseudoCodigo";
+import BellmanFordCamposAdicionais from "../components/campos-adicionais/BELLMANFORDCamposAdicionais";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
 import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
-import Legendas from '../components/canvas/legendas/LegendasBFS';
+import LegendasBELLMANFORD from "../components/canvas/legendas/LegendasBELLMANFORD";
 import { MenuLateral } from './common/MenuLateral';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
     },
     title: {
         padding: theme.spacing(1),
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Dfs = (props: Props) => {
+const BellmanFord = (props: Props) => {
     const useFirstRender = () => {
         const ref = React.useRef(true);
         const firstRender = ref.current;
@@ -41,36 +40,36 @@ const Dfs = (props: Props) => {
 
 
     if (useFirstRender())
-        props.SetAlgoritmoAction(EAlgoritmos.BFS);
+        props.SetAlgoritmoAction(EAlgoritmos.BELLMANFORD);
 
     const classes = useStyles();
 
     return (
         <MenuLateral>
             <Grid container spacing={2}>
-                
                 <Grid item xs={7}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
-                            <div className={classes.title}>BFS</div>
+                            <div className={classes.title}>BELLMAN-FORD</div>
                         </Grid>
                         <Grid item xs={12}>
-                            <Legendas></Legendas>
+                            <LegendasBELLMANFORD></LegendasBELLMANFORD>
                         </Grid>
                         <Grid item xs={12}>
                             <Canvas></Canvas>
                         </Grid>
-                    </Grid>                
+                    </Grid>
                     <Grid className={classes.simulacao} item xs={12}>
                         <ComponenteSimulacao>Componente Simulação</ComponenteSimulacao>
                     </Grid>
                 </Grid>
                 <Grid item xs={3}>
-                    <BFSPseudoCodigo></BFSPseudoCodigo>
+                    <BellmanFordPseudoCodigo></BellmanFordPseudoCodigo>
                 </Grid>
                 <Grid item xs={2}>
-                    <BFSCamposAdicionais></BFSCamposAdicionais>
+                    <BellmanFordCamposAdicionais></BellmanFordCamposAdicionais>
                 </Grid>
+                
             </Grid>
         </MenuLateral>
     );
@@ -87,4 +86,4 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type Props = ConnectedProps<typeof connector>
 
-export default connector(Dfs)
+export default connector(BellmanFord)

@@ -31,7 +31,8 @@ const menuVerticesItens = [
 ];
 
 export const mostrarMenuVertices = (nodes, links, verticeSelecionado, width, height, svgId, actions) => {
-    menuFactory(d3.event.pageX - width, d3.event.pageY - height - 10, menuVerticesItens, nodes, links, verticeSelecionado, svgId, actions);
+
+    menuFactory(d3.event.pageX - width/1.9, d3.event.pageY - height-50, menuVerticesItens, nodes, links, verticeSelecionado, svgId, actions);
     d3.event.preventDefault();
     return nodes;
 }

@@ -12,14 +12,15 @@ export interface ICaminhoBELLMANNFORD {
     linha: number,
     conjuntoQ: Array<number>,
     listaAdj: Array<number>,
-    listaDistancia: Array<IDistancia>
+    listaDistancia: Array<IDistancia>,
+    tempDistancia?: number
 }
 
 export interface IDistancia {
     idVertice: number;
     peso?: number;
     infinito: boolean;
-    verticePai: number;
+    verticePai?: number;
 }
 
 export interface IDistanciaNaoInfinitas {

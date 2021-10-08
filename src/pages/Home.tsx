@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
     button: {
         padding: theme.spacing(6),
         textAlign: 'center',
-        color: theme.palette.text.primary,
+        color: "black",
         borderRadius: "15px",
-        fontSize: "20px",
+        fontSize: "16px",
         '&:hover': {
             background: "#0390fc",
         },
@@ -54,23 +54,33 @@ export default function Home() {
             <Container maxWidth="md">
                 <p className={classes.title}>SISTEMA PARA VISUALIZAÇÃO DE ALGORITMOS DE GRAFOS</p>
                 <p className={classes.subTitle}>Algoritmos de Busca:</p>
-                <Grid container xs={8} spacing={8}>
-                    <Grid item xs={6}>
+                <Grid container spacing={8}>
+                    <Grid item xs={4}>
                         <Link to='/Algoritmos/DFS'>
                             <Paper className={classes.button}>DFS</Paper>
                         </Link>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <Link to='/Algoritmos/BFS'>
                             <Paper className={classes.button}>BFS</Paper>
                         </Link>
                     </Grid>
                 </Grid>
                 <p className={classes.subTitle}>Algoritmos de Caminho Mínimo:</p>
-                <Grid container xs={8} spacing={8}>
-                    <Grid item xs={6}>
+                <Grid container spacing={8}>
+                    <Grid item xs={4}>
                         <Link to='/Algoritmos/DIJKSTRA'>
                             <Paper className={classes.button}>DIJKSTRA</Paper>
+                        </Link>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Link to='/Algoritmos/BELLMANFORD'>
+                            <Paper className={classes.button}>BELLMAN FORD</Paper>
+                        </Link>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Link to='/Algoritmos/FLOYDWARSHALL'>
+                            <Paper className={classes.button}>FLOYD WARSHALL</Paper>
                         </Link>
                     </Grid>
                 </Grid>

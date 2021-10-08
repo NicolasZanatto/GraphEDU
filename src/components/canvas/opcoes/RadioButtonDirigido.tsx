@@ -10,8 +10,9 @@ import { IState } from "../../../store/types";
 import { EAlgoritmos } from '../../../Algoritmos/EAlgoritmos';
 
 const RadioButtonDirigidoNaoDirigido = (props: Props) => {
+    const algoritmosDirigidos = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD];
     const handleValue = () =>{
-        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA){
+        if(algoritmosDirigidos.includes(props.tipoAlgoritmo ?? 0)){
             props.optionDirigidoAction(true);
             return true;    
         }
@@ -27,7 +28,7 @@ const RadioButtonDirigidoNaoDirigido = (props: Props) => {
     };
     
     const handleDisabled = () =>{
-        if(props.tipoAlgoritmo === EAlgoritmos.DIJKSTRA)
+        if(algoritmosDirigidos.includes(props.tipoAlgoritmo ?? 0))
             return true;
         
         return false;
