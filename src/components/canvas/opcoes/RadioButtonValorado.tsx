@@ -10,16 +10,16 @@ import { IState } from "../../../store/types";
 import { EAlgoritmos } from '../../../Algoritmos/EAlgoritmos';
 
 const RadioButtonValoradoNaoValorado = (props: Props) => {
-    const algoritmosValorados = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD];
-    const handleValue = () =>{
-        if(algoritmosValorados.includes(props.tipoAlgoritmo ?? 0)){
+    const algoritmosValorados = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD, EAlgoritmos.FLOYDWARSHALL];
+    const handleValue = () => {
+        if (algoritmosValorados.includes(props.tipoAlgoritmo ?? 0)) {
             props.optionValoradoAction(true);
             return true;
         }
 
         return props.valorado;
     }
-    
+
     const [value, setValue] = React.useState(handleValue());
 
     const handleChange = (event: any) => {
@@ -28,10 +28,10 @@ const RadioButtonValoradoNaoValorado = (props: Props) => {
         props.optionValoradoAction(isTrue);
     };
 
-    const handleDisabled = () =>{
-        if(algoritmosValorados.includes(props.tipoAlgoritmo ?? 0))
+    const handleDisabled = () => {
+        if (algoritmosValorados.includes(props.tipoAlgoritmo ?? 0))
             return true;
-        
+
         return false;
     }
 

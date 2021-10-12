@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: "10px",
         margin: 0,
         wordWrap: "break-word",
-        fontSize: "14px" 
+        fontSize: "14px"
     },
     legenda: {
         textAlign: "center",
@@ -18,12 +18,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const itens = [
-    {nome: "Variável i", stroke: "black", fill: "#FFF1D0"},
-    {nome: "Variável j", stroke: "black", fill: "#32b31b"},
-    {nome: "Variável k", stroke: "black", fill: "#07A0C3"},
-    {nome: "Distância (i,j)", stroke: "black", fill: "#DD1C1A"},
-    {nome: "Distância (i,k)", stroke: "black", fill: "#DD1C1A"},
-    {nome: "Distância (k,j)", stroke: "black", fill: "#DD1C1A"}
+    { nome: "Vértice i", stroke: "black", fill: "#07A0C3" },
+    { nome: "Vértice j", stroke: "black", fill: "#DD1C1A" },
+    { nome: "Vértice k", stroke: "black", fill: "#F8D525" },
 ]
 
 export default function Legendas() {
@@ -39,6 +36,6 @@ export default function Legendas() {
                     {legenda.nome}
                 </span>
             })}
-        </Grid> 
+        </Grid>
     );
 }

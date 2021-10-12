@@ -17,10 +17,8 @@ export interface ICaminhoBELLMANNFORD {
 }
 
 export interface IDistancia {
-    idVertice: number;
     peso?: number;
     infinito: boolean;
-    verticePai?: number;
 }
 
 export interface IDistanciaNaoInfinitas {

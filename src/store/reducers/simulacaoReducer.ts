@@ -13,6 +13,9 @@ const INICIAL_STATE: ISimulacao = {
     bellmanford: {
         caminho: []
     },
+    floydWarshall: {
+        caminho: []
+    },
     passo: 0,
     qntdPassos: 0,
     tipoAlgoritmo: undefined
@@ -23,7 +26,8 @@ export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAc
     let dfs = { ...oldState.dfs };
     let bfs = { ...oldState.bfs };
     let dijkstra = { ...oldState.dijkstra };
-    let bellmanford = {...oldState.bellmanford}
+    let bellmanford = { ...oldState.bellmanford }
+    let floydWarshall = { ...oldState.floydWarshall }
     switch (action.type) {
         case "UPDATE_DFS":
             dfs.caminho = action.payload.caminho;
@@ -36,7 +40,10 @@ export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAc
             return { ...oldState, dijkstra }
         case "UPDATE_BELLMANFORD":
             bellmanford.caminho = action.payload.caminho;
-            return {...oldState, bellmanford};
+            return { ...oldState, bellmanford };
+        case "UPDATE_FLOYDWARSHALL":
+            floydWarshall.caminho = action.payload.caminho;
+            return { ...oldState, floydWarshall };
         case "SET_PASSO":
             return { ...oldState, passo: action.payload }
         case "SET_QNTD_PASSOS":

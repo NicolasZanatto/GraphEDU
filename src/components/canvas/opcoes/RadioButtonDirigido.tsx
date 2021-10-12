@@ -10,27 +10,27 @@ import { IState } from "../../../store/types";
 import { EAlgoritmos } from '../../../Algoritmos/EAlgoritmos';
 
 const RadioButtonDirigidoNaoDirigido = (props: Props) => {
-    const algoritmosDirigidos = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD];
-    const handleValue = () =>{
-        if(algoritmosDirigidos.includes(props.tipoAlgoritmo ?? 0)){
+    const algoritmosDirigidos = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD, EAlgoritmos.FLOYDWARSHALL];
+    const handleValue = () => {
+        if (algoritmosDirigidos.includes(props.tipoAlgoritmo ?? 0)) {
             props.optionDirigidoAction(true);
-            return true;    
+            return true;
         }
 
         return props.dirigido;
     }
-    
+
     const [value, setValue] = React.useState(handleValue());
     const handleChange = (event: any) => {
         var isTrue = (event.target.value === 'true');
         setValue(isTrue);
         props.optionDirigidoAction(isTrue);
     };
-    
-    const handleDisabled = () =>{
-        if(algoritmosDirigidos.includes(props.tipoAlgoritmo ?? 0))
+
+    const handleDisabled = () => {
+        if (algoritmosDirigidos.includes(props.tipoAlgoritmo ?? 0))
             return true;
-        
+
         return false;
     }
 

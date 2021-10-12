@@ -15,20 +15,19 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         color: "black",
-        textDecoration : 'none'
+        textDecoration: 'none'
     }
 }));
 
-interface IProps{
+interface IProps {
     home: boolean,
     text: string,
     caminho: string,
     algoritmo: EAlgoritmos
 }
 
-const ItemIcon = (algoritmo : any) =>{
-    console.log("TipoAlgo:",algoritmo.tipoAlgoritmo);
-    switch(algoritmo.tipoAlgoritmo){
+const ItemIcon = (algoritmo: any) => {
+    switch (algoritmo.tipoAlgoritmo) {
         case EAlgoritmos.DFS:
         case EAlgoritmos.BFS:
             return <BubbleChartIcon></BubbleChartIcon>
@@ -41,11 +40,11 @@ const ItemIcon = (algoritmo : any) =>{
             return <DeviceHubIcon></DeviceHubIcon>
 
         default:
-         return <HomeIcon></HomeIcon>
+            return <HomeIcon></HomeIcon>
     }
 }
 
-export default function ItemLink(props : IProps){
+export default function ItemLink(props: IProps) {
     const classes = useStyles();
 
     return (
@@ -54,7 +53,7 @@ export default function ItemLink(props : IProps){
                 <ListItemIcon>
                     <ItemIcon tipoAlgoritmo={props.algoritmo}></ItemIcon>
                 </ListItemIcon>
-                    <ListItemText primary={props.text} />
+                <ListItemText primary={props.text} />
             </ListItem>
         </Link>
     );

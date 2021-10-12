@@ -3,15 +3,15 @@ import { connect, ConnectedProps } from "react-redux";
 import { Dispatch, bindActionCreators } from "redux";
 import Canvas from "../components/canvas/Canvas";
 import ComponenteSimulacao from "../components/componente-simulacao/ComponenteSimulacao";
-import BellmanFordPseudoCodigo from "../components/pseudo-codigo/BellmanFordPseudoCodigo";
-import BellmanFordCamposAdicionais from "../components/campos-adicionais/BELLMANFORDCamposAdicionais";
+import FloydWarshallPseudoCodigo from "../components/pseudo-codigo/FloydWarshallPseudoCodigo";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import * as SimulacaoActions from "../store/actions/simulacaoAction";
 import { IState } from "../store/types";
 import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
-import LegendasBELLMANFORD from "../components/canvas/legendas/LegendasBELLMANFORD";
+import LegendasFloydWarshall from "../components/canvas/legendas/LegendasFLOYDWARSHALL";
 import { MenuLateral } from './common/MenuLateral';
+import FLOYDWARSHALLCamposAdicionais from '../components/campos-adicionais/FLOYDWARSHALLCamposAdicionais';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,7 +53,7 @@ const FloydWarshall = (props: Props) => {
                             <div className={classes.title}>FLOYD-WARSHALL</div>
                         </Grid>
                         <Grid item xs={12}>
-                            <LegendasBELLMANFORD></LegendasBELLMANFORD>
+                            <LegendasFloydWarshall></LegendasFloydWarshall>
                         </Grid>
                         <Grid item xs={12}>
                             <Canvas></Canvas>
@@ -64,12 +64,12 @@ const FloydWarshall = (props: Props) => {
                     </Grid>
                 </Grid>
                 <Grid item xs={3}>
-                    <BellmanFordPseudoCodigo></BellmanFordPseudoCodigo>
+                    <FloydWarshallPseudoCodigo></FloydWarshallPseudoCodigo>
                 </Grid>
                 <Grid item xs={2}>
-                    <BellmanFordCamposAdicionais></BellmanFordCamposAdicionais>
+                    <FLOYDWARSHALLCamposAdicionais></FLOYDWARSHALLCamposAdicionais>
                 </Grid>
-                
+
             </Grid>
         </MenuLateral>
     );

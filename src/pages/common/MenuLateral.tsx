@@ -65,31 +65,31 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-interface IProps{
+interface IProps {
   children: any,
 }
 
 const ItensMenuPaginaInicial = [
-  {text: 'Página Inicial', caminho: "/"},
+  { text: 'Página Inicial', caminho: "/" },
 ];
 
 const ItensMenuAlgoritmoBusca = [
-  {text: 'Dfs', caminho: "DFS", enumAlgoritmo: EAlgoritmos.DFS},
-  {text: 'Bfs', caminho: "BFS", enumAlgoritmo: EAlgoritmos.BFS},
+  { text: 'Dfs', caminho: "DFS", enumAlgoritmo: EAlgoritmos.DFS },
+  { text: 'Bfs', caminho: "BFS", enumAlgoritmo: EAlgoritmos.BFS },
 ];
 
 const ItensMenuAlgoritmoCaminhoMinimo = [
-  {text: 'Dijkstra', caminho: 'DIJKSTRA', enumAlgoritmo: EAlgoritmos.DIJKSTRA},
-  {text: 'Bellman-Ford', caminho: 'BELLMANFORD', enumAlgoritmo: EAlgoritmos.BELLMANFORD},
-  {text: 'Floyd-Warshall', caminho: 'FLOYDWARSHALL', enumAlgoritmo: EAlgoritmos.FLOYDWARSHALL},
+  { text: 'Dijkstra', caminho: 'DIJKSTRA', enumAlgoritmo: EAlgoritmos.DIJKSTRA },
+  { text: 'Bellman-Ford', caminho: 'BELLMANFORD', enumAlgoritmo: EAlgoritmos.BELLMANFORD },
+  { text: 'Floyd-Warshall', caminho: 'FLOYDWARSHALL', enumAlgoritmo: EAlgoritmos.FLOYDWARSHALL },
 ];
 
 const ItensMenuAlgoritmoArvoreGeradoraMinima = [
-  {text: 'Prim', caminho: 'PRIM', enumAlgoritmo: EAlgoritmos.PRIM},
-  {text: 'Kruskal', caminho: 'KRUSKAL', enumAlgoritmo: EAlgoritmos.KRUSKAL},
+  { text: 'Prim', caminho: 'PRIM', enumAlgoritmo: EAlgoritmos.PRIM },
+  { text: 'Kruskal', caminho: 'KRUSKAL', enumAlgoritmo: EAlgoritmos.KRUSKAL },
 ]
 
-export const MenuLateral = (props : IProps) => {
+export const MenuLateral = (props: IProps) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -105,7 +105,7 @@ export const MenuLateral = (props : IProps) => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar sx={{backgroundColor: "#151A1E", color: "#fff"}}>
+        <Toolbar sx={{ backgroundColor: "#151A1E", color: "#fff" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -141,31 +141,31 @@ export const MenuLateral = (props : IProps) => {
         <Divider />
         <List>
           {ItensMenuPaginaInicial.map((item, index) => (
-            <ItemLink caminho={item.caminho} text={item.text} home={true} algoritmo={0}></ItemLink>
+            <ItemLink key={index} caminho={item.caminho} text={item.text} home={true} algoritmo={0}></ItemLink>
           ))}
         </List>
         <Divider />
         <List>
           {ItensMenuAlgoritmoBusca.map((item, index) => (
-              <ItemLink caminho={item.caminho} text={item.text} home={false} algoritmo={item.enumAlgoritmo}></ItemLink>
+            <ItemLink key={index} caminho={item.caminho} text={item.text} home={false} algoritmo={item.enumAlgoritmo}></ItemLink>
           ))}
         </List>
         <Divider />
         <List>
           {ItensMenuAlgoritmoCaminhoMinimo.map((item, index) => (
-            <ItemLink text={item.text} caminho={item.caminho} home={false} algoritmo={item.enumAlgoritmo}></ItemLink>
+            <ItemLink key={index} text={item.text} caminho={item.caminho} home={false} algoritmo={item.enumAlgoritmo}></ItemLink>
           ))}
         </List>
         <Divider />
         <List>
           {ItensMenuAlgoritmoArvoreGeradoraMinima.map((item, index) => (
-            <ItemLink text={item.text} caminho={item.caminho} home={false} algoritmo={item.enumAlgoritmo}></ItemLink>
+            <ItemLink key={index} text={item.text} caminho={item.caminho} home={false} algoritmo={item.enumAlgoritmo}></ItemLink>
           ))}
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-            {props.children}
+        {props.children}
       </Main>
     </Box>
   );

@@ -4,12 +4,14 @@ import { IRetornoDFS } from "./dfsTypes";
 import { IRetornoBFS } from "./bfsTypes";
 import { IRetornoDIJKSTRA } from "./dijkstraTypes";
 import { IRetornoBELLMANFORD } from "./bellmanFordTypes";
+import { IRetornoFLOYDWARSHALL } from "./floydWarshallTypes";
 
 export interface ISimulacao {
     dfs: IRetornoDFS,
     bfs: IRetornoBFS,
     dijkstra: IRetornoDIJKSTRA,
     bellmanford: IRetornoBELLMANFORD,
+    floydWarshall: IRetornoFLOYDWARSHALL,
     passo: number,
     qntdPassos: number,
     tipoAlgoritmo?: EAlgoritmos
@@ -35,6 +37,11 @@ export interface IUpdateBELLMANFORD extends Action {
     payload: IRetornoBELLMANFORD
 };
 
+export interface IUpdateFLOYDWARSHALL extends Action {
+    type: "UPDATE_FLOYDWARSHALL",
+    payload: IRetornoFLOYDWARSHALL
+};
+
 export interface ISetPasso extends Action {
     type: "SET_PASSO",
     payload: number
@@ -50,4 +57,4 @@ export interface ISetAlgoritmo extends Action {
     payload: EAlgoritmos
 }
 
-export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS  | IUpdateDIJKSTRA | IUpdateBELLMANFORD | ISetPasso | ISetQntdPassos | ISetAlgoritmo;
+export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS | IUpdateDIJKSTRA | IUpdateBELLMANFORD | IUpdateFLOYDWARSHALL | ISetPasso | ISetQntdPassos | ISetAlgoritmo;

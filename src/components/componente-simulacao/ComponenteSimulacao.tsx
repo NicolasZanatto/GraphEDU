@@ -17,6 +17,7 @@ import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
 import ContadorPassos from "./utils/ContadorPassos";
 import DIJKSTRA from '../../Algoritmos/DIJKSTRA';
 import BELLMANFORD from '../../Algoritmos/BELLMANFORD';
+import FLOYDWARSHALL from '../../Algoritmos/FLOYDWARSHALL';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -74,6 +75,14 @@ const ComponenteSimulacao = (props: Props) => {
         props.updateBELLMANFORDAction(retornoBellman);
         setQntdPassos(retornoBellman.caminho.length);
         props.setQntdPassosAction(retornoBellman.caminho.length);
+        break;
+      case EAlgoritmos.FLOYDWARSHALL:
+        const floydWarshall = new FLOYDWARSHALL(props.canvas);
+        const retornoFloydWarshall = floydWarshall.main();
+        console.log("Retorno FW:", retornoFloydWarshall);
+        props.updateFLOYDWARSHALLAction(retornoFloydWarshall);
+        setQntdPassos(retornoFloydWarshall.caminho.length);
+        props.setQntdPassosAction(retornoFloydWarshall.caminho.length);
         break;
     }
 
