@@ -1,78 +1,33 @@
 import React from 'react';
 import { connect, ConnectedProps } from "react-redux";
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { IState } from "../../store/types";
-import $ from "jquery";
-
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            '& > *': {
-                margin: theme.spacing(1),
-            },
-            borderBottom: "1px solid rgba(0, 0, 0, 0.2)",
-            fontSize: "14px",
-            maxHeight: "80vh",
-            overflow: "auto"
-
-        },
-        p20: {
-            paddingLeft: "20px",
-        },
-        p40: {
-            paddingLeft: "40px"
-        },
-        p60: {
-            paddingLeft: "60px"
-        },
-        p80: {
-            paddingLeft: "80px"
-        },
-        p100: {
-            paddingLeft: "100px"
-        },
-        selected: {
-            color: "red"
-        },
-    }),
-);
+import PseudoCodigoEditor from './common/PseudoCodigoEditor';
 
 const BellmanFordPseudoCodigo = (props: Props) => {
-    const classes = useStyles();
     const passo = props.simulacao.bellmanford.caminho[props.simulacao.passo];
-    if (passo !== undefined) {
-        const numeroLinhas = 18;
-        for (let i = 1; i <= numeroLinhas; i++) {
-            $(`#code${i}`).removeClass(classes.selected);
-        }
-        $(`#code${passo.linha}`).addClass(classes.selected);
-    }
-    
-    const chaveEsquerda = "{";
-    const chaveDireita = "}";
+
+    const algoritmo = `BellmanFord(verticeInicial){
+    para cada v em G
+        d[v] = infinito; p[v] = null;
+    fimpara
+    d[verticeInicial] = 0;
+    para i de 1 ate V-1
+        para cada aresta (u,v) em G
+            tempDistancia = d[u] + peso_aresta(u,v);
+            se tempDistancia < d[v]
+                d[v] = tempDistancia; p[v] = u;
+            fimse
+        fimpara
+    fimpara
+    para cada aresta (u,v) em G
+        se d[u] + peso_aresta(u,v) < d[v]
+            return "Há Ciclos Negativos"
+        fimse
+    fimpara
+}`;
+
     return (
-        <div className={classes.root}>
-            <div id="code1"><p>BellmanFord(verticeInicial){chaveEsquerda}</p></div>
-            <div id="code2"><p className={classes.p20}>para cada v em G</p></div>
-            <div id="code3"><p className={classes.p40}>d[v] = infinito; p[v] = null</p></div>
-            <div id="code4"><p className={classes.p20}>fimpara</p></div>
-            <div id="code5"><p className={classes.p20}>d[verticeInicial] = 0</p></div>
-            <div id="code6"><p className={classes.p20}>para i de 1 ate V-1</p></div>
-            <div id="code7"><p className={classes.p40}>para cada aresta (u,v) em G</p></div>
-            <div id="code8"><p className={classes.p60}>tempDistancia = d[u] + peso_aresta(u,v)</p></div>
-            <div id="code9"><p className={classes.p60}>se tempDistancia &lt; d[v]</p></div>
-            <div id="code10"><p className={classes.p80}>d[v] = tempDistancia; p[v] = u;</p></div>
-            <div id="code11"><p className={classes.p60}>fimse</p></div>
-            <div id="code12"><p className={classes.p40}>fimpara</p></div>
-            <div id="code13"><p className={classes.p20}>fimpara</p></div>
-            <div id="code14"><p className={classes.p20}>para cada aresta (u,v) em G</p></div>
-            <div id="code15"><p className={classes.p40}>se d[u] + peso_aresta(u,v) &lt; d[v]</p></div>
-            <div id="code16"><p className={classes.p80}>return "Há Ciclos Negativos"</p></div>
-            <div id="code17"><p className={classes.p40}>fimse</p></div>
-            <div id="code18"><p className={classes.p20}>fimpara</p></div>
-            <div id="code19"><p>{chaveDireita}</p></div>
-        </div>
+        <PseudoCodigoEditor algoritmo={algoritmo} linha={passo?.linha} />
     );
 }
 

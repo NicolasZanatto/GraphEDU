@@ -142,6 +142,7 @@ class DFS {
 
     dfs(s: number) {
         this.adj = this.obtemListaAdjacencias(s);
+        this.adicionarPasso(1, s, undefined);
         this.adicionarPasso(2, s, undefined);
         this.setVisitado(s);
         this.adicionarPasso(3, s, undefined);

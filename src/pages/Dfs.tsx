@@ -46,7 +46,7 @@ const Dfs = (props: Props) => {
     const classes = useStyles();
     return (
         <MenuLateral>
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
                 <Grid item xs={7}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>

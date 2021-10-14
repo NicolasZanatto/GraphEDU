@@ -124,7 +124,6 @@ class FLOYDWARSHALL {
     }
 
     verificaCaminhoExiste(verticeI: number, verticeJ: number, verticeK: number) {
-        if (!this.grafo.links.some(o => o.source.id === verticeI && o.target.id === verticeJ)) return false;
         if (!this.grafo.links.some(o => o.source.id === verticeI && o.target.id === verticeK)) return false;
         if (!this.grafo.links.some(o => o.source.id === verticeK && o.target.id === verticeJ)) return false;
 
