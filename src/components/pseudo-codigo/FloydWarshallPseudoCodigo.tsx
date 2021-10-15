@@ -6,24 +6,24 @@ import PseudoCodigoEditor from './common/PseudoCodigoEditor';
 const FloydWarshallPseudoCodigo = (props: Props) => {
     const passo = props.simulacao.floydWarshall.caminho[props.simulacao.passo];
     const algoritmo = `FloydWarshall(){
-    para i de 1 até N
-        para j de 1 até N
-            se existe aresta(i,j)
-                dist(i,j) = peso_aresta(i,j); p(i,j) = i;
-            senao
-                dist(i,j) = infinito
-            fimse
-        fimpara
+  para i de 1 até N
+    para j de 1 até N
+      se existe aresta(i,j)
+        dist(i,j) = peso_aresta(i,j); p(i,j) = i;
+      senao
+        dist(i,j) = infinito
+      fimse
     fimpara
-    para k de 1 ate N
-        para i de 1 ate N
-            para j de 1 ate N
-                se dist(i,j) > dist(i,k) + dist(k,j)
-                    dist(i,j) = dist(i,k) + dist(k,j); p(i,j) = p(k,j);
-                fimse
-            fimpara
-        fimpara
+  fimpara
+  para k de 1 ate N
+    para i de 1 ate N
+      para j de 1 ate N
+        se dist(i,j) > dist(i,k) + dist(k,j)
+          dist(i,j) = dist(i,k) + dist(k,j); p(i,j) = p(k,j);
+        fimse
+      fimpara
     fimpara
+  fimpara
 }`;    
 
     return (

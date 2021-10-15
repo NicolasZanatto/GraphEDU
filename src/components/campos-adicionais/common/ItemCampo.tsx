@@ -25,7 +25,7 @@ export default function ItemCampoAdicional(props :IProps) {
     const classes = useStyles();
 
     return (
-        <ListItem>
+        <ListItem tabIndex={0}>
             <ListItemText id={props.id} classes={{ primary: classes.item }} primary={props.titulo} />
             <ListItemSecondaryAction>
                 <ListItemText id={props.id} classes={{ primary: classes.item }} primary={props.valor || ""} />

@@ -3,6 +3,7 @@ import React from 'react';
 import { connect, ConnectedProps } from "react-redux";
 import { IState } from "../../store/types";
 import { CamposAdicionais } from './common/CamposAdicionais';
+import { MatrizDistancia } from './FLOYDWARSHALLCamposAdicionaisMatrizDist.tsx';
 import { ICamposAdicionais } from './interfaces/IItemCampoAdicional';
 
 const FLOYDWARSHALLCamposAdicionais = (props: Props) => {
@@ -21,20 +22,7 @@ const FLOYDWARSHALLCamposAdicionais = (props: Props) => {
     return (
         <Grid>
             <CamposAdicionais {...itensCamposAdicionais}></CamposAdicionais>
-            {passo?.matrizDistancia === undefined ?
-                <div></div>
-                :
-                <table>
-                    {passo.matrizDistancia.map((linha, index) => {
-                        return (<tr key={index}>
-                            {linha.map((coluna, index) => {
-                                return <td key={index}>{coluna.peso ?? "∞"}</td>
-                            })}
-                        </tr>
-                        )
-                    })};
-                </table>
-            }
+            <MatrizDistancia {...passo}></MatrizDistancia>
         </Grid>
     );
 }
