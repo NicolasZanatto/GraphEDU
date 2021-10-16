@@ -59,8 +59,19 @@ export default function canvas(oldState = INICIAL_STATE, action: ICanvasAction) 
             return { ...oldState, dirigido: action.payload };
 
         case "LIMPAR_GRAFO":
-            return {...oldState, nodes: [], links: []}
-            
+            return { ...oldState, nodes: [], links: [] }
+        case "SETAR_GRAFO":
+            return {
+                ...oldState,
+                nodes: action.payload.nodes,
+                links: action.payload.links,
+                dirigido: action.payload.dirigido,
+                valorado: action.payload.valorado,
+                verticeInicial: action.payload.verticeInicial,
+                verticeFinal: action.payload.verticeFinal
+            }
+        case "RESTART_GRAFO":
+            return { ...oldState, restartCanvas: action.payload }
         default:
             return oldState;
     }

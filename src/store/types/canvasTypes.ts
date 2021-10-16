@@ -25,7 +25,8 @@ export interface IGrafo {
     valorado: Boolean,
     dirigido: Boolean
     verticeInicial?: number,
-    verticeFinal?: number
+    verticeFinal?: number,
+    restartCanvas?: boolean
 };
 
 export interface ICaminhoVertice {
@@ -86,5 +87,13 @@ export interface IOptionDirigido extends Action {
 export interface ILimparGrafo extends Action {
     type: "LIMPAR_GRAFO"
 };
+export interface ISetarGrafo extends Action {
+    type: "SETAR_GRAFO",
+    payload: IGrafo
+};
+export interface IRestartGrafo extends Action {
+    type: "RESTART_GRAFO",
+    payload: boolean
+};
 
-export type ICanvasAction = | IAddNode | IStartNode | IFinalNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido | ILimparGrafo;
+export type ICanvasAction = | IAddNode | IStartNode | IFinalNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido | ILimparGrafo | ISetarGrafo | IRestartGrafo;
