@@ -10,6 +10,7 @@ import { IState } from "../../store/types/"
 import { Dispatch } from 'redux';
 import { ISimulacao } from "../../store/types/simulacaoTypes";
 import { Grid } from "@material-ui/core";
+import ImportacaoExportacaoButtons from "./importacao-exportacao/ImportacaoExportacaoButtons";
 
 const Canvas = (props: Props) => {
   const containerRef = React.useRef(null);
@@ -42,10 +43,15 @@ const Canvas = (props: Props) => {
 
   restartCanvas();
   return (
+    <Grid item xs={12}>
       <Grid item xs={12}>
         <Options handleStartCanvas={handleStartCanvas}></Options>
         <div ref={containerRef} className={styles.container}></div>
       </Grid>
+      <Grid item xs={12}>
+        <ImportacaoExportacaoButtons></ImportacaoExportacaoButtons>
+      </Grid>
+    </Grid>
   );
 }
 
