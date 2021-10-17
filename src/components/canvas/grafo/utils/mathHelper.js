@@ -62,14 +62,9 @@ export const tickEdge = (d, dirigido) => {
     }
 };
 
-export const linksNextId = (links) => {
+export const ArrayNextId = (array) => {
 
-    if (links.length === 0) return 1;
-    if (links.length === 1) return 2;
+    if (array.length === 0) return 1;
 
-    var id = links.map(o => { return o.id }).reduce(function (a, b) {
-
-        return Math.max(a, b);
-    }) + 1;
-    return id;
+    return Math.max.apply(null,array.map(o => { return o.id })) + 1
 }

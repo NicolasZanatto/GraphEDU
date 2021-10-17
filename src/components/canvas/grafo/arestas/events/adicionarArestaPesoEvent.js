@@ -1,4 +1,4 @@
-let idEdge = 1;
+import { ArrayNextId } from "../../utils/mathHelper"; 
 
 export const addEdgeValue = (links, source, target, addEdgeAction, valorado) => {
     let value;
@@ -9,9 +9,17 @@ export const addEdgeValue = (links, source, target, addEdgeAction, valorado) => 
         }
         value = parseInt(value);
     }
+    var idEdge = ArrayNextId(links);
+
     var newLink = { id: idEdge, source: source, target: target, value: value };
     links.push(newLink);
 
-    addEdgeAction(newLink);
-    idEdge++;
+    if(addEdgeAction !== undefined)
+        addEdgeAction(newLink);
+}
+
+export const adicionarArestaReset = (links, source, target, value) => {
+    var idEdge = ArrayNextId(links)
+    var newLink = { id: idEdge, source: source, target: target, value: value };
+    links.push(newLink);
 }
