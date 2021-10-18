@@ -6,7 +6,6 @@ import {
   Route,
   Switch
 } from "react-router-dom"
-import './App.css';
 
 import Dfs from "./pages/Dfs";
 import Bfs from "./pages/Bfs";
@@ -17,7 +16,7 @@ import Home from "./pages/Home";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Provider store={store}>
         <Router forceRefresh={true}>
           <Switch>

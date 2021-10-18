@@ -96,7 +96,7 @@ export const mostrarMenuArestas = (nodes, links, d, width, height, svgId, action
 
     const menuArestasItens = menus.filter(o => { return o.dirigido === dirigido && o.valorado === valorado });
 
-    menuFactory(d3.event.pageX - width, d3.event.pageY - height, menuArestasItens[0].menuEspecifico, nodes, links, d, svgId, actions);
+    menuFactory(d3.event.pageX - width/1.9, d3.event.pageY - height-50, menuArestasItens[0].menuEspecifico, nodes, links, d, svgId, actions);
     d3.event.preventDefault();
 
     return links;
