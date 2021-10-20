@@ -18,6 +18,8 @@ import ContadorPassos from "./utils/ContadorPassos";
 import DIJKSTRA from '../../Algoritmos/DIJKSTRA';
 import BELLMANFORD from '../../Algoritmos/BELLMANFORD';
 import FLOYDWARSHALL from '../../Algoritmos/FLOYDWARSHALL';
+import PRIM from "../../Algoritmos/PRIM";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -83,6 +85,13 @@ const ComponenteSimulacao = (props: Props) => {
         props.updateFLOYDWARSHALLAction(retornoFloydWarshall);
         setQntdPassos(retornoFloydWarshall.caminho.length);
         props.setQntdPassosAction(retornoFloydWarshall.caminho.length);
+        break;
+      case EAlgoritmos.PRIM:
+        const prim = new PRIM(props.canvas);
+        const retornoPRIM = prim.main();
+        props.updatePRIMAction(retornoPRIM);
+        setQntdPassos(retornoPRIM.caminho.length);
+        props.setQntdPassosAction(retornoPRIM.caminho.length);
         break;
     }
 
