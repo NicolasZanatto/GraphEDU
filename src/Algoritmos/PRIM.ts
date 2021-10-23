@@ -9,11 +9,13 @@ class Retorno implements IRetornoPRIM {
         conjuntoU: Array<number>,
         listaAdj: Array<number>,
         listaDistancia: Array<Distancia>,
-        verticeV?: number,
+        caminhoArestas: Array<number>,
         verticeU?: number,
+        verticeV?: number,
         distanciaU?: number,
         distanciaV?: number,
         arestaE?: number,
+
     ) {
         this.caminho.push(
             new Caminho(
@@ -21,11 +23,13 @@ class Retorno implements IRetornoPRIM {
                 conjuntoU,
                 listaDistancia,
                 listaAdj,
+                caminhoArestas,
                 verticeV,
                 verticeU,
                 distanciaV,
                 distanciaU,
-                arestaE));
+                arestaE
+            ));
     }
 }
 
@@ -39,17 +43,19 @@ class Caminho implements ICaminhoPRIM {
     conjuntoU = new Array<number>();
     listaAdj = new Array<number>();
     listaDistancia = new Array<Distancia>();
-
+    caminhoArestas = new Array<number>();
     constructor(
         linha: number,
         conjuntoU: Array<number>,
         listaDistancia: Array<Distancia>,
         listaAdj: Array<number>,
+        caminhoArestas: Array<number>,
         verticeV?: number,
         verticeU?: number,
         distanciaV?: number,
         distanciaU?: number,
-        arestaE?: number) {
+        arestaE?: number,
+    ) {
         this.verticeV = verticeV;
         this.distanciaV = distanciaV;
         this.distanciaU = distanciaU;
@@ -59,6 +65,7 @@ class Caminho implements ICaminhoPRIM {
         conjuntoU.forEach(val => this.conjuntoU.push(val));
         this.listaAdj = listaAdj;
         listaDistancia.forEach(val => this.listaDistancia.push(Object.assign({}, val)));
+        caminhoArestas.forEach(val => this.caminhoArestas.push(val));
     }
 }
 
@@ -81,7 +88,7 @@ class PRIM {
     distancia = new Array<Distancia>();
     conjuntoU = new Array<number>();
     verticesAdjacentes = Array<IAresta>();
-
+    caminhoArestas = new Array<number>();
     constructor(grafo: IGrafo) {
         this.grafo = grafo;
     }
@@ -92,11 +99,13 @@ class PRIM {
             this.conjuntoU,
             this.obterVerticesAdjacentes(this.verticesAdjacentes, verticeU),
             this.distancia,
+            this.caminhoArestas,
             verticeU,
             verticeV,
             this.obterDistancia(verticeU),
             this.obterDistancia(verticeV),
-            arestaE);
+            arestaE,
+        );
     }
 
     obterDistancia(vertice?: number) {
@@ -124,6 +133,20 @@ class PRIM {
         return verticesAdjacentesOrigem.concat(verticesAdjacentesDestino);
     }
 
+    setArestaCaminho(origem?: number, destino?: number) {
+        var aresta = this.grafo.dirigido ?
+            this.grafo.links.filter(x => x.source.id === origem && x.target.id === destino)[0] :
+            this.grafo.links.filter(x => (x.source.id === origem && x.target.id === destino)
+                || (x.target.id === origem && x.source.id === destino))[0]
+
+        if (aresta?.id === undefined) return;
+
+        this.caminhoArestas.push(aresta.id);
+    }
+
+    limparListaAdjacencias() {
+        this.verticesAdjacentes = [];
+    }
     setListaAdjacencias(s: number) {
         this.verticesAdjacentes = this.grafo.links.filter((aresta) => {
             return this.grafo.dirigido ? (aresta.source.id === s) : (aresta.source.id === s || aresta.target.id === s)
@@ -154,8 +177,9 @@ class PRIM {
             let u = this.obterMenorDistanciaNaoVisitada();
             this.adicionarPasso(8, u.idVertice);
             this.conjuntoU.push(u.idVertice);
+            this.setArestaCaminho(u.verticePai, u.idVertice);
+            console.log(`Visitou o vértice ${u.idVertice} com peso ${u.peso}, com pai ${u.verticePai}`);
             this.adicionarPasso(9, u.idVertice);
-            console.log(`Visitou o vértice ${u.idVertice} com peso ${u.peso}`);
             this.setListaAdjacencias(u.idVertice)
             this.verticesAdjacentes.forEach(aresta => {
                 var v = this.obterVerticeDestino(u.idVertice, aresta)
@@ -168,6 +192,7 @@ class PRIM {
                 }
             })
             this.adicionarPasso(13, u.idVertice);
+            this.limparListaAdjacencias();
         }
         this.adicionarPasso(14);
     }

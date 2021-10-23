@@ -10,7 +10,7 @@ import { IState } from "../../../store/types";
 import { EAlgoritmos } from '../../../Algoritmos/EAlgoritmos';
 
 const RadioButtonValoradoNaoValorado = (props: Props) => {
-    const algoritmosValorados = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD, EAlgoritmos.FLOYDWARSHALL];
+    const algoritmosValorados = [EAlgoritmos.DIJKSTRA, EAlgoritmos.BELLMANFORD, EAlgoritmos.FLOYDWARSHALL, EAlgoritmos.PRIM];
     const handleValue = () => {
         if (algoritmosValorados.includes(props.tipoAlgoritmo ?? 0)) {
             props.optionValoradoAction(true);

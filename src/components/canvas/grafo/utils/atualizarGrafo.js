@@ -4,6 +4,7 @@ import { AtualizarGrafoBFS } from "./atualizarGrafoBFS";
 import { AtualizarGrafoDIJKSTRA } from "./atualizarGrafoDIJKSTRA";
 import { AtualizarGrafoBELLMANFORD } from "./atualizarGrafoBELLMANFORD";
 import { AtualizarGrafoFLOYDWARSHALL } from "./atualizarGrafoFLOYDWARSHALL";
+import { AtualizarGrafoPRIM } from "./atualizarGrafoPRIM";
 import { adicionarArestaReset } from "../arestas/events/adicionarArestaPesoEvent";
 export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, simulacao, styles) => {
 
@@ -23,13 +24,16 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
         case EAlgoritmos.FLOYDWARSHALL:
             AtualizarGrafoFLOYDWARSHALL(verticeInicial, verticeFinal, nodes, links, simulacao)
             break;
+        case EAlgoritmos.PRIM:
+            AtualizarGrafoPRIM(verticeInicial, verticeFinal, nodes, links, simulacao)
+            break;
         default:
     }
 }
 
-export const AtualizarVerticesEArestasGrafo = (oldNodes, oldLinks, newNodes, newLinks) =>{
-    oldNodes.splice(0,oldNodes.length);
+export const AtualizarVerticesEArestasGrafo = (oldNodes, oldLinks, newNodes, newLinks) => {
+    oldNodes.splice(0, oldNodes.length);
     newNodes.forEach(node => oldNodes.push(node));
     oldLinks.splice(0, oldLinks.length);
-    newLinks.forEach(link => adicionarArestaReset(oldLinks,newNodes.find(o => o.id === link.source.id),newNodes.find(o => o.id === link.target.id),link.value))
+    newLinks.forEach(link => adicionarArestaReset(oldLinks, newNodes.find(o => o.id === link.source.id), newNodes.find(o => o.id === link.target.id), link.value))
 }

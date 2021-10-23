@@ -8,11 +8,13 @@ import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/des
 import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
 import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
 import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
-import { AtualizarCoresGrafo,AtualizarVerticesEArestasGrafo } from "./utils/atualizarGrafo";
+import { AtualizarCoresGrafo, AtualizarVerticesEArestasGrafo } from "./utils/atualizarGrafo";
 
 export function runGraph(container, props) {
   const idSVG = "graphSvg";
-  const data = props.data;
+  let data = props.data;
+  let ehGrafoDirigido = data.dirigido;
+  let ehGrafoValorado = data.valorado;
   const actions = props;
   let links = data.links.map((d) => Object.assign({}, d));
   let nodes = data.nodes.map((d) => Object.assign({}, d));
@@ -34,35 +36,37 @@ export function runGraph(container, props) {
     }))
     .on("dblclick.zoom", null);
 
+  let simulation;
 
 
-  const simulation = d3
-    .forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(d => d.id))
-    .force("charge", d3.forceManyBody().strength(-500))
-    .force("x", d3.forceX())
-    .force("y", d3.forceY())
-    .on("tick", () => {
-      //update link positions
-      arestas
-        .attr("d", d => tickEdge(d, data.dirigido));
-
-      vertices.attr("transform", function (d) {
-        return "translate(" + d.x + "," + d.y + ")";
-      });
-
-      pesoArestas.attr("transform", tickPesoAresta);
-
-    });
-
-  initDragLine(svg, data.dirigido);
 
   var arestas = svg.append("g").selectAll(`.edge`);
   var pesoArestas = svg.append("g").selectAll(`.${styles.pesoArestas}`);
   var vertices = svg.append("g").selectAll(".vertex");
-  
+
 
   function restart() {
+    simulation = d3
+      .forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id))
+      .force("charge", d3.forceManyBody().strength(-500))
+      .force("x", d3.forceX())
+      .force("y", d3.forceY())
+      .on("tick", () => {
+        //update link positions
+        arestas
+          .attr("d", d => tickEdge(d, ehGrafoDirigido));
+
+        vertices.attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+
+        pesoArestas.attr("transform", tickPesoAresta);
+
+      });
+
+    initDragLine(svg, ehGrafoDirigido);
+
     //arestas 
     arestas = arestas.data(links, function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
@@ -78,10 +82,10 @@ export function runGraph(container, props) {
       .attr("stroke-width", 3.8)
       .attr("class", "edge")
       .attr("id", d => "path" + d.id)
-      .on("contextmenu", (d) => { mostrarMenuArestas(nodes, links, d, width, height, '#graphSvg', actions, data.dirigido, data.valorado); })
-      .on("mouseover", (d) =>{ d3.select("#path" + d.id).attr("stroke", "#f11303b6")})
-      .on("mouseout", (d) =>{ d3.select("#path" + d.id).attr("stroke", "black")}  );
-      
+      .on("contextmenu", (d) => { mostrarMenuArestas(nodes, links, d, width, height, '#graphSvg', actions, data.dirigido, ehGrafoDirigido); })
+      .on("mouseover", (d) => { d3.select("#path" + d.id).attr("stroke", "#f11303b6") })
+      .on("mouseout", (d) => { d3.select("#path" + d.id).attr("stroke", "black") });
+
     ed.append("title").text(function (d) {
       return "v" + d.source.id + "-v" + d.target.id;
     });
@@ -133,7 +137,7 @@ export function runGraph(container, props) {
       .attr("class", "vertex")
       .attr("stroke", "#000")
       .attr("stroke-width", 2)
-      .on("click", d => adicionarAresta(d, links, actions.addEdgeAction, data.dirigido, data.valorado))
+      .on("click", d => adicionarAresta(d, links, actions.addEdgeAction, data.dirigido, ehGrafoValorado))
       .on("contextmenu", (d) => { mostrarMenuVertices(nodes, links, d, width, height, '#graphSvg', actions); })
       .call(drag(simulation));
 
@@ -172,13 +176,11 @@ export function runGraph(container, props) {
     destroy: () => {
       simulation.stop();
     },
-    restart: (data, simulacao) => {
+    restart: (dataAtualizada, simulacao) => {
       UpdateEdgeValueOnSVG(links);
-      AtualizarCoresGrafo(data.verticeInicial, data.verticeFinal, nodes, links, simulacao, styles);
-      AtualizarVerticesEArestasGrafo(nodes,links,data.nodes,data.links);
-      simulation.nodes(nodes);
-      simulation.force("link").links(links);
-      simulation.alpha(0.05).restart();
+      AtualizarCoresGrafo(dataAtualizada.verticeInicial, dataAtualizada.verticeFinal, nodes, links, simulacao, styles);
+      AtualizarVerticesEArestasGrafo(nodes, links, dataAtualizada.nodes, dataAtualizada.links);
+      ehGrafoDirigido = dataAtualizada.dirigido;
       restart();
     }
   };

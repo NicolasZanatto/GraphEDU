@@ -94,6 +94,14 @@ export default function Home() {
                             </Link>
                         </Grid>
                     </Grid>
+                    <p className={classes.subTitle}>Algoritmos de Árvore Geradora Mínima:</p>
+                    <Grid container spacing={8}>
+                        <Grid item xs={4}>
+                            <Link className={classes.link} to='/Algoritmos/PRIM'>
+                                <Paper className={classes.button}>PRIM</Paper>
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Container>
             </div>
         </MenuLateral>

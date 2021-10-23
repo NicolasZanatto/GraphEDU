@@ -12,6 +12,7 @@ import Bfs from "./pages/Bfs";
 import Dijkstra from "./pages/Dijkstra";
 import BellmanFord from "./pages/BellmanFord";
 import FloydWarshall from "./pages/FloydWarshall";
+import Prim from "./pages/Prim";
 import Home from "./pages/Home";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/Algoritmos/DIJKSTRA" component={Dijkstra}></Route>
             <Route path="/Algoritmos/BELLMANFORD" component={BellmanFord}></Route>
             <Route path="/Algoritmos/FLOYDWARSHALL" component={FloydWarshall}></Route>
+            <Route path="/Algoritmos/PRIM" component={Prim}></Route>
           </Switch>
         </Router>
       </Provider>

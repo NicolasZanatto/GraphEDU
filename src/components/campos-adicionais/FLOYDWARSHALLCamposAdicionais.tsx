@@ -3,7 +3,7 @@ import React from 'react';
 import { connect, ConnectedProps } from "react-redux";
 import { IState } from "../../store/types";
 import { CamposAdicionais } from './common/CamposAdicionais';
-import { MatrizDistancia } from './FLOYDWARSHALLCamposAdicionaisMatrizDist.tsx';
+import { MatrizDistancia } from './FLOYDWARSHALLCamposAdicionaisMatrizDist';
 import { ICamposAdicionais } from './interfaces/IItemCampoAdicional';
 
 const FLOYDWARSHALLCamposAdicionais = (props: Props) => {

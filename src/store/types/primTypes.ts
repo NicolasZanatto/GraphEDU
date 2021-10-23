@@ -1,3 +1,5 @@
+import { IAresta } from "./canvasTypes";
+
 export interface IRetornoPRIM {
     caminho: Array<ICaminhoPRIM>
 }
@@ -11,7 +13,8 @@ export interface ICaminhoPRIM {
     arestaE?: number,
     conjuntoU: Array<number>,
     listaAdj: Array<number>,
-    listaDistancia: Array<IDistancia>
+    listaDistancia: Array<IDistancia>,
+    caminhoArestas: Array<number>
 }
 
 export interface IDistancia {
