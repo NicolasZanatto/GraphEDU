@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const itens = [
-    { nome: "Conjunto U", stroke: "black", fill: "#F8D525" },
+    { nome: "Vértices da Aresta e", stroke: "black", fill: "#F8D525" },
 ]
 
 export default function Legendas() {
     const classes = useStyles();
-
     return (
+
         <Grid item xs className={classes.root}>
             {itens.map((legenda, index) => {
                 return <span key={index}>

@@ -101,6 +101,11 @@ export default function Home() {
                                 <Paper className={classes.button}>PRIM</Paper>
                             </Link>
                         </Grid>
+                        <Grid item xs={4}>
+                            <Link className={classes.link} to='/Algoritmos/KRUSKAL'>
+                                <Paper className={classes.button}>KRUSKAL</Paper>
+                            </Link>
+                        </Grid>
                     </Grid>
                 </Container>
             </div>

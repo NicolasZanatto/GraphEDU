@@ -1,5 +1,3 @@
-import { IAresta } from "./canvasTypes";
-
 export interface IRetornoPRIM {
     caminho: Array<ICaminhoPRIM>
 }

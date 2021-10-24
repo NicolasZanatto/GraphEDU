@@ -19,6 +19,7 @@ import DIJKSTRA from '../../Algoritmos/DIJKSTRA';
 import BELLMANFORD from '../../Algoritmos/BELLMANFORD';
 import FLOYDWARSHALL from '../../Algoritmos/FLOYDWARSHALL';
 import PRIM from "../../Algoritmos/PRIM";
+import KRUSKAL from '../../Algoritmos/KRUSKAL';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,6 +93,13 @@ const ComponenteSimulacao = (props: Props) => {
         props.updatePRIMAction(retornoPRIM);
         setQntdPassos(retornoPRIM.caminho.length);
         props.setQntdPassosAction(retornoPRIM.caminho.length);
+        break;
+      case EAlgoritmos.KRUSKAL:
+          const kruskal = new KRUSKAL(props.canvas);
+          const retornoKruskal = kruskal.main();
+          props.updateKRUSKALAction(retornoKruskal);
+          setQntdPassos(retornoKruskal.caminho.length);
+          props.setQntdPassosAction(retornoKruskal.caminho.length);
         break;
     }
 

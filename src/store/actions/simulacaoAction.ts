@@ -1,11 +1,12 @@
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
-import { IUpdateDFS, IUpdateBFS, IUpdateDIJKSTRA, IUpdateBELLMANFORD, ISetPasso, ISetQntdPassos, IUpdateFLOYDWARSHALL, IUpdatePRIM } from "../types/simulacaoTypes";
+import { IUpdateDFS, IUpdateBFS, IUpdateDIJKSTRA, IUpdateBELLMANFORD, ISetPasso, ISetQntdPassos, IUpdateFLOYDWARSHALL, IUpdatePRIM, IUpdateKRUSKAL } from "../types/simulacaoTypes";
 import { IRetornoDFS } from "../types/dfsTypes";
 import { IRetornoBFS } from "../types/bfsTypes";
 import { IRetornoDIJKSTRA } from "../types/dijkstraTypes";
 import { IRetornoBELLMANFORD } from "../types/bellmanFordTypes";
 import { IRetornoFLOYDWARSHALL } from "../types/floydWarshallTypes";
 import { IRetornoPRIM } from "../types/primTypes";
+import { IRetornoKRUSKAL } from "../types/kruskalTypes";
 
 export const updateDFSAction = (retorno: IRetornoDFS): IUpdateDFS => {
     return {
@@ -45,6 +46,13 @@ export const updateFLOYDWARSHALLAction = (retorno: IRetornoFLOYDWARSHALL): IUpda
 export const updatePRIMAction = (retorno: IRetornoPRIM): IUpdatePRIM => {
     return {
         type: "UPDATE_PRIM",
+        payload: retorno
+    }
+}
+
+export const updateKRUSKALAction = (retorno: IRetornoKRUSKAL): IUpdateKRUSKAL => {
+    return {
+        type: "UPDATE_KRUSKAL",
         payload: retorno
     }
 }

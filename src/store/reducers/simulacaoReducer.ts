@@ -19,6 +19,9 @@ const INICIAL_STATE: ISimulacao = {
     prim: {
         caminho: []
     },
+    kruskal: {
+        caminho: []
+    },
     passo: 0,
     qntdPassos: 0,
     tipoAlgoritmo: undefined
@@ -32,6 +35,7 @@ export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAc
     let bellmanford = { ...oldState.bellmanford }
     let floydWarshall = { ...oldState.floydWarshall }
     let prim = { ...oldState.prim }
+    let kruskal = { ...oldState.kruskal }
     switch (action.type) {
         case "UPDATE_DFS":
             dfs.caminho = action.payload.caminho;
@@ -51,6 +55,9 @@ export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAc
         case "UPDATE_PRIM":
             prim.caminho = action.payload.caminho;
             return { ...oldState, prim };
+        case "UPDATE_KRUSKAL":
+            kruskal.caminho = action.payload.caminho;
+            return { ...oldState, kruskal };
         case "SET_PASSO":
             return { ...oldState, passo: action.payload }
         case "SET_QNTD_PASSOS":

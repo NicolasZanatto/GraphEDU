@@ -5,6 +5,7 @@ import { AtualizarGrafoDIJKSTRA } from "./atualizarGrafoDIJKSTRA";
 import { AtualizarGrafoBELLMANFORD } from "./atualizarGrafoBELLMANFORD";
 import { AtualizarGrafoFLOYDWARSHALL } from "./atualizarGrafoFLOYDWARSHALL";
 import { AtualizarGrafoPRIM } from "./atualizarGrafoPRIM";
+import {AtualizarGrafoKRUSKAL} from "./atualizarGrafoKRUSKAL";
 import { adicionarArestaReset } from "../arestas/events/adicionarArestaPesoEvent";
 export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, simulacao, styles) => {
 
@@ -26,6 +27,9 @@ export const AtualizarCoresGrafo = (verticeInicial, verticeFinal, nodes, links, 
             break;
         case EAlgoritmos.PRIM:
             AtualizarGrafoPRIM(verticeInicial, verticeFinal, nodes, links, simulacao)
+            break;
+        case EAlgoritmos.KRUSKAL:
+            AtualizarGrafoKRUSKAL(verticeInicial, verticeFinal, nodes, links, simulacao)
             break;
         default:
     }
