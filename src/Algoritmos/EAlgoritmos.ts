@@ -7,3 +7,13 @@ export enum EAlgoritmos {
     PRIM = 6,
     KRUSKAL = 7
   }
+
+export const EAlgoritmosDescription = new Map<number, string>([
+  [EAlgoritmos.DFS, 'DFS'],
+  [EAlgoritmos.BFS, 'BFS'],
+  [EAlgoritmos.DIJKSTRA, 'DIJKSTRA'],
+  [EAlgoritmos.FLOYDWARSHALL, 'FLOYD WARSHALL'],
+  [EAlgoritmos.BELLMANFORD, 'BELLMAN FORD'],
+  [EAlgoritmos.PRIM, 'PRIM'],
+  [EAlgoritmos.KRUSKAL, 'KRUSKAL']
+]);

@@ -12,6 +12,8 @@ import { IState } from "../store/types";
 import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
 import LegendasDFS from "../components/canvas/legendas/LegendasDFS";
 import { MenuLateral } from './common/MenuLateral';
+import InformacoesGrafo from "../components/canvas/informacoes-grafo/"
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +52,7 @@ const Dfs = (props: Props) => {
                 <Grid item xs={7}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
-                            <div className={classes.title}>DFS</div>
+                            <InformacoesGrafo eAlgoritmo={EAlgoritmos.DFS}></InformacoesGrafo>
                         </Grid>
                         <Grid item xs={12}>
                             <LegendasDFS></LegendasDFS>

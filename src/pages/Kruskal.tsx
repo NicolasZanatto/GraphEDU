@@ -12,6 +12,7 @@ import LegendasKruskal from "../components/canvas/legendas/LegendasKRUSKAL";
 import { MenuLateral } from './common/MenuLateral';
 import KruskalPseudoCodigo from '../components/pseudo-codigo/KruskalPseudoCodigo';
 import KRUSKALCamposAdicionais from '../components/campos-adicionais/KRUSKALCamposAdicionais';
+import InformacoesGrafo from "../components/canvas/informacoes-grafo/"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +51,7 @@ const Kruskal = (props: Props) => {
                 <Grid item xs={6}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
-                            <div className={classes.title}>KRUSKAL</div>
+                        <InformacoesGrafo eAlgoritmo={EAlgoritmos.KRUSKAL}></InformacoesGrafo>
                         </Grid>
                         <Grid item xs={12}>
                             <LegendasKruskal></LegendasKruskal>

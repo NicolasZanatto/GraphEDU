@@ -10,7 +10,7 @@ const PrimPseudoCodigo = (props: Props) => {
         d[v] = infinito
     fimpara
     d[s] = 0
-    para i de 0 até V.tamanho
+    para i de 1 até V.tamanho
         u = um vértice em V, no qual d[u] é a distância mínima
         U.coloca(u)
         para cada v adjacente a u

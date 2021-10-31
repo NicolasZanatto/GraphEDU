@@ -12,6 +12,7 @@ import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
 import LegendasFloydWarshall from "../components/canvas/legendas/LegendasFLOYDWARSHALL";
 import { MenuLateral } from './common/MenuLateral';
 import FLOYDWARSHALLCamposAdicionais from '../components/campos-adicionais/FLOYDWARSHALLCamposAdicionais';
+import InformacoesGrafo from "../components/canvas/informacoes-grafo/"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +51,7 @@ const FloydWarshall = (props: Props) => {
                 <Grid item xs={6}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
-                            <div className={classes.title}>FLOYD-WARSHALL</div>
+                            <InformacoesGrafo eAlgoritmo={EAlgoritmos.FLOYDWARSHALL}></InformacoesGrafo>
                         </Grid>
                         <Grid item xs={12}>
                             <LegendasFloydWarshall></LegendasFloydWarshall>

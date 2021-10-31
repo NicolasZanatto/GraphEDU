@@ -12,6 +12,7 @@ import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
 import LegendasPrim from "../components/canvas/legendas/LegendasPRIM";
 import { MenuLateral } from './common/MenuLateral';
 import PRIMCamposAdicionais from '../components/campos-adicionais/PRIMCamposAdicionais';
+import InformacoesGrafo from "../components/canvas/informacoes-grafo/"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +51,7 @@ const Prim = (props: Props) => {
                 <Grid item xs={6}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
-                            <div className={classes.title}>PRIM</div>
+                        <InformacoesGrafo eAlgoritmo={EAlgoritmos.PRIM}></InformacoesGrafo>
                         </Grid>
                         <Grid item xs={12}>
                             <LegendasPrim></LegendasPrim>

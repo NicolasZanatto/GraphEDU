@@ -8,7 +8,7 @@ const PrimPseudoCodigo = (props: Props) => {
   const algoritmo = `Kruskal(){
     listaAresta = OrdenarArestasPorPeso(E)
     T = {}
-    para i de 0 ate listaAresta.tamanho
+    para i de 1 ate listaAresta.tamanho
         e = listaAresta[i]
         se nao_forma_ciclo(T,e)
             T.Adiciona(e)

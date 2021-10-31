@@ -12,6 +12,7 @@ import { IState } from "../store/types";
 import { EAlgoritmos } from '../Algoritmos/EAlgoritmos';
 import LegendasDIJKSTRA from "../components/canvas/legendas/LegendasDIJKSTRA";
 import { MenuLateral } from './common/MenuLateral';
+import InformacoesGrafo from "../components/canvas/informacoes-grafo/"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +51,7 @@ const Dikstra = (props: Props) => {
                 <Grid item xs={6}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
-                            <div className={classes.title}>DIJKSTRA</div>
+                        <InformacoesGrafo eAlgoritmo={EAlgoritmos.DIJKSTRA}></InformacoesGrafo>
                         </Grid>
                         <Grid item xs={12}>
                             <LegendasDIJKSTRA></LegendasDIJKSTRA>
