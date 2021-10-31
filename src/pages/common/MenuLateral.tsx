@@ -56,7 +56,11 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+interface IHeadingStyled {
+  emphasized: boolean;
+}
+
+const DrawerHeader = styled('div')<IHeadingStyled>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
@@ -133,7 +137,7 @@ export const MenuLateral = (props: IProps) => {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+        <DrawerHeader emphasized={true}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
@@ -164,7 +168,7 @@ export const MenuLateral = (props: IProps) => {
         </List>
       </Drawer>
       <Main open={open}>
-        <DrawerHeader />
+        <DrawerHeader emphasized={true}/>
         {props.children}
       </Main>
     </Box>
