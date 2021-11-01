@@ -3,7 +3,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
@@ -16,32 +16,28 @@ import ItemLink from "./ItemLink";
 import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
 const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-  open?: boolean;
-}>(({ theme, open }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(2),
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: `-${drawerWidth}px`,
-  ...(open && {
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(2),
     transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: 0,
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
   }),
-}));
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
+);
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -56,11 +52,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-interface IHeadingStyled {
-  emphasized: boolean;
-}
-
-const DrawerHeader = styled('div')<IHeadingStyled>(({ theme }) => ({
+const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
@@ -68,10 +60,6 @@ const DrawerHeader = styled('div')<IHeadingStyled>(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
-
-interface IProps {
-  children: any,
-}
 
 const ItensMenuPaginaInicial = [
   { text: 'Página Inicial', caminho: "/" },
@@ -93,7 +81,7 @@ const ItensMenuAlgoritmoArvoreGeradoraMinima = [
   { text: 'Kruskal', caminho: 'KRUSKAL', enumAlgoritmo: EAlgoritmos.KRUSKAL },
 ]
 
-export const MenuLateral = (props: IProps) => {
+export const MenuLateral = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -137,7 +125,7 @@ export const MenuLateral = (props: IProps) => {
         anchor="left"
         open={open}
       >
-        <DrawerHeader emphasized={true}>
+        <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
@@ -168,7 +156,7 @@ export const MenuLateral = (props: IProps) => {
         </List>
       </Drawer>
       <Main open={open}>
-        <DrawerHeader emphasized={true}/>
+        <DrawerHeader/>
         {props.children}
       </Main>
     </Box>
