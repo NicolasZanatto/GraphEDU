@@ -10,11 +10,12 @@ const PrimPseudoCodigo = (props: Props) => {
         d[v] = infinito
     fimpara
     d[s] = 0
+    U = vazio
     para i de 1 até V.tamanho
-        u = um vértice em V, no qual d[u] é a distância mínima
+        u = um vértice que não está em U, no qual d[u] é a distância mínima
         U.coloca(u)
         para cada v adjacente a u
-            se U.nao_existe(v) && peso_aresta(u,v) < d[v]
+            se U.nao_contem(v) && peso_aresta(u,v) < d[v]
                 d[v] = peso_aresta(u,v); pai[v] = u;
             fimse
         fimpara

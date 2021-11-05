@@ -23,7 +23,6 @@ const itens = [
     {nome: "Vértice final", stroke: "black", fill: "#f04d4d"},
     {nome: "Vértice não visitado", stroke: "#07A0C3", fill: "#07A0C3"},
     {nome: "Vértice visitado", stroke: "#DD1C1A", fill: "#DD1C1A"},
-    {nome: "Fila Q", stroke: "black", fill: "#F8D525"},
     {nome: "Fila Q e Vértice não visitado", stroke: "#07A0C3", fill: "#F8D525"},
     {nome: "Fila Q e Vértice visitado", stroke: "#DD1C1A", fill: "#F8D525"},
 ]

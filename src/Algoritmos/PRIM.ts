@@ -171,30 +171,32 @@ class PRIM {
         this.adicionarPasso(5, undefined);
         this.setDistancia(s, 0, s);
         this.adicionarPasso(6, undefined);
+        this.adicionarPasso(7, undefined);
+
         let ConjuntoV = this.grafo.nodes.map(o => o.id);
         for (let i = 0; i < ConjuntoV.length; i++) {
-            this.adicionarPasso(7, undefined);
+            this.adicionarPasso(8, undefined);
             let u = this.obterMenorDistanciaNaoVisitada();
-            this.adicionarPasso(8, u.idVertice);
+            this.adicionarPasso(9, u.idVertice);
             this.conjuntoU.push(u.idVertice);
             this.setArestaCaminho(u.verticePai, u.idVertice);
             console.log(`Visitou o vértice ${u.idVertice} com peso ${u.peso}, com pai ${u.verticePai}`);
-            this.adicionarPasso(9, u.idVertice);
+            this.adicionarPasso(10, u.idVertice);
             this.setListaAdjacencias(u.idVertice)
             this.verticesAdjacentes.forEach(aresta => {
                 var v = this.obterVerticeDestino(u.idVertice, aresta)
-                this.adicionarPasso(10, u.idVertice, v);
+                this.adicionarPasso(11, u.idVertice, v);
 
                 if (!this.conjuntoU.includes(v) && aresta.value < this.obterDistancia(v)) {
-                    this.adicionarPasso(11, u.idVertice, v, aresta.value);
-                    this.setDistancia(v, aresta.value, u.idVertice);
                     this.adicionarPasso(12, u.idVertice, v, aresta.value);
+                    this.setDistancia(v, aresta.value, u.idVertice);
+                    this.adicionarPasso(13, u.idVertice, v, aresta.value);
                 }
             })
-            this.adicionarPasso(13, u.idVertice);
+            this.adicionarPasso(14, u.idVertice);
             this.limparListaAdjacencias();
         }
-        this.adicionarPasso(14);
+        this.adicionarPasso(15);
     }
 
     main() {
@@ -203,7 +205,6 @@ class PRIM {
 
         return this.retorno;
     }
-
 }
 
 export default PRIM;

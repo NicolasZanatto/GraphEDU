@@ -1,4 +1,3 @@
-import { ICaminhoVertice } from "./canvasTypes";
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
 
 export interface ISimulacao {

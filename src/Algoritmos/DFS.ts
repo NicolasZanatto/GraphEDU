@@ -150,8 +150,6 @@ class DFS {
             this.obtemVerticesNaoVisitados(aresta)
                 .forEach(vertice => {
                     this.obterCaminhoAteVerticeAtual(s, vertice.idVertice);
-                    var testeCaminho = this.caminhoVertice;
-                    console.log("CaminhoPósAdicao", testeCaminho);
                     this.adicionarPasso(4, s, vertice.idVertice);
                     this.adicionarPasso(5, s, vertice.idVertice);
                     this.adicionarCaminhoAresta(s, vertice.idVertice)

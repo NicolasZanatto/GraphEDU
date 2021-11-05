@@ -22,7 +22,9 @@ export default function InformacoesKRUSKAL(){
         <div>
             <h5 className={classes.subTitle}>Algoritmo KRUSKAL</h5>
             <p className={classes.content}>
-            O algoritmo de Kruskal, criado por Joseph B. Kruskal em 1956, ao contrário do algoritmo de Prim, tem como objetivo encontrar a árvore geradora mínima através da inserção de arestas de um grafo. Enquanto a árvore não é finalizada, ela é de fato uma floresta. Visto que para cada aresta inserida não é obrigatória estar conectada a outra aresta da árvore</p>
+            O algoritmo de Kruskal, criado por Joseph B. Kruskal em 1956, semelhante ao algoritmo de Prim, 
+            tem como objetivo encontrar a árvore geradora mínima através da inserção de arestas de um grafo. 
+            Ao contrario do algoritmo de PRIM, durante o processo de construção o grafo gerado não é necessariamente conexo.</p>
         </div>
     );
 }

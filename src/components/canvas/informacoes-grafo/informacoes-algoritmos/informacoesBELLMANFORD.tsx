@@ -22,7 +22,7 @@ export default function InformacoesBELLMANFORD(){
         <div>
             <h5 className={classes.subTitle}>Algoritmo de BELLMAN FORD</h5>
             <p className={classes.content}>
-                o algoritmo de Bellman-Ford tem como objetivo encontrar o menor caminho de um vértice s até todos os outros vértices de um grafo. Além disso, o algoritmo de Bellman-Ford nunca determina que a menor distância foi atingida. Com essa abordagem, é possível calcular caminhos mínimos em grafos que tenham arestas com pesos negativos
+                O algoritmo de Bellman-Ford tem como objetivo encontrar o menor caminho de um vértice s até todos os outros vértices de um grafo. Além disso, o algoritmo de Bellman-Ford nunca determina que a menor distância foi atingida. Com essa abordagem, é possível calcular caminhos mínimos em grafos que tenham arestas com pesos negativos, contanto que não existam ciclos negativos.
             </p>    
         </div>
     );

@@ -188,19 +188,19 @@ const ComponenteSimulacao = (props: Props) => {
   return (
     <div className={classes.root}>
       <ContadorPassos></ContadorPassos>
-      <IconButton aria-label="Voltar ao Início" onClick={() => handleVoltarAoInicio(props)}>
+      <IconButton aria-label="Voltar ao Início" title="Voltar ao Início" onClick={() => handleVoltarAoInicio(props)}>
         <FastRewindIcon className={classes.button} />
       </IconButton>
-      <IconButton aria-label="Voltar 1 Passo" onClick={() => handleVoltar1Passo(props)}>
+      <IconButton aria-label="Voltar 1 Passo" title="Voltar 1 Passo" onClick={() => handleVoltar1Passo(props)}>
         <SkipPreviousIcon className={classes.button} />
       </IconButton>
-      <IconButton color="secondary" aria-label="Iniciar" onClick={() => handleStartSimulacao(props)}>
+      <IconButton color="secondary" aria-label="Iniciar" title="Iniciar/Pausar" onClick={() => handleStartSimulacao(props)}>
         {startSimulacao ? <PauseIcon className={classes.button}></PauseIcon> : <PlayArrowIcon className={classes.button} />}
       </IconButton>
-      <IconButton aria-label="Avançar 1 Passo" onClick={() => handleAvancar1Passo(props)}>
+      <IconButton aria-label="Avançar 1 Passo" title="Avançar 1 Passo" onClick={() => handleAvancar1Passo(props)}>
         <SkipNextIcon className={classes.button} />
       </IconButton>
-      <IconButton aria-label="Avançar ao Final" onClick={() => handleAvancarAoFinal(props)}>
+      <IconButton aria-label="Avançar ao Final" title="Avançar ao Final" onClick={() => handleAvancarAoFinal(props)}>
         <FastForwardIcon className={classes.button} />
       </IconButton>
     </div>

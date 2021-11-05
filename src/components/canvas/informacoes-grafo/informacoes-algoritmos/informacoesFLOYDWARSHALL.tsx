@@ -22,7 +22,7 @@ export default function InformacoesFLOYDWARSHALL(){
         <div>
             <h5 className={classes.subTitle}>Algoritmo FLOYD WARSHALL</h5>
             <p className={classes.content}>
-            O algoritmo de Floyd-Warshall busca encontrar o caminho mínimo entre todos os pares de vértices em um grafo não esparso</p>
+            O algoritmo de Floyd-Warshall busca encontrar o caminho mínimo entre todos os pares de vértices em um grafo.</p>
         </div>
     );
 }
