@@ -57,12 +57,6 @@ export default function Legendas() {
                     </svg>
                     Vértice v
                 </span>
-                <span>
-                    <svg width="5%" height="30">
-                        <circle cx="15" cy="20" r="8" stroke="black" strokeWidth="2" fill="#558B6E" />
-                    </svg>
-                    Vértice e
-                </span>
         </Grid> 
     );
 }
