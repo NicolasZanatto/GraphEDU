@@ -18,7 +18,7 @@ const DijkstraPseudoCodigo = (props: Props) => {
         para cada v adjacente a u
             se v está em Q
                 e = aresta(u,v);
-                se d[v] &gt; d[u] + l[e]
+                se d[v] > d[u] + l[e]
                     d[v] = d[u] + l[e]
                 fimse
             fimse
