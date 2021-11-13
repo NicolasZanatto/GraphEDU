@@ -4,7 +4,7 @@ import { mostrarMenuArestas } from "./menus/menuArestas";
 import styles from "./../canvas.module.css";
 import { tickPesoAresta, tickEdge } from "./utils/mathHelper";
 import { drag } from "./vertices/events/moverVerticesEvent";
-import { updateDragLine, hideDragLine, initDragLine } from "./arestas/events/desenharArestaEvent";
+import { hideDragLine, initDragLine } from "./arestas/events/desenharArestaEvent";
 import { adicionarVertice } from "./vertices/events/adicionarVerticeEvent";
 import { adicionarAresta } from "./arestas/events/adicionarArestaEvent";
 import { UpdateEdgeValueOnSVG } from "./arestas/events/editarArestaPesoEvent";
@@ -15,6 +15,7 @@ export function runGraph(container, props) {
   let data = props.data;
   let ehGrafoDirigido = data.dirigido;
   let ehGrafoValorado = data.valorado;
+  let modoCriacao;
   const actions = props;
   let links = data.links.map((d) => Object.assign({}, d));
   let nodes = data.nodes.map((d) => Object.assign({}, d));
@@ -27,14 +28,14 @@ export function runGraph(container, props) {
     .append("svg")
     .attr("id", idSVG)
     .attr("viewBox", [-width / 2, -height / 2, width, height])
-    .on("mousedown", d => adicionarVertice(nodes, idSVG, actions.addNodeAction))
-    .on("mousemove", d => updateDragLine())
+    .on("mousedown", d => adicionarVertice(nodes, idSVG, actions.addNodeAction, modoCriacao))
     .on("mouseup", d => hideDragLine(restart))
     .on("mouseleave", d => hideDragLine(restart))
     .call(d3.zoom().on("zoom", function () {
       svg.attr("transform", d3.event.transform);
     }))
-    .on("dblclick.zoom", null);
+    .on("dblclick.zoom", null)
+    .on('drag', null);
 
   let simulation;
 
@@ -137,7 +138,7 @@ export function runGraph(container, props) {
       .attr("class", "vertex")
       .attr("stroke", "#000")
       .attr("stroke-width", 2)
-      .on("click", d => adicionarAresta(d, links, actions.addEdgeAction, data.dirigido, ehGrafoValorado))
+      .on("click", d => adicionarAresta(d, links, actions.addEdgeAction, data.dirigido, ehGrafoValorado, modoCriacao))
       .on("contextmenu", (d) => { mostrarMenuVertices(nodes, links, d, width, height, '#graphSvg', actions); })
       .call(drag(simulation));
 
@@ -181,6 +182,7 @@ export function runGraph(container, props) {
       AtualizarCoresGrafo(dataAtualizada.verticeInicial, dataAtualizada.verticeFinal, nodes, links, simulacao, styles);
       AtualizarVerticesEArestasGrafo(nodes, links, dataAtualizada.nodes, dataAtualizada.links);
       ehGrafoDirigido = dataAtualizada.dirigido;
+      modoCriacao = dataAtualizada.modoCriacao;
       restart();
     }
   };

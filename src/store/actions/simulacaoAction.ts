@@ -83,4 +83,3 @@ export const SetModalInfoAction = (open : boolean) : ISetModalInfo => {
         payload: open
     }
 }
-

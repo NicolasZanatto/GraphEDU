@@ -1,6 +1,7 @@
 import React from "react";
 import { runGraph } from "./grafo";
 import styles from "./canvas.module.css";
+import { makeStyles } from '@material-ui/core/styles';
 import { connect, ConnectedProps } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as CanvasActions from "../../store/actions/canvasAction";
@@ -11,10 +12,26 @@ import { Dispatch } from 'redux';
 import { ISimulacao } from "../../store/types/simulacaoTypes";
 import { Grid } from "@material-ui/core";
 import ImportacaoExportacaoButtons from "./importacao-exportacao/ImportacaoExportacaoButtons";
+import BotoesModoCriacao from "./modo-criacao/BotoesModoCriacao";
+
+
+const useStyles = makeStyles((theme) => ({
+  canvasModes:{
+  },
+  button: {
+    fontSize: "50px"
+  },
+  buttonSelected: {
+    border: "2px solid rgb(0, 0, 255)"
+  },
+  svg: {
+      position: "relative",
+  }
+}));
 
 const Canvas = (props: Props) => {
   const containerRef = React.useRef(null);
-
+  const classes = useStyles();
   const [startCanvas, setStartCanvas] = React.useState(false);
 
   const restartSVGRef = React.useRef<((value: IGrafo, simulacao: ISimulacao) => void) | null>(null);
@@ -44,6 +61,9 @@ const Canvas = (props: Props) => {
   restartCanvas();
   return (
     <Grid item xs={12}>
+      <Grid className={classes.canvasModes} item xs={12}>
+        <BotoesModoCriacao></BotoesModoCriacao>
+      </Grid>
       <Grid item xs={12}>
         <Options handleStartCanvas={handleStartCanvas} showOptions={!props.simulacao.modalInfoOpen}></Options>
         <div ref={containerRef} className={styles.container}></div>

@@ -30,7 +30,7 @@ export const initDragLine = (svg, dirigido) => {
   }
 }
 
-export const beginDragLine = (d) => {
+export const setarVerticeOrigemEvent = (d) => {
   //to prevent call of addNode through svg
   d3.event.stopPropagation();
   //to prevent dragging of svg in firefox
@@ -57,21 +57,7 @@ export const beginDragLine = (d) => {
 }
 
 
-export const updateDragLine = () => {
-  // var coords = d3.mouse(d3.event.currentTarget);
-  if (!mousedownNode) return;
-  // dragLine.attr(
-  //   "d",
-  //   "M" +
-  //   mousedownNode.x +
-  //   "," +
-  //   mousedownNode.y +
-  //   "L" +
-  //   coords[0] +
-  //   "," +
-  //   coords[1]
-  // );
-}
+
 
 
 export const hideDragLine = (restart, data) => {
@@ -82,7 +68,7 @@ export const hideDragLine = (restart, data) => {
 //no need to call hideDragLine() and restart() in endDragLine
 //mouseup on vertices propagates to svg which calls hideDragLine
 
-export const endDragLine = (d, links, addEdgeAction, dirigido, valorado) => {
+export const setarVerticeDestinoEvent = (d, links, addEdgeAction, dirigido, valorado) => {
   if (!mousedownNode || mousedownNode === d) return;
   //return if link already exists
   for (let i = 0; i < links.length; i++) {

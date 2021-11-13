@@ -1,5 +1,6 @@
 
 import { Action } from "redux";
+import { eModoCriacao } from "../../components/canvas/modo-criacao/eModoCriacao";
 
 
 export interface IVertice {
@@ -25,7 +26,8 @@ export interface IGrafo {
     valorado: Boolean,
     dirigido: Boolean
     verticeInicial?: number,
-    verticeFinal?: number
+    verticeFinal?: number,
+    modoCriacao?: eModoCriacao
 };
 
 export interface ICaminhoVertice {
@@ -95,4 +97,9 @@ export interface IRestartGrafo extends Action {
     payload: boolean
 };
 
-export type ICanvasAction = | IAddNode | IStartNode | IFinalNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido | ILimparGrafo | ISetarGrafo | IRestartGrafo;
+export interface ISetModoCriacaoGrafo extends Action {
+    type: "SET_MODO_CRIACAO_GRAFO",
+    payload: eModoCriacao
+}
+
+export type ICanvasAction = | IAddNode | IStartNode | IFinalNode | IRemoveNode | IAddEdge | IEditEdge | IRemoveEdge | IChangeDirection | IOptionValorado | IOptionDirigido | ILimparGrafo | ISetarGrafo | IRestartGrafo | ISetModoCriacaoGrafo;

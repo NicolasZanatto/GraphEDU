@@ -1,4 +1,5 @@
-import { IVertice, IAresta, IGrafo, IAddNode, IRemoveNode, IAddEdge, IEditEdge, IRemoveEdge, IChangeDirection, IOptionValorado, IOptionDirigido, IStartNode, IFinalNode, ILimparGrafo, ISetarGrafo, IRestartGrafo } from "../types/canvasTypes";
+import { eModoCriacao } from "../../components/canvas/modo-criacao/eModoCriacao";
+import { IVertice, IAresta, IGrafo, IAddNode, IRemoveNode, IAddEdge, IEditEdge, IRemoveEdge, IChangeDirection, IOptionValorado, IOptionDirigido, IStartNode, IFinalNode, ILimparGrafo, ISetarGrafo, IRestartGrafo, ISetModoCriacaoGrafo } from "../types/canvasTypes";
 
 // Vértices
 export const addNodeAction = (vertice: IVertice): IAddNode => {
@@ -86,6 +87,13 @@ export const setarGrafoAction = (valor: IGrafo): ISetarGrafo => {
 export const restartGrafoAction = (valor: boolean): IRestartGrafo => {
     return {
         type: "RESTART_GRAFO",
+        payload: valor
+    }
+}
+
+export const SetModoCriacaoGrafoAction = (valor : eModoCriacao) : ISetModoCriacaoGrafo => {
+    return {
+        type: "SET_MODO_CRIACAO_GRAFO",
         payload: valor
     }
 }

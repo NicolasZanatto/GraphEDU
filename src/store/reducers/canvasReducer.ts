@@ -10,7 +10,8 @@ const INICIAL_STATE: IGrafo = {
     valorado: false,
     dirigido: false,
     verticeInicial: undefined,
-    verticeFinal: undefined
+    verticeFinal: undefined,
+    modoCriacao: undefined
 };
 
 export default function canvas(oldState = INICIAL_STATE, action: ICanvasAction) {
@@ -72,6 +73,9 @@ export default function canvas(oldState = INICIAL_STATE, action: ICanvasAction) 
             }
         case "RESTART_GRAFO":
             return { ...oldState, restartCanvas: action.payload }
+
+        case "SET_MODO_CRIACAO_GRAFO":
+            return { ...oldState, modoCriacao: action.payload }
         default:
             return oldState;
     }

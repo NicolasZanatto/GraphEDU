@@ -12,7 +12,8 @@ import { IGrafo } from "../../../store/types/canvasTypes";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        textAlign: "right"
+        textAlign: "right",
+        backgroundColor: "#f1f1f1"
     },
     button: {
         color: "black",
