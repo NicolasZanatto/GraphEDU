@@ -1,5 +1,5 @@
 import { EAlgoritmos } from "../../Algoritmos/EAlgoritmos";
-import { IUpdateDFS, IUpdateBFS, IUpdateDIJKSTRA, IUpdateBELLMANFORD, ISetPasso, ISetQntdPassos, IUpdateFLOYDWARSHALL, IUpdatePRIM, IUpdateKRUSKAL } from "../types/simulacaoTypes";
+import { IUpdateDFS, IUpdateBFS, IUpdateDIJKSTRA, IUpdateBELLMANFORD, ISetPasso, ISetQntdPassos, IUpdateFLOYDWARSHALL, IUpdatePRIM, IUpdateKRUSKAL, ISetModalInfo } from "../types/simulacaoTypes";
 import { IRetornoDFS } from "../types/dfsTypes";
 import { IRetornoBFS } from "../types/bfsTypes";
 import { IRetornoDIJKSTRA } from "../types/dijkstraTypes";
@@ -76,3 +76,11 @@ export const SetAlgoritmoAction = (eAlgoritmo: EAlgoritmos) => {
         payload: eAlgoritmo
     }
 }
+
+export const SetModalInfoAction = (open : boolean) : ISetModalInfo => {
+    return {
+        type: "SET_MODAL_INFO",
+        payload: open
+    }
+}
+

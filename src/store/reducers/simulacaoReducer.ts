@@ -24,7 +24,8 @@ const INICIAL_STATE: ISimulacao = {
     },
     passo: 0,
     qntdPassos: 0,
-    tipoAlgoritmo: undefined
+    tipoAlgoritmo: undefined,
+    modalInfoOpen: true
 };
 
 
@@ -65,6 +66,9 @@ export default function simulacao(oldState = INICIAL_STATE, action: ISimulacaoAc
         case "SET_ALGORITMO":
             console.log("SET_ALGORITMO", action.payload);
             return { ...oldState, tipoAlgoritmo: action.payload }
+        case "SET_MODAL_INFO":
+            console.log(`Modal Informações ${action.payload ? "Aberta" : "Fechada"}`);
+            return { ...oldState, modalInfoOpen: action.payload }
         default:
             return oldState;
     }

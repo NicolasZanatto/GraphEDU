@@ -10,16 +10,21 @@ import { Grid } from "@material-ui/core";
 
 
 interface IOptions{
-    handleStartCanvas : (start : boolean) => void
+    handleStartCanvas : (start : boolean) => void;
+    showOptions: boolean;
 }
 
 export default function Options(props : IOptions) {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(props.showOptions);
 
     const handleClose = () => {
         setOpen(false);
         props.handleStartCanvas(true);
     };
+    React.useEffect(() => {
+        setOpen(props.showOptions);
+    }
+    ,[props.showOptions]);
 
     return (
         <div>

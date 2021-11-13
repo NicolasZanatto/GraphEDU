@@ -45,7 +45,7 @@ const PseudoCodigoEditor = (props: IPseudoCodigoEditor) => {
             className={classes.editor}
             readOnly={true}
             value={props.algoritmo}
-            fontSize={14}
+            fontSize={15}
             showPrintMargin={false}
             mode="c_cpp"
             theme="github"
@@ -53,7 +53,6 @@ const PseudoCodigoEditor = (props: IPseudoCodigoEditor) => {
             markers={[marker]}
             setOptions={{
                 useSoftTabs: true,
-                useWrapMode: true,   // wrap text to view
                 indentedSoftWrap: false, 
             }
             }

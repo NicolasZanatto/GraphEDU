@@ -18,7 +18,8 @@ export interface ISimulacao {
     kruskal: IRetornoKRUSKAL,
     passo: number,
     qntdPassos: number,
-    tipoAlgoritmo?: EAlgoritmos
+    tipoAlgoritmo?: EAlgoritmos,
+    modalInfoOpen: boolean
 }
 
 export interface IUpdateDFS extends Action {
@@ -71,4 +72,9 @@ export interface ISetAlgoritmo extends Action {
     payload: EAlgoritmos
 }
 
-export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS | IUpdateDIJKSTRA | IUpdateBELLMANFORD | IUpdateFLOYDWARSHALL | IUpdatePRIM | IUpdateKRUSKAL | ISetPasso | ISetQntdPassos | ISetAlgoritmo;
+export interface ISetModalInfo extends Action {
+    type: "SET_MODAL_INFO",
+    payload: boolean
+}
+
+export type ISimulacaoAction = | IUpdateDFS | IUpdateBFS | IUpdateDIJKSTRA | IUpdateBELLMANFORD | IUpdateFLOYDWARSHALL | IUpdatePRIM | IUpdateKRUSKAL | ISetPasso | ISetQntdPassos | ISetAlgoritmo | ISetModalInfo;

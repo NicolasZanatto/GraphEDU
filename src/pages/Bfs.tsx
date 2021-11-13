@@ -53,7 +53,7 @@ const Dfs = (props: Props) => {
                 <Grid item xs={6}>
                     <Grid container className={classes.canvas}>
                         <Grid item xs={12}>
-                        <InformacoesGrafo eAlgoritmo={EAlgoritmos.BFS}></InformacoesGrafo>
+                        <InformacoesGrafo></InformacoesGrafo>
                         </Grid>
                         <Grid item xs={12}>
                             <Legendas></Legendas>

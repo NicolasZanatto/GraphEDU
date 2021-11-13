@@ -45,7 +45,7 @@ const Canvas = (props: Props) => {
   return (
     <Grid item xs={12}>
       <Grid item xs={12}>
-        <Options handleStartCanvas={handleStartCanvas}></Options>
+        <Options handleStartCanvas={handleStartCanvas} showOptions={!props.simulacao.modalInfoOpen}></Options>
         <div ref={containerRef} className={styles.container}></div>
       </Grid>
       <Grid item xs={12}>

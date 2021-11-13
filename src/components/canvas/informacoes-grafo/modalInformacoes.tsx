@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 type IProps ={
     open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    handleClick: (value: boolean) => void;
     eAlgoritmo: EAlgoritmos;
 }
 
@@ -54,7 +54,7 @@ export default function ModalInformacoes(props : IProps) {
             <Dialog
                 open={props.open}
                 keepMounted
-                onClose={() => {props.setOpen(false)}}
+                onClose={() => {props.handleClick(false)}}
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
@@ -74,7 +74,7 @@ export default function ModalInformacoes(props : IProps) {
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => {props.setOpen(false)}} color="primary">
+                    <Button onClick={() => {props.handleClick(false)}} color="primary">
                         Confirmar
                     </Button>
                 </DialogActions>

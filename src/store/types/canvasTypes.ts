@@ -25,8 +25,7 @@ export interface IGrafo {
     valorado: Boolean,
     dirigido: Boolean
     verticeInicial?: number,
-    verticeFinal?: number,
-    restartCanvas?: boolean
+    verticeFinal?: number
 };
 
 export interface ICaminhoVertice {
