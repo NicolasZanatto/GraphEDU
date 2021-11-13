@@ -63,8 +63,8 @@ export default function ModalInformacoes(props : IProps) {
                     <Grid container spacing={1}>
                         <div>
                             <h4 className={classes.subTitle}>Criação do Grafo</h4>
-                            <p className={classes.content}>Para criar um vértice, clique com o botão esquerdo do mouse em algum lugar dentro do canvas.</p>
-                            <p className={classes.content}>Para criar uma aresta, clique 2 vezes com o botão esquerdo do mouse no vértice de origem e em seguida 1 vez no vértice de destino.</p>
+                            <p className={classes.content}>Para criar um vértice, clique no botão Criar Vértice e em seguida em algum lugar dentro do canvas</p>
+                            <p className={classes.content}>Para criar uma aresta, clique no botão Criar Aresta e em seguida clique no vértice inicial e após no vértice final</p>
                             <p className={classes.content}>Ao clicar com o botão direito do mouse em cima de uma aresta ou vértice, um menu de opções é apresentado.</p>
                             <h4 className={classes.subTitle}>Simulação</h4>
                             <p className={classes.content}>Para iniciar a simulação do algoritmo clique no ícone iniciar (em vermelho) localizado abaixo do canvas.</p>
