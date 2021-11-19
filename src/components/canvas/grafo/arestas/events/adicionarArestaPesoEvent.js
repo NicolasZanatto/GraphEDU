@@ -18,8 +18,7 @@ export const addEdgeValue = (links, source, target, addEdgeAction, valorado) => 
         addEdgeAction(newLink);
 }
 
-export const adicionarArestaReset = (links, source, target, value) => {
-    var idEdge = ArrayNextId(links)
-    var newLink = { id: idEdge, source: source, target: target, value: value };
+export const adicionarArestaReset = (links, source, target, id, value) => {
+    var newLink = { id: id, source: source, target: target, value: value };
     links.push(newLink);
 }

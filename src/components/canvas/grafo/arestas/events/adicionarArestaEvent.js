@@ -4,7 +4,7 @@ import { setarVerticeOrigemEvent, setarVerticeDestinoEvent } from "./desenharAre
 
 let verticeOrigemEscolhido, verticeDestinoEscolhido, singleClickTimer;
 
-export const adicionarAresta = (aresta, arestas, addEdgeAction, dirigido, valorado, modoCriacao) => {
+export const adicionarAresta = (vertice, arestas, addEdgeAction, dirigido, valorado, modoCriacao) => {
     console.log("modo criacao", modoCriacao)
     if(modoCriacao !== eModoCriacao.CriacaoAresta){
         verticeOrigemEscolhido = false;
@@ -13,10 +13,10 @@ export const adicionarAresta = (aresta, arestas, addEdgeAction, dirigido, valora
     }
 
     if (!verticeOrigemEscolhido) {
-        setarVerticeOrigemEvent(aresta);
+        setarVerticeOrigemEvent(vertice);
         verticeOrigemEscolhido = true;
     } else if(!verticeDestinoEscolhido){
-        setarVerticeDestinoEvent(aresta, arestas, addEdgeAction, dirigido, valorado);
+        setarVerticeDestinoEvent(vertice, arestas, addEdgeAction, dirigido, valorado);
         verticeOrigemEscolhido = false;
         verticeDestinoEscolhido = false;
     }

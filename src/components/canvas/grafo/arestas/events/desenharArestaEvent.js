@@ -36,9 +36,6 @@ export const setarVerticeOrigemEvent = (d) => {
   //to prevent dragging of svg in firefox
   d3.event.preventDefault();
 
-
-
-
   if (d3.event.ctrlKey || d3.event.button !== 0) return;
   mousedownNode = d;
   // dragLine

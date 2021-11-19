@@ -39,5 +39,5 @@ export const AtualizarVerticesEArestasGrafo = (oldNodes, oldLinks, newNodes, new
     oldNodes.splice(0, oldNodes.length);
     newNodes.forEach(node => oldNodes.push(node));
     oldLinks.splice(0, oldLinks.length);
-    newLinks.forEach(link => adicionarArestaReset(oldLinks, newNodes.find(o => o.id === link.source.id), newNodes.find(o => o.id === link.target.id), link.value))
+    newLinks.forEach(link => adicionarArestaReset(oldLinks, newNodes.find(o => o.id === link.source.id), newNodes.find(o => o.id === link.target.id), link.id, link.value))
 }
