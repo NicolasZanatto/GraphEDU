@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ItemLink from "./ItemLink";
 import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -59,6 +60,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
+}));
+
+const Footer = styled('div')(({ theme }) => ({
+  position: "fixed",
+  left: 0,
+   bottom: 0,
+   width: "100%",
+   backgroundColor: "#151A1E",
+   color: "white",
+   textAlign: "center"
 }));
 
 const ItensMenuPaginaInicial = [
@@ -159,6 +170,7 @@ export const MenuLateral = (props) => {
         <DrawerHeader/>
         {props.children}
       </Main>
+      <Footer><small>&copy; 2021, Nícolas Zanatto</small></Footer>   
     </Box>
   );
 }

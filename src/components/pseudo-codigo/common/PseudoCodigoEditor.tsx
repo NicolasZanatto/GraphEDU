@@ -45,7 +45,7 @@ const PseudoCodigoEditor = (props: IPseudoCodigoEditor) => {
             className={classes.editor}
             readOnly={true}
             value={props.algoritmo}
-            fontSize={15}
+            fontSize={14}
             showPrintMargin={false}
             mode="c_cpp"
             theme="github"
