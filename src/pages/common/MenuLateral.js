@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ItemLink from "./ItemLink";
 import { EAlgoritmos } from '../../Algoritmos/EAlgoritmos';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const drawerWidth = 240;
 
@@ -62,15 +63,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const Footer = styled('div')(({ theme }) => ({
-  position: "fixed",
-  left: 0,
-   bottom: 0,
-   width: "100%",
-   backgroundColor: "#151A1E",
-   color: "white",
-   textAlign: "center"
-}));
+
 
 const ItensMenuPaginaInicial = [
   { text: 'Página Inicial', caminho: "/" },
@@ -121,6 +114,17 @@ export const MenuLateral = (props) => {
           <Typography variant="h6" noWrap component="div">
             GraphEDU
           </Typography>
+          <IconButton title="GitHub">
+          <GitHubIcon onClick={(e) => {
+            e.preventDefault();
+            window.open("https://github.com/NicolasZanatto/graphEdu", "_blank");
+          }} sx={
+              {
+                float: "right",
+                color: "white"
+              }
+            }></GitHubIcon>
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -170,7 +174,6 @@ export const MenuLateral = (props) => {
         <DrawerHeader/>
         {props.children}
       </Main>
-      <Footer><small>&copy; 2021, Nícolas Zanatto</small></Footer>   
     </Box>
   );
 }
