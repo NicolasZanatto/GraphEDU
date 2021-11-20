@@ -33,11 +33,14 @@ export const AtualizarGrafoKRUSKAL = (verticeInicial, verticeFinal, nodes, links
         })
         .attr("r", vertice => {
             const caminho = simulacao.kruskal.caminho[simulacao.passo]
-            if (caminho === undefined) return 15;
+            if (caminho === undefined) return 13;
             if (caminho.arestaE?.source.id === vertice.id || caminho.arestaE?.target.id === vertice.id) {
                 return 19;
             }
-            return 15;
+            return 13;
+        })
+        .attr("stroke", vertice => {            
+            return "black";
         })
 
     AtualizarDistanciasVertice(nodes, simulacao);

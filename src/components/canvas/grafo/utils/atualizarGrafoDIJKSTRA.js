@@ -39,11 +39,14 @@ export const AtualizarGrafoDIJKSTRA = (verticeInicial, verticeFinal, nodes, link
     })
         .attr("r", vertice => {
             const caminho = simulacao.dijkstra.caminho[simulacao.passo]
-            if (caminho === undefined) return 15;
+            if (caminho === undefined) return 13;
             if (caminho.verticeU === vertice.id || caminho.verticeV === vertice.id) {
                 return 19;
             }
-            return 15;
+            return 13;
+        })
+        .attr("stroke", vertice => {            
+            return "black";
         })
 
         AtualizarDistanciasVertice(nodes, simulacao);

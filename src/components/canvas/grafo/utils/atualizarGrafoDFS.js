@@ -37,31 +37,33 @@ export const AtualizarGrafoDFS = (verticeInicial, verticeFinal, nodes, links, si
 
         return CorVerticeVisitado;
     })
-        .transition()
-        .attr("r", vertice => {
-            const caminho = simulacao.dfs.caminho[simulacao.passo]
-            if (caminho === undefined) return 15;
-            if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
-                return 19;
-            }
-            return 15;
-        });
+    .attr("stroke", vertice => {            
+        return "black";
+    })
+    .attr("r", vertice => {
+        const caminho = simulacao.dfs.caminho[simulacao.passo]
+        if (caminho === undefined) return 13;
+        if (caminho.verticeS === vertice.id || caminho.verticeV === vertice.id) {
+            return 19;
+        }
+        return 13;
+    });
 
-        d3.selectAll(`.edge`).data(links, function (d) {
-            return "v" + d.source.id + "-v" + d.target.id;
-            })
-            .transition()
-            .duration(500)
-            .attr("stroke", aresta => {
-                const caminho = simulacao.dfs.caminho[simulacao.passo];
-                if(caminho === undefined) return "black";
-    
-                if(caminho.caminhoAresta.includes(aresta.id))
-                    return CorVerticeVisitado
-    
-                return "black";
-    
-            })
+    d3.selectAll(`.edge`).data(links, function (d) {
+        return "v" + d.source.id + "-v" + d.target.id;
+        })
+        .transition()
+        .duration(500)
+        .attr("stroke", aresta => {
+            const caminho = simulacao.dfs.caminho[simulacao.passo];
+            if(caminho === undefined) return "black";
+
+            if(caminho.caminhoAresta.includes(aresta.id))
+                return CorVerticeVisitado
+
+            return "black";
+
+        })
 }
 
 const FindVerticeVisitado = (obj, vertice) => {

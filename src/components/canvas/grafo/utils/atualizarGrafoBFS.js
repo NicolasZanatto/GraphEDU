@@ -41,11 +41,11 @@ export const AtualizarGrafoBFS = (verticeInicial, verticeFinal, nodes, links, si
     })
         .attr("r", vertice => {
             const caminho = simulacao.bfs.caminho[simulacao.passo]
-            if (caminho === undefined) return 15;
+            if (caminho === undefined) return 13;
             if (caminho.verticeE === vertice.id || caminho.verticeV === vertice.id) {
                 return 19;
             }
-            return 15;
+            return 13;
         })
         .attr("stroke", vertice => {
             const caminho = simulacao.bfs.caminho[simulacao.passo]

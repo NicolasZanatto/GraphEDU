@@ -144,7 +144,7 @@ export function runGraph(container, props) {
 
     g.append("circle")
       .attr("class", "CircleCanvas")
-      .attr("r", 15)
+      .attr("r", 13)
       .attr("fill", "#FFF1D0")
       .attr("stroke", "black")
 
